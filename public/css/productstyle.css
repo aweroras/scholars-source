@@ -1,0 +1,46 @@
+/* External Font Links */
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+/* External CSS Links */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+/* Custom Styles */
+body {
+    background-color: #E6A4B4;
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.container {
+    background-color: #F5EEE6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #007bff;
+}
+
+.btn-primary {
+    background-color: #F3D7CA;
+    border-color: #F3D7CA;
+}
+
+.btn-primary:hover {
+    background-color: #F3D7CA;
+    border-color: #F3D7CA;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.fas {
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+.text-danger {
+    color: #dc3545;
+}
