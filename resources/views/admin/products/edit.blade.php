@@ -18,12 +18,20 @@
                         <input type="text" name="name" class="form-control" value="{{ $product->name }}">
                     </div>
                     <div class="form-group">
+                        <label for="name">Description</label>
+                        <input type="text" name="description" class="form-control" value="{{ $product->description }}">
+                    </div>
+                    <div class="form-group">
                         <label for="price">Price</label>
                         <input type="text" name="price" class="form-control" value="{{ $product->price }}">
                     </div>
                     <div class="form-group">
                         <label for="category">Category</label>
                         <input type="text" name="category" class="form-control" value="{{ $product->category }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Stock</label>
+                        <input type="text" name="stock" class="form-control" value="{{ $product->stock }}">
                     </div>
                     <div class="form-group">
                         <label for="image">Image</label>
