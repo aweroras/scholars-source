@@ -1,0 +1,1 @@
+@extends('customer.layouts.cart')

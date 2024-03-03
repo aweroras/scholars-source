@@ -20,14 +20,20 @@ Route::put('/admin/products/{product}/update', [ProductController::class, 'updat
 Route::get('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
 
 //user dashboard
-Route::get('user', [CustomerController::class, 'index'])->name('user.index');
-Route::get('user/cart', [CustomerController::class, 'cart'])->name('user.cart');
-Route::get('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
-Route::delete('/user/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('user.removeFromCart');
-Route::put('user/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('user.updateQuantity');
-Route::get('/user/product/{id}', [CustomerController::class, 'viewProduct'])->name('user.product');
-Route::post('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
-Route::get('user/search-query', [CustomerController::class, 'search'])->name('user.search-query');
+// Route::get('user', [CustomerController::class, 'index'])->name('user.index');
+// Route::get('user/cart', [CustomerController::class, 'cart'])->name('user.cart');
+// Route::get('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
+// Route::delete('/user/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('user.removeFromCart');
+// Route::put('user/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('user.updateQuantity');
+// Route::get('/user/product/{id}', [CustomerController::class, 'viewProduct'])->name('user.product');
+// Route::post('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
+// Route::get('user/search-query', [CustomerController::class, 'search'])->name('user.search-query');
+
+Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
+Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
+Route::get('/customer/details/{id}', [CustomerController::class, 'details'])->name('customer.details');
+Route::get('/customer/details/{id}', [CustomerController::class, 'showProductDetails'])->name('customer.details');
+
 
 //
 Route::controller(AuthController::class)->group(function () {
