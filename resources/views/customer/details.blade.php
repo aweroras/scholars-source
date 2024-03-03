@@ -35,7 +35,7 @@
             <p>{{ $product->description }}</p>
             
             <!-- Adjusted width and styles for the quantity input and Add to Cart button -->
-            <form method="post" action="" class="d-flex">
+            <form method="post" action="{{ route('customer.addToCart', ['id' => $product->id]) }}" class="d-flex">
                 @csrf
                 
                 <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control" style="width: 50px; margin-right: 20px;">

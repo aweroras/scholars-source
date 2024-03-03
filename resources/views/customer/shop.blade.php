@@ -36,7 +36,7 @@
                                 <span>₱{{ $products->price }}</span>
                                 <!-- Add to Cart button under the price -->
                             </div>
-                            <button type="submit" class="btn btn-sm hero-btn" style="font-size: 13px; padding: 15px 20px;">Add to Cart</button>
+                            <a href="{{ route('customer.addToCart', ['id' => $products->id]) }}" class="btn btn-sm hero-btn" style="font-size: 13px; padding: 15px 20px;">Add to Cart</a>
                         </div>
                     </div>
                 @endforeach
