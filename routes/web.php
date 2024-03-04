@@ -43,3 +43,10 @@ Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'r
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
 });
+
+//login routes
+Route::post('/login', [AccountController::class, 'login'])->name('login');
+Route::get('/loginform', [AccountController::class, 'loginform'])->name('login.form');
+Route::get('/signup', [AccountController::class, 'signupform'])->name('signup.form');
+Route::post('/register/customer', [AccountController::class, 'register'])->name('register.customer');
+Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
