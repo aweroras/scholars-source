@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Auth\AccountController;
 
 
 Route::get('/', function () {
@@ -29,6 +30,7 @@ Route::get('admin/products/{product}/delete', [ProductController::class, 'destro
 // Route::post('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
 // Route::get('user/search-query', [CustomerController::class, 'search'])->name('user.search-query');
 
+//customer dashboard
 Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
 Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
 Route::get('/customer/details/{id}', [CustomerController::class, 'details'])->name('customer.details');
@@ -38,6 +40,13 @@ Route::post('/customer/addToCart/{id}', [CustomerController::class, 'addToCart']
 Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
 Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
 Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
+
+//login and regis
+Route::post('/login', [AccountController::class, 'login'])->name('login');
+Route::get('/loginform', [AccountController::class, 'loginform'])->name('login.form');
+Route::get('/signup', [AccountController::class, 'signupform'])->name('signup.form');
+Route::post('/register/customer', [AccountController::class, 'register'])->name('register.customer');
+Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
 
 //
 Route::controller(AuthController::class)->group(function () {

@@ -26,7 +26,6 @@
                         <table class="table text-center">
                             <thead>
                                 <tr>
-                                    
                                     <th scope="col">Product</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
@@ -85,19 +84,6 @@
                                         <td colspan="5">Your cart is empty</td>
                                     </tr>
                                 @endforelse
-                                <tr class="bottom_button">
-                                    <td>
-                                        <a class="btn_1" href="#">Update Cart</a>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="cupon_text float-right">
-                                            <a class="btn_1" href="#">Close Coupon</a>
-                                        </div>
-                                    </td>
-                                    <td></td> <!-- Empty column for layout consistency -->
-                                </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
