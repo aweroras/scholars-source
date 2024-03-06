@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\SupplierController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,14 @@ Route::post('admin/products', [ProductController::class, 'store'])->name('admin.
 Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::put('/admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.update');
 Route::get('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
+
+//Supplier
+Route::get('admin/supplier/index', [SupplierController::class, 'index'])->name('supplier.index');
+Route::get('admin/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name('supplier.store');
+Route::get('admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+Route::put('/admin/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('supplier.edit');
+Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('supplier.delete');
 
 //user dashboard
 // Route::get('user', [CustomerController::class, 'index'])->name('user.index');
