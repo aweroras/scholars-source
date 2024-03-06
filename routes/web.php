@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test.blade');
+});
+
 //admin dashboard
 Route::get('admin/products', [ProductController::class, 'index'])->name('admin.products.index');
 Route::get('admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
