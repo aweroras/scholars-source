@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
-
+use App\Http\Controllers\Auth\AccountController;
 
 Route::get('/', function () {
     return view('welcome');
