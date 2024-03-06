@@ -1,0 +1,34 @@
+@extends('admin.layouts.app')
+
+@section('content')
+@include('messages')
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="mb-0">Supplier Dashboard</h1>
+<a href="{{ route('supplier.create') }}" class="btn btn-primary">Add Product</a>
+    </div>
+    <table class="table table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>LOGO</th>
+                <th>Supplier Name</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Transaction</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($suppliers as $supplier)
+            <tr>
+                <td class="align-middle">
+                    <img src="{{ asset('supplier_images/' . $supplier->image) }}" alt="wala" style="width: 100; height: 100px;">
+                </td>                
+                <td class="align-middle">{{$supplier->supplier_name}}</td>
+                <td class="align-middle"><a href="{{route('supplier.update', $supplier->id)}}">Update</a></td>
+                <td class="align-middle"><a href="{{route('supplier.delete', $supplier->id)}}">Delete</a></td>
+                <td class="align-middle"><a href="">Transaction</a></td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endsection
+
