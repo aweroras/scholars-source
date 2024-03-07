@@ -39,6 +39,8 @@ Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])
 // Route::post('/user/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('user.addToCart');
 // Route::get('user/search-query', [CustomerController::class, 'search'])->name('user.search-query');
 
+
+//Customer dashboard (has to be logged in to access)
 Route::middleware(['auth'])->group(function () {
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
