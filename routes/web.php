@@ -59,10 +59,7 @@ Route::get('/signup', [AccountController::class, 'signupform'])->name('signup.fo
 Route::post('/register/customer', [AccountController::class, 'register'])->name('register.customer');
 Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
 
-//
-Route::controller(AuthController::class)->group(function () {
-    Route::get('register', 'register')->name('register');
-});
+
 
 //login routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
