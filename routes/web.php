@@ -41,7 +41,7 @@ Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])
 
 
 //Customer dashboard (has to be logged in to access)
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
     Route::get('/customer/details/{id}', [CustomerController::class, 'details'])->name('customer.details');
@@ -52,7 +52,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
     Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 });
-
 
 //login and regis
 Route::post('/login', [AccountController::class, 'login'])->name('login');
