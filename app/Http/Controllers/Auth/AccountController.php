@@ -40,6 +40,7 @@ class AccountController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'roles' => 'customer',
         ]);
         $user->save();
 
@@ -66,19 +67,22 @@ class AccountController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = auth()->user();
-            $customer = Customer::where('user_id', $user->id)->first();
-            if($customer)
+            $roles = $user->roles;            
+            if($roles === 'customer')
             {
-                return redirect()->route('customer.index')->with('Login Successfully');
+                return redirect()->route('customer.index')->with('success','Login Successfully');
             }
-            else
+            elseif($roles === 'admin')
             {
-                dd('mali');
+                //mapupunta sa admin hindi pa ito final
+            }
+            else{
+                dd('ERROR');
             }
 
         }
         else{
-            return redirect()->route('login.form')->with('Incorrect Email or Password');
+            return redirect()->route('login.form')->with('error','Incorrect Email or Password');
         }
     }
 }
