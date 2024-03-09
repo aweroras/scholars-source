@@ -43,7 +43,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="user">
+    <a class="nav-link" href="{{ route('reviews.index') }}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Reviews</span></a>
   </li>
