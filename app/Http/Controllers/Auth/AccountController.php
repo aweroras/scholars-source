@@ -152,5 +152,39 @@ public function update(Request $request)
     return redirect()->route('customer.profile')->with('success', 'Profile updated successfully.');
 }
 
-    
+public function showChangePasswordForm()
+{
+    return view('customer.changepass');
+}
+
+public function changePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => 'required|string',
+        'password' => 'required|string|min:8|confirmed',
+    ], [
+        'current_password.required' => 'Please enter your current password.',
+        'password.required' => 'Please enter a new password.',
+        'password.min' => 'New password must be at least 8 characters.',
+        'password.confirmed' => 'Passwords do not match.',
+    ]);
+
+    $user = Auth::user();
+
+    // Check if the current password matches the one in the database
+    if (Hash::check($request->current_password, $user->password)) {
+        // Update the password
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Logout the user
+        Auth::logout();
+
+        return redirect()->route('login')->with('success', 'Password changed successfully. Please login with your new password.');
+    } else {
+        return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
+    }
+}
+
+
 }

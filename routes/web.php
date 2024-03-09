@@ -35,12 +35,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
     Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 
+// Edit and update account info (profile pic, name, address, phonenum, and email)
     Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
     Route::get('/customer/editprofile', [AccountController::class, 'edit'])->name('customer.editprofile');
     Route::put('/customer/editprofile/update', [AccountController::class, 'update'])->name('customer.editprofile.update');
     
-
-
+// Change user password
+    Route::get('/changepass', [AccountController::class, 'showChangePasswordForm'])->name('change.password.form');
+    Route::post('/changepass', [AccountController::class, 'changePassword'])->name('change.password');
 });
 
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
@@ -78,5 +80,5 @@ Route::post('admin/supplytransac/store', [SuppliertransactionController::class, 
 Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::class, 'edit'])->name('supplier_transaction.edit');
 Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
 
-
+// para lang to sa pinaka front page
 Route::get('/', [HomeController::class, 'index'])->name('home');

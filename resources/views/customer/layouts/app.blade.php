@@ -92,7 +92,7 @@
                             </a>
                             <div class="user-dropdown-content" id="user-dropdown-content">
                                 <a href="{{ route('customer.profile') }}">User Profile</a>
-                                <a href="#">Change Password</a>
+                                <a href="{{ route('change.password.form') }}">Change Password</a>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
