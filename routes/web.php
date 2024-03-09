@@ -34,6 +34,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 
     Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
+    Route::get('/customer/editprofile', [AccountController::class, 'edit'])->name('customer.editprofile');
+    Route::put('/customer/editprofile/update', [AccountController::class, 'update'])->name('customer.editprofile.update');
+    
+
+
 });
 
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
