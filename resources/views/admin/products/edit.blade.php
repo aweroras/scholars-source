@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Stock</label>
-                        <input type="text" name="stock" class="form-control" value="{{ $product->stock }}">
+                        <input type="text" name="stock" class="form-control" value="{{ $product->stock }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="image">Image</label>
