@@ -43,6 +43,12 @@
   </li>
 
   <li class="nav-item">
+    <a class="nav-link" href="user">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Reviews</span></a>
+  </li>
+
+  <li class="nav-item">
     <a class="nav-link" href="transaction">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Transaction History</span></a>
