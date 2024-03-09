@@ -4,7 +4,7 @@
 @include('messages')
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="mb-0">Supplier Dashboard</h1>
-<a href="{{ route('supplier.create') }}" class="btn btn-primary">Add Product</a>
+<a href="{{ route('supplier.create') }}" class="btn btn-primary">Create Supplier</a>
     </div>
     <table class="table table-hover">
         <thead class="table-primary">
@@ -25,7 +25,7 @@
                 <td class="align-middle">{{$supplier->supplier_name}}</td>
                 <td class="align-middle"><a href="{{route('supplier.update', $supplier->id)}}">Update</a></td>
                 <td class="align-middle"><a href="{{route('supplier.delete', $supplier->id)}}">Delete</a></td>
-                <td class="align-middle"><a href="">Transaction</a></td>
+                <td class="align-middle"><a href="{{route('supplier_transaction.create', $supplier->id)}}">Transaction</a></td>
             </tr>
             @endforeach
         </tbody>
