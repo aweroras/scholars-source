@@ -30,7 +30,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
+                <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                 </div>
             </div>
         </div>
@@ -44,14 +44,14 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                        <img src="{{ asset('template/assets/img/logo/logo.png') }}" alt="">
+                        <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                         </div>
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
-                                    <li><a href="{{ route('customer.index') }}">Home</a></li>
-                                    <li><a href="{{ route('customer.shop') }}">shop</a></li>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="shop.html">shop</a></li>
                                     <li><a href="about.html">about</a></li>
                                     <li class="hot"><a href="#">Latest</a>
                                         <ul class="submenu">
@@ -86,21 +86,8 @@
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
-                                <li class="user-dropdown">
-                            <a id="user-icon" href="#">
-                                <span class="flaticon-user"></span>
-                            </a>
-                            <div class="user-dropdown-content" id="user-dropdown-content">
-                                <a href="{{ route('customer.profile') }}">User Profile</a>
-                                <a href="#">Change Password</a>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                                    <li><a href="{{ route('customer.cart') }}"><span class="flaticon-shopping-cart"></span></a></li>
-                                </ul>
+                                <li> <a href="{{ route('login') }}"><span class="flaticon-user"></span></a></li>
+                            </ul>
                         </div>
                     </div>
                     <!-- Mobile Menu -->
@@ -122,11 +109,11 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                                 <div class="hero__caption">
-                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
+                                <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
                                     <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a wide variety of stationery items!</p>
                                     <!-- Hero-btn -->
                                     <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
-                                        <a href="{{ route('customer.shop') }}" class="btn hero-btn">Shop Now</a>
+                                        <a href="{{ route('login') }}" class="btn hero-btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +131,11 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                                 <div class="hero__caption">
-                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
+                                <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
                                     <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a wide variety of stationery items!</p>
                                     <!-- Hero-btn -->
                                     <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
-                                        <a href="industries.html" class="btn hero-btn">Shop Now</a>
+                                        <a href="{{ route('login') }}" class="btn hero-btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -164,8 +151,53 @@
         </div>
         <!-- slider Area End-->
         <!-- ? New Product Start -->
-        
-        @yield('content')
+        <section class="new-product-area section-padding30">
+            <div class="container">
+                <!-- Section tittle -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section-tittle mb-70">
+                            <h2>New Arrivals</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="assets/img/gallery/new_product1.png" alt="">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="assets/img/gallery/new_product2.png" alt="">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="assets/img/gallery/new_product3.png" alt="">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                <span>$ 45,743</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!--  New Product End -->
         <!--? Gallery Area Start -->
         <div class="gallery-area">
@@ -178,28 +210,24 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-gallery mb-30">
-                            <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery2.jpg') }}');"></div>
+                        <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery2.jpg') }}');"></div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-12">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
-                                    <div class="gallery-img small-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery3.jpg') }}');"></div>
+                                <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery3.jpg') }}');"></div>
                                 </div>
                             </div>
-                            <div class="col-xl-12 col-lg-12  col-md-6 col-sm-6">
-                                <div class="single-gallery mb-30">
-                                    <div class="gallery-img small-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery4.jpg') }}');"></div>
-                                </div>
-                            </div>
-                        </div>
+                           
                     </div>
 
                 </div>
             </div>
         </div>
         <!-- Gallery Area End -->
+        @yield('content')
         <!--? Popular Items Start -->
         <div class="popular-items section-padding30">
             <div class="container">
@@ -325,8 +353,7 @@
             </div>
         </div>
         <!-- Popular Items End -->
-      
-      
+       
         <!--? Shop Method Start-->
         <div class="shop-method-area">
             <div class="container">
@@ -456,14 +483,6 @@
     <!-- Search model end -->
 
     <!-- JS here -->
-
-    <script>
-        document.getElementById("user-icon").addEventListener("click", function() {
-            var dropdownContent = document.getElementById("user-dropdown-content");
-            dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
-        });
-    </script>
-
 
     <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     <!-- Jquery, Popper, Bootstrap -->

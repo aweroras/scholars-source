@@ -7,6 +7,11 @@ use App\Models\Product;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request)
     {
         $product = Product::latest('created_at')->take(3)->get();

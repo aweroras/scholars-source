@@ -85,4 +85,72 @@ class AccountController extends Controller
             return redirect()->route('login.form')->with('error','Incorrect Email or Password');
         }
     }
+
+
+    public function showProfile()
+    {
+        $user = Auth::user(); // Get the logged-in user
+        $customerInfo = Customer::where('user_id', $user->id)->first(); // Fetch customer info based on user ID
+    
+        // Fetch email from the User model
+        $email = $user->email;
+    
+        return view('customer.profile', compact('customerInfo', 'email'));
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Logout the user
+
+        $request->session()->invalidate(); // Invalidate the session
+
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
+        return redirect()->route('home')->with('success', 'You have been logged out.');
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        $customerInfo = Customer::where('user_id', $user->id)->first();
+        $email = $user->email;
+    
+        return view('customer.editprofile', compact('customerInfo', 'email'));
+    }
+    
+
+public function update(Request $request)
+{
+    $user = Auth::user();
+    $customerInfo = Customer::where('user_id', $user->id)->first();
+    $email = $user->email;
+
+    $request->validate([
+        'address' => 'required|string|max:255',
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|max:12',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    // Update email, address, and phone
+    $user->email = $request->email;
+    $customerInfo->name = $request->name;
+    $customerInfo->Address = $request->address;
+    $customerInfo->PhoneNumber = $request->phone;
+
+    // Update image if provided
+    if ($request->hasFile('image')) {
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('customer_images'), $imageName);
+        $customerInfo->image = $imageName;
+    }
+
+    $user->save();
+    $customerInfo->save();
+
+    return redirect()->route('customer.profile')->with('success', 'Profile updated successfully.');
+}
+
+    
 }
