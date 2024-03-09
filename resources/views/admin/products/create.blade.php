@@ -3,6 +3,7 @@
 @section('title', 'Add Product')
   
 @section('content')
+@include('messages')
 <body>
     <div class="container mt-5">
         <div class="card">
