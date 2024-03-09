@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SuppliertransactionController;
 
 // Public routes accessible by all users
 Route::get('/', function () {
@@ -54,5 +55,13 @@ Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name(
 Route::get('admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
 Route::put('/admin/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('supplier.edit');
 Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('supplier.delete');
+
+//supplier transaction routes
+Route::get('admin/supplytransac/index', [SuppliertransactionController::class, 'index'])->name('supplier_transaction.index');
+Route::get('admin/supplytransac/create/{id}', [SuppliertransactionController::class, 'create'])->name('supplier_transaction.create');
+Route::post('admin/supplytransac/store', [SuppliertransactionController::class, 'store'])->name('supplier_transaction.store');
+Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::class, 'edit'])->name('supplier_transaction.edit');
+Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
