@@ -7,6 +7,7 @@ use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\HomeController;
 
 // Public routes accessible by all users
 Route::get('/', function () {
@@ -31,9 +32,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
     Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
     Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
+
+    Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
 });
 
-
+Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
 
 // Admin dashboard routes
@@ -51,3 +54,5 @@ Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name(
 Route::get('admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
 Route::put('/admin/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('supplier.edit');
 Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('supplier.delete');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');

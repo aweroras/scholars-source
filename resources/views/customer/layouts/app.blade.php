@@ -86,9 +86,21 @@
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
-                                <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                                <li><a href="{{ route('customer.cart') }}"><span class="flaticon-shopping-cart"></span></a> </li>
-                            </ul>
+                                <li class="user-dropdown">
+                            <a id="user-icon" href="#">
+                                <span class="flaticon-user"></span>
+                            </a>
+                            <div class="user-dropdown-content" id="user-dropdown-content">
+                                <a href="{{ route('customer.profile') }}">User Profile</a>
+                                <a href="#">Change Password</a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                                    <li><a href="{{ route('customer.cart') }}"><span class="flaticon-shopping-cart"></span></a></li>
+                                </ul>
                         </div>
                     </div>
                     <!-- Mobile Menu -->
@@ -444,6 +456,14 @@
     <!-- Search model end -->
 
     <!-- JS here -->
+
+    <script>
+        document.getElementById("user-icon").addEventListener("click", function() {
+            var dropdownContent = document.getElementById("user-dropdown-content");
+            dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
+        });
+    </script>
+
 
     <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     <!-- Jquery, Popper, Bootstrap -->
