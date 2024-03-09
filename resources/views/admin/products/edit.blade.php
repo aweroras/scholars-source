@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
   
 @section('title', 'Edit Product')
-  
+@include('messages')
 @section('content')
 
 <body>

@@ -6,8 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Auth\AccountController;
-use App\Http\Controllers\HomeController;
 
 // Public routes accessible by all users
 Route::get('/', function () {
@@ -59,5 +59,22 @@ Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name(
 Route::get('admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
 Route::put('/admin/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('supplier.edit');
 Route::get('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('supplier.delete');
+
+//Reviews
+Route::get('/admin/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('admin/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/admin/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+
+
+// Route::get('/{review}', 'ReviewController@show')->name('reviews.show'); -- specific review to di ko pa natatry
+
+
+//supplier transaction routes
+Route::get('admin/supplytransac/index', [SuppliertransactionController::class, 'index'])->name('supplier_transaction.index');
+Route::get('admin/supplytransac/create/{id}', [SuppliertransactionController::class, 'create'])->name('supplier_transaction.create');
+Route::post('admin/supplytransac/store', [SuppliertransactionController::class, 'store'])->name('supplier_transaction.store');
+Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::class, 'edit'])->name('supplier_transaction.edit');
+Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -43,7 +43,13 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="transaction">
+    <a class="nav-link" href="{{ route('reviews.index') }}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Reviews</span></a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('supplier_transaction.index')}}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Transaction History</span></a>
   </li>
