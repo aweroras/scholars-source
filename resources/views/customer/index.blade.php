@@ -24,7 +24,7 @@
                                     <div class="carousel-inner">
                                         @foreach($images as $index => $image)
                                             <div class="carousel-item{{ $index === 0 ? ' active' : '' }}">
-                                                <img class="d-block w-100" src="{{ asset($image) }}" alt="Image {{ $index + 1 }}">
+                                                <img class="d-block w-100" src="{{ asset($image) }}" alt="Image {{ $index + 1 }}" style="height: 300px; object-fit: cover;">
                                             </div>
                                         @endforeach
                                     </div>
@@ -38,7 +38,7 @@
                                     </a>
                                 </div>
                             @else
-                                <img class="card-img-top" src="{{ asset($images[0]) }}" alt="..." />
+                                <img class="card-img-top" src="{{ asset($images[0]) }}" alt="Image" style="height: 300px; object-fit: cover;" />
                             @endif
 
                             <div class="product-caption">
