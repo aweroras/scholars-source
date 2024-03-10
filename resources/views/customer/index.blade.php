@@ -11,16 +11,16 @@
                     </div>
                 </div>
 
-                @foreach($product as $products)
+                @foreach($products as $product)
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-new-pro mb-30 text-center">
                             @php
                                 // Explode the 'image' string into an array
-                                $images = explode(',', $products->image);
+                                $images = explode(',', $product->image);
                             @endphp
 
                             @if(count($images) > 1)
-                                <div id="carousel{{ $products->id }}" class="carousel slide" data-ride="carousel">
+                                <div id="carousel{{ $product->id }}" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         @foreach($images as $index => $image)
                                             <div class="carousel-item{{ $index === 0 ? ' active' : '' }}">
@@ -28,11 +28,11 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <a class="carousel-control-prev" href="#carousel{{ $products->id }}" role="button" data-slide="prev">
+                                    <a class="carousel-control-prev" href="#carousel{{ $product->id }}" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#carousel{{ $products->id }}" role="button" data-slide="next">
+                                    <a class="carousel-control-next" href="#carousel{{ $product->id }}" role="button" data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>
@@ -42,8 +42,8 @@
                             @endif
 
                             <div class="product-caption">
-                                <h3>{{ $products->name }}</h3>
-                                <span>₱{{ $products->price }}</span>
+                                <h3>{{ $product->name }}</h3>
+                                <span>₱{{ $product->price }}</span>
                             </div>
                         </div>
                     </div>

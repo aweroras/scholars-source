@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/changepass', [AccountController::class, 'changePassword'])->name('change.password');
 });
 
+Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
 

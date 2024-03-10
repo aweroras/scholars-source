@@ -14,16 +14,54 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        $product = Product::latest('created_at')->take(3)->get();
+    
+        $products = Product::latest('created_at')->take(3)->get();
+    
 
-        return view('customer.index', ['product' => $product]);
+    return view('customer.index', ['products' => $products]);
+    }
+public function search(Request $request)
+{
+    $searchQuery = $request->input('search');
+
+    if (!$searchQuery) {
+        // If no search query is provided, redirect back to the index page
+        return redirect()->route('customer.index');
     }
 
-    public function shop(Request $request){
-        $product = Product::latest('created_at')->take(5)->get();
+    // Implement your search logic here and retrieve relevant results
+    $searchResults = Product::where('name', 'like', '%' . $searchQuery . '%')
+        ->orWhere('price', 'like', '%' . $searchQuery . '%')
+        ->orWhere('category', 'like', '%' . $searchQuery . '%')
+        ->latest('created_at')
+        ->get();
 
-        return view('customer.shop', ['product' => $product]);
+    // Pass the results to the view
+    return view('customer.shop', ['searchResults' => $searchResults, 'query' => $searchQuery]);
+}
+
+
+public function shop(Request $request)
+{
+    // Retrieve the search query from the request
+    $searchQuery = $request->input('search');
+
+    // Check if a search query is provided
+    if ($searchQuery) {
+        // Implement your search logic here and retrieve relevant results
+        $products = Product::where('name', 'like', '%' . $searchQuery . '%')
+            ->orWhere('price', 'like', '%' . $searchQuery . '%')
+            ->orWhere('category', 'like', '%' . $searchQuery . '%')
+            ->latest('created_at')
+            ->get();
+    } else {
+        // If no search query, retrieve the latest 5 products
+        $products = Product::latest('created_at')->take(5)->get();
     }
+
+    // Pass the products and search query to the view
+    return view('customer.shop', ['product' => $products, 'searchResults' => $products, 'query' => $searchQuery]);
+}
 
 
 public function details($id)
