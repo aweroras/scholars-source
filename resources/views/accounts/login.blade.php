@@ -41,7 +41,7 @@
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
               </form>
               <p class="mt-3 text-center">Don't have an account? <a href="{{ route('signup.form') }}">Sign up here</a></p>
-              <p class="mt-3 text-center">Sign up For Admin <a href="{{ route('register.admin') }}">Sign up here</a></p>
+              <p class="mt-3 text-center">Sign up For Admin <a href="{{ route('signup.admin') }}">Sign up here</a></p>
             </div>
           </div>
         </div>
