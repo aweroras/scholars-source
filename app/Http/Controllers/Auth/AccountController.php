@@ -62,6 +62,23 @@ class AccountController extends Controller
         return redirect()->route('login.form')->with('success', 'Registration successful!');
     }
 
+    public function registerAdmin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles' => 'admin',
+        ]);
+        $user->save();
+        return redirect()->route('login.form')->with('success', 'Admin Register Successfully!');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -79,7 +96,7 @@ class AccountController extends Controller
             }
             elseif($roles === 'admin')
             {
-                //mapupunta sa admin hindi pa ito final
+                return redirect()->route('admin.products.index')->with('success','Login Successfully');
             }
             else{
                 dd('ERROR');
