@@ -20,6 +20,11 @@ class AccountController extends Controller
         return view('accounts.signup');
     }
 
+    public function AdminSignupForm()
+    {
+        return view('accounts.adminsignup');
+    }
+
     public function register(Request $request)
     {
         $request->validate([
