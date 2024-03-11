@@ -24,7 +24,7 @@
     <div class="col-md-6 offset-md-3">
       <div class="signup-form">
         <h2 class="text-center mb-4">Admin Signup</h2>
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{{route('register.admin')}}" method="POST" enctype="multipart/form-data">
             @csrf
           <div class="form-group">
             <label for="email">Email</label>
