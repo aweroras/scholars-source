@@ -168,4 +168,10 @@ public function removeFromCart(Request $request, $product_id)
     return redirect()->route('customer.cart')->with('success', 'Product removed from cart successfully!');
 }
 
+
+
+public function checkout()
+{
+    return view('customer.checkout');
+}
 }
