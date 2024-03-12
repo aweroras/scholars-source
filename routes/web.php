@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Middleware\RoleMiddleware;
 
 // Public routes accessible by all users
