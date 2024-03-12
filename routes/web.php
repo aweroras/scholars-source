@@ -10,6 +10,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\SuppliertransactionController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\RoleMiddleware;
 
 // Public routes accessible by all users
@@ -41,6 +42,8 @@ Route::post('/customer/addToCart/{id}', [CustomerController::class, 'addToCart']
 Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
 Route::put('customer/update-quantity/{customer_id}/{product_id}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
 Route::delete('/customer/remove-from-cart/{product_id}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
+Route::get('customer/checkout',[CustomerController::class,'checkout'])->name('customer.checkout');
+
 
 // Edit and update account info (profile pic, name, address, phonenum, and email)
 Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
@@ -54,6 +57,7 @@ Route::post('/changepass', [AccountController::class, 'changePassword'])->name('
 
 Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
+
 
 
 // Admin dashboard (yung admin lang makakaaccess ng routes)
