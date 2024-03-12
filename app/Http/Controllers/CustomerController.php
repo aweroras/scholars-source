@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -14,16 +15,54 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        $product = Product::latest('created_at')->take(3)->get();
+    
+        $products = Product::latest('created_at')->take(3)->get();
+    
 
-        return view('customer.index', ['product' => $product]);
+    return view('customer.index', ['products' => $products]);
+    }
+public function search(Request $request)
+{
+    $searchQuery = $request->input('search');
+
+    if (!$searchQuery) {
+        // If no search query is provided, redirect back to the index page
+        return redirect()->route('customer.index');
     }
 
-    public function shop(Request $request){
-        $product = Product::latest('created_at')->take(5)->get();
+    // Implement your search logic here and retrieve relevant results
+    $searchResults = Product::where('name', 'like', '%' . $searchQuery . '%')
+        ->orWhere('price', 'like', '%' . $searchQuery . '%')
+        ->orWhere('category', 'like', '%' . $searchQuery . '%')
+        ->latest('created_at')
+        ->get();
 
-        return view('customer.shop', ['product' => $product]);
+    // Pass the results to the view
+    return view('customer.shop', ['searchResults' => $searchResults, 'query' => $searchQuery]);
+}
+
+
+public function shop(Request $request)
+{
+    // Retrieve the search query from the request
+    $searchQuery = $request->input('search');
+
+    // Check if a search query is provided
+    if ($searchQuery) {
+        // Implement your search logic here and retrieve relevant results
+        $products = Product::where('name', 'like', '%' . $searchQuery . '%')
+            ->orWhere('price', 'like', '%' . $searchQuery . '%')
+            ->orWhere('category', 'like', '%' . $searchQuery . '%')
+            ->latest('created_at')
+            ->get();
+    } else {
+        // If no search query, retrieve the latest 5 products
+        $products = Product::latest('created_at')->take(5)->get();
     }
+
+    // Pass the products and search query to the view
+    return view('customer.shop', ['product' => $products, 'searchResults' => $products, 'query' => $searchQuery]);
+}
 
 
 public function details($id)
@@ -56,72 +95,77 @@ public function addToCart(Request $request, $productId)
     // Get the quantity from the input box (default to 1 if not provided or invalid)
     $quantity = $request->input('quantity', 1);
 
-    // Get the current cart from the session
-    $cart = $request->session()->get('cart', []);
+    // Get the authenticated user's ID, assuming you have user authentication
+    $customerId = auth()->id();
 
     // Check if the product is already in the cart
-    if (array_key_exists($product->id, $cart)) {
-        // If yes, increment the quantity
-        $cart[$product->id]['quantity'] += $quantity;
+    if ($cart = DB::table('carts')->where('customer_id', $customerId)->where('product_id', $productId)->first()) {
+        // If yes, update the quantity
+        DB::table('carts')->where('id', $cart->id)->update(['quantity' => $cart->quantity + $quantity, 'created_at' => now()]);
     } else {
-        // If no, add the product to the cart
-        $cart[$product->id] = [
-            'name' => $product->name,
-            'image' => $product->image,
-            'price' => $product->price,
+        // If no, insert the product into the cart
+        $cartId = DB::table('carts')->insertGetId([
+            'customer_id' => $customerId,
+            'product_id' => $productId,
             'quantity' => $quantity,
-        ];
-    }
+            'created_at' => now(),
+        ]);
 
-    // Store the updated cart back in the session
-    $request->session()->put('cart', $cart);
+        // If you need the cart ID for any further processing, you can use $cartId
+    }
 
     // Redirect back to the user.product page with a success message
     return back();
 }
+
 public function cart(Request $request)
 {
-    $cart = $request->session()->get('cart', []);
+    // Get the authenticated user's ID, assuming you have user authentication
+    $customerId = auth()->id();
+
+    // Fetch cart items from the database based on the user's ID
+    $cart = DB::table('carts')
+        ->where('customer_id', $customerId)
+        ->join('products', 'carts.product_id', '=', 'products.id')
+        ->select('carts.customer_id', 'products.id as product_id', 'products.name', 'products.image', 'products.price', 'carts.quantity')
+        ->get();
 
     // Calculate the total
     $cartTotal = 0;
 
     foreach ($cart as $item) {
-        $cartTotal += $item['quantity'] * $item['price'];
+        $cartTotal += $item->quantity * $item->price;
     }
 
     return view('customer.cart', ['cart' => $cart, 'cartTotal' => $cartTotal]);
 }
 
-public function updateQuantity(Request $request, $key)
+
+public function updateQuantity(Request $request, $customer_id, $product_id)
 {
-    $cart = $request->session()->get('cart', []);
+    $quantity = $request->input('action') === 'increment' ? 1 : -1;
 
-    if (isset($cart[$key])) {
-        if ($request->input('action') === 'increment') {
-            $cart[$key]['quantity']++;
-        } elseif ($request->input('action') === 'decrement' && $cart[$key]['quantity'] > 1) {
-            $cart[$key]['quantity']--;
-        }
-
-        $request->session()->put('cart', $cart);
-    }
+    // Update the quantity and set the updated_at column to the current timestamp
+    DB::table('carts')
+        ->where('customer_id', $customer_id)
+        ->where('product_id', $product_id)
+        ->update(['quantity' => DB::raw('quantity + ' . $quantity), 'updated_at' => now()]);
 
     return redirect()->route('customer.cart');
 }
-public function removeFromCart(Request $request, $key)
+
+
+public function removeFromCart(Request $request, $product_id)
 {
-    $cart = $request->session()->get('cart', []);
+    $customerId = auth()->id();
 
-    // Check if the key exists in the cart array
-    if (isset($cart[$key])) {
-        // Remove the item from the cart using the key
-        unset($cart[$key]);
-
-        // Update the cart in the session
-        $request->session()->put('cart', $cart);
-    }
+    // Fetch cart items from the database based on the user's ID
+    $cart = DB::table('carts')
+        ->where('customer_id', $customerId)
+        ->where('product_id', $product_id)
+        ->delete();
 
     return redirect()->route('customer.cart')->with('success', 'Product removed from cart successfully!');
 }
+
 }

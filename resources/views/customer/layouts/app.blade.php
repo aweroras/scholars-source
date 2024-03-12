@@ -92,7 +92,7 @@
                             </a>
                             <div class="user-dropdown-content" id="user-dropdown-content">
                                 <a href="{{ route('customer.profile') }}">User Profile</a>
-                                <a href="#">Change Password</a>
+                                <a href="{{ route('change.password.form') }}">Change Password</a>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -148,7 +148,7 @@
                                     <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a wide variety of stationery items!</p>
                                     <!-- Hero-btn -->
                                     <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
-                                        <a href="industries.html" class="btn hero-btn">Shop Now</a>
+                                        <a href="{{ route('customer.shop') }}" class="btn hero-btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -444,16 +444,19 @@
         </div>
         <!-- Footer End-->
     </footer>
-    <!--? Search model Begin -->
-    <div class="search-model-box">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
-            </form>
-        </div>
+ <!--? Search model Begin -->
+<div class="search-model-box">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form" action="{{ route('customer.shop') }}" method="GET">
+            <!-- Use the 'name' attribute to ensure the input value is sent with the correct parameter name -->
+            <input type="text" name="search" id="search-input" placeholder="Searching key.....">
+            <button type="submit" class="btn btn-sm hero-btn" style="font-size: 13px; padding: 15px 20px;">Search</button>
+        </form>
     </div>
-    <!-- Search model end -->
+</div>
+<!-- Search model end -->
+
 
     <!-- JS here -->
 

@@ -32,10 +32,6 @@
                         <td><input type="text" name="category" class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><label for="price">Stock</label></td>
-                        <td><input type="text" name="stock" class="form-control"></td>
-                    </tr>
-                    <tr>
                         <td><label for="image">Images</label></td>
                         <td><input type="file" name="image[]" class="form-control-file" multiple></td>
                     </tr>

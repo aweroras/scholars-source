@@ -7,7 +7,6 @@ use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Controllers\Auth\AccountController;
 
 // Public routes accessible by all users
@@ -17,10 +16,16 @@ Route::get('/', function () {
 
 // Login and registration routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
-Route::get('/loginform', [AccountController::class, 'loginform'])->name('login.form');
+
 Route::get('/signup', [AccountController::class, 'signupform'])->name('signup.form');
+Route::get('/signup/admin', [AccountController::class, 'AdminSignupForm'])->name('signup.admin');
+
 Route::post('/register/customer', [AccountController::class, 'register'])->name('register.customer');
+Route::post('/register/admin', [AccountController::class, 'registerAdmin'])->name('register.admin');
 Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
+
+
+
 
 // Customer dashboard routes 
 Route::middleware(['auth'])->group(function () {
@@ -31,17 +36,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
     Route::post('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
     Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
-    Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
+    Route::put('customer/update-quantity/{customer_id}/{product_id}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
+    Route::delete('/customer/remove-from-cart/{product_id}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 
+// Edit and update account info (profile pic, name, address, phonenum, and email)
     Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
     Route::get('/customer/editprofile', [AccountController::class, 'edit'])->name('customer.editprofile');
     Route::put('/customer/editprofile/update', [AccountController::class, 'update'])->name('customer.editprofile.update');
     
-
-
+// Change user password
+    Route::get('/changepass', [AccountController::class, 'showChangePasswordForm'])->name('change.password.form');
+    Route::post('/changepass', [AccountController::class, 'changePassword'])->name('change.password');
 });
 
+Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
 
@@ -77,5 +85,5 @@ Route::post('admin/supplytransac/store', [SuppliertransactionController::class, 
 Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::class, 'edit'])->name('supplier_transaction.edit');
 Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
 
-
+// para lang to sa pinaka front page
 Route::get('/', [HomeController::class, 'index'])->name('home');

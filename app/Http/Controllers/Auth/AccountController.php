@@ -20,6 +20,11 @@ class AccountController extends Controller
         return view('accounts.signup');
     }
 
+    public function AdminSignupForm()
+    {
+        return view('accounts.adminsignup');
+    }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -57,6 +62,23 @@ class AccountController extends Controller
         return redirect()->route('login.form')->with('success', 'Registration successful!');
     }
 
+    public function registerAdmin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles' => 'admin',
+        ]);
+        $user->save();
+        return redirect()->route('login.form')->with('success', 'Admin Register Successfully!');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -74,7 +96,7 @@ class AccountController extends Controller
             }
             elseif($roles === 'admin')
             {
-                //mapupunta sa admin hindi pa ito final
+                return redirect()->route('admin.products.index')->with('success','Login Successfully');
             }
             else{
                 dd('ERROR');
@@ -152,5 +174,39 @@ public function update(Request $request)
     return redirect()->route('customer.profile')->with('success', 'Profile updated successfully.');
 }
 
-    
+public function showChangePasswordForm()
+{
+    return view('customer.changepass');
+}
+
+public function changePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => 'required|string',
+        'password' => 'required|string|min:8|confirmed',
+    ], [
+        'current_password.required' => 'Please enter your current password.',
+        'password.required' => 'Please enter a new password.',
+        'password.min' => 'New password must be at least 8 characters.',
+        'password.confirmed' => 'Passwords do not match.',
+    ]);
+
+    $user = Auth::user();
+
+    // Check if the current password matches the one in the database
+    if (Hash::check($request->current_password, $user->password)) {
+        // Update the password
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Logout the user
+        Auth::logout();
+
+        return redirect()->route('login')->with('success', 'Password changed successfully. Please login with your new password.');
+    } else {
+        return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
+    }
+}
+
+
 }

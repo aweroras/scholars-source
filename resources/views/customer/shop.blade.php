@@ -4,14 +4,25 @@
 @section('content')
     <!-- Hero Area and other specific content go here -->
 
-    
-
     <!-- Latest Products Start -->
-    <section class="popular-items latest-padding">
+    <section class="new-product-area section-padding30">
         <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-tittle mb-70">
+                        <h2>
+                            @if(isset($query))
+                                Search Results for: "{{ $query }}"
+                            @else
+                                Products
+                            @endif
+                        </h2>
+                    </div>
+                </div>
+            </div>
             <div class="row product-btn justify-content-between mb-40">
                 <!-- Add your dynamic content for products here -->
-                @foreach($product as $products)
+                @foreach($searchResults as $products)
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <!-- Add product details dynamically using the data from your database -->
                         <div class="single-popular-items mb-50 text-center position-relative">

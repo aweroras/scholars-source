@@ -27,7 +27,6 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'category' => 'required',
-            'stock' => 'required|numeric',
             'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
@@ -47,7 +46,6 @@ class ProductController extends Controller
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'category' => $request->input('category'),
-            'stock' => $request->input('stock'),
             'image' => implode(',', $imagePaths), // Implode array into a comma-separated string
         ]);
     
@@ -70,7 +68,6 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'category' => 'required',
-            'stock' => 'required|numeric',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
