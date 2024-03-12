@@ -111,7 +111,7 @@
                         </table>
                         <div class="checkout_btn_inner float-right">
                             <a class="btn_1" href="{{ route('customer.shop') }}">Continue Shopping</a>
-                            <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+                            <a class="btn_1 checkout_btn_1" href="{{ route('customer.checkout') }}">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
