@@ -22,8 +22,8 @@
                 <tr>
                     <td>{{ $review->customer->name }}</td>  <td>{{ $review->product->name }}</td>   <td>{{ $review->rate }}</td>
                     <td>{{ $review->comment }}</td>
-                    @if ($review->img_path)
-                        <td><img src="{{ asset('storage/uploads/reviews/' . $review->img_path) }}" alt="Review Image" style="width: 50px; height: 50px;"></td>
+                    @if ($review->image)
+                        <td><img src="{{ asset('storage/uploads/reviews/' . $review->image) }}" alt="Review Image" style="width: 50px; height: 50px;"></td>
                     @else
                         <td>No Image</td>
                     @endif

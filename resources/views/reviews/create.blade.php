@@ -20,8 +20,8 @@
                 <input type="text" class="form-control" name="comment" required>
             </div>
             <div class="form-group">
-                <label for="img_path">Images: </label>
-                <input type="file" class="form-control-file" name="img_path" required>
+                <label for="image">Images: </label>
+                <input type="file" class="form-control-file" name="image" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

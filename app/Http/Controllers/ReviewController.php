@@ -26,7 +26,7 @@ public function store(Request $request)
     $this->validate($request, [
         'rate' => 'required|integer|min:1|max:10',
         'comment' => 'required|string|min:3',
-        'img_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
 
     $review = new Review;
@@ -36,11 +36,11 @@ public function store(Request $request)
   $review->comment = $request->comment;
 
   // Handle image upload (optional)
-  if ($request->hasFile('img_path')) {
-      $image = $request->file('img_path');
+  if ($request->hasFile('image')) {
+      $image = $request->file('image');
       $imageName = time() . '.' . $image->getClientOriginalExtension();
       $image->storePubliclyAs('uploads/reviews', $imageName);
-      $review->img_path = $imageName;
+      $review->image = $imageName;
   }
 
   // Save the review to the database
