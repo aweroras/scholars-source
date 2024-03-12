@@ -32,8 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
     Route::post('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
     Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::put('customer/update-quantity/{key}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
-    Route::delete('/customer/remove-from-cart/{key}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
+    Route::put('customer/update-quantity/{customer_id}/{product_id}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');
+    Route::delete('/customer/remove-from-cart/{product_id}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 
 // Edit and update account info (profile pic, name, address, phonenum, and email)
     Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');

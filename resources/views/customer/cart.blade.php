@@ -34,43 +34,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($cart as $productId => $item)
+                                @forelse($cart as $item)
                                     <tr>
                                         <td>
                                             <div class="media">
                                                 <div class="d-flex">
                                                     @php
                                                         // Explode the 'image' string into an array
-                                                        $images = explode(',', $item['image']);
+                                                        $images = explode(',', $item->image);
                                                     @endphp
-                                                    <img src="{{ asset($images[0]) }}" alt="{{ $item['name'] }}" />
+                                                    <img src="{{ asset($images[0]) }}" alt="{{ $item->name }}" />
                                                 </div>
                                                 <div class="media-body">
-                                                    <p>{{ $item['name'] }}</p>
+                                                    <p>{{ $item->name }}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <h5>₱{{ $item['price'] }}</h5>
+                                            <h5>₱{{ $item->price }}</h5>
                                         </td>
                                         <td class="align-middle">
-                                            <form method="post" action="{{ route('customer.updateQuantity', ['key' => $productId]) }}" class="d-flex align-items-center justify-content-center">
+                                        <form method="post" action="{{ route('customer.updateQuantity', ['customer_id' => $item->customer_id, 'product_id' => $item->product_id]) }}" class="d-flex align-items-center justify-content-center">
+
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" name="action" value="decrement" class="btn" style="padding: 0;">
                                                     <i class="ti-minus"></i>
                                                 </button>
-                                                <span class="mx-2">{{ $item['quantity'] }}</span>
+                                                <span class="mx-2">{{ $item->quantity }}</span>
                                                 <button type="submit" name="action" value="increment" class="btn" style="padding: 0;">
                                                     <i class="ti-plus"></i>
                                                 </button>
                                             </form>
                                         </td>
                                         <td>
-                                            <h5>₱{{ $item['quantity'] * $item['price'] }}</h5>
+                                            <h5>₱{{ $item->quantity * $item->price }}</h5>
                                         </td>
                                         <td class="text-center">
-                                            <form method="post" action="{{ route('customer.removeFromCart', ['key' => $productId]) }}">
+                                        <form method="post" action="{{ route('customer.removeFromCart', ['product_id' => $item->product_id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn" style="padding: 0;">
