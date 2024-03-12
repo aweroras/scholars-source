@@ -18,10 +18,16 @@ Route::get('/', function () {
 
 // Login and registration routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
-Route::get('/loginform', [AccountController::class, 'loginform'])->name('login.form');
+
 Route::get('/signup', [AccountController::class, 'signupform'])->name('signup.form');
+Route::get('/signup/admin', [AccountController::class, 'AdminSignupForm'])->name('signup.admin');
+
 Route::post('/register/customer', [AccountController::class, 'register'])->name('register.customer');
+Route::post('/register/admin', [AccountController::class, 'registerAdmin'])->name('register.admin');
 Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
+
+
+
 
 // Customer dashboard routes 
 Route::middleware(['auth'])->group(function () {
