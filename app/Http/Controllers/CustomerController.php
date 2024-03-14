@@ -174,4 +174,10 @@ public function checkout()
 {
     return view('customer.checkout');
 }
+
+
+public function orderinfo()
+{
+    return view('customer.orderinfo');
+}
 }
