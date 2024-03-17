@@ -77,27 +77,45 @@
                             </ul>
                         </nav>
                     </div>
-                    <!-- Header Right -->
-                    <div class="header-right">
-                        <ul>
-                            <li>
-                                <div class="nav-search search-switch">
-                                    <span class="flaticon-search"></span>
-                                </div>
-                            </li>
-                            <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                            <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
-                        </ul>
+                   <!-- Header Right -->
+                   <div class="header-right">
+                    <ul>
+                        <li>
+                            <div class="nav-search search-switch">
+                                <span class="flaticon-search"></span>
+                            </div>
+                        </li>
+                        <li class="user-dropdown">
+                    <a id="user-icon" href="#">
+                        <span class="flaticon-user"></span>
+                    </a>
+                    <div class="user-dropdown-content" id="user-dropdown-content">
+                        <a href="{{ route('customer.profile') }}">User Profile</a>
+                        <a href="{{ route('change.password.form') }}">Change Password</a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                <li class="user-dropdown">
+                    <a id="user-icon" href="#">
+                        <span class="flaticon-shopping-cart"></span>
+                    </a>
+                <div class="user-dropdown-content" id="user-dropdown-content">
+                    <a href="{{ route('customer.cart') }}">My Cart</a>
+                    <a href="{{ route('customer.orderinfo') }}">Order History</a>
                     </div>
                 </div>
-                <!-- Mobile Menu -->
-                <div class="col-12">
-                    <div class="mobile_menu d-block d-lg-none"></div>
-                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="col-12">
+                <div class="mobile_menu d-block d-lg-none"></div>
             </div>
         </div>
     </div>
-    <!-- Header End -->
+</div>
+<!-- Header End -->
   </header>
   <main>
         @yield('content')
