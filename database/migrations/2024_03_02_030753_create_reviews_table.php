@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->timestamps();
             //fk
-            $table->foreign('customer_id')->references('id')->on('customer_info')->onDelete('Cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('Cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('Cascade');
         });
     }
