@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\hasOne;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -47,4 +50,11 @@ class User extends Authenticatable
 {
     return in_array($this->role, $roles);
 }
+
+    public function customer()
+    {
+    return $this->hasOne(Customer::class);
+    }
+
+    
 }
