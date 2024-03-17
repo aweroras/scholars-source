@@ -89,6 +89,7 @@ class AccountController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = auth()->user();
+
             $roles = $user->roles;            
             if($roles === 'customer')
             {
