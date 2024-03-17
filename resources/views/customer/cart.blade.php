@@ -1,5 +1,4 @@
 <!-- cart.blade.php -->
-
 @extends('customer.layouts.cart') <!-- Change this to your layout file -->
 
 @section('content')
