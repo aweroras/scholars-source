@@ -129,7 +129,7 @@ class AccountController extends Controller
 
         $request->session()->regenerateToken(); // Regenerate CSRF token
 
-        return redirect()->route('home')->with('success', 'You have been logged out.');
+        return redirect()->route('login.form')->with('success', 'You have been logged out.');
     }
 
     public function edit()
