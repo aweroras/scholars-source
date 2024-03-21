@@ -101,7 +101,8 @@ public function addToCart(Request $request, $productId)
     // Check if the product is already in the cart
     if ($cart = DB::table('carts')->where('customer_id', $customerId)->where('product_id', $productId)->first()) {
         // If yes, update the quantity
-        DB::table('carts')->where('id', $cart->id)->update(['quantity' => $cart->quantity + $quantity, 'created_at' => now()]);
+        //DB::table('carts')->where('id', $cart->id)->update(['quantity' => $cart->quantity + $quantity, 'created_at' => now()]);
+        DB::table('carts')->where('customer_id',$customerId)->where('product_id', $productId)->update(['quantity' => $cart->quantity + $quantity, 'created_at' => now()]);
     } else {
         // If no, insert the product into the cart
         $cartId = DB::table('carts')->insertGetId([
