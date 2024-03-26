@@ -87,9 +87,9 @@ Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::cl
 })->middleware(RoleMiddleware::class);
 
 //Reviews
-Route::get('/admin/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
-Route::get('admin/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-Route::post('/admin/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('customer/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 
 // Route::get('/{review}', 'ReviewController@show')->name('reviews.show'); -- specific review to di ko pa natatry
 
