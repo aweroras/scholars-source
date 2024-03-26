@@ -25,10 +25,21 @@
                         <label for="price">Price</label>
                         <input type="text" name="price" class="form-control" value="{{ $product->price }}">
                     </div>
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <input type="text" name="category" class="form-control" value="{{ $product->category }}">
-                    </div>
+                    <tr>
+                     <td><label for="category">Category</label></td>
+                     <td>
+                        <select name="category" id="category" class="form-control">
+                        <option value="">Select a Category</option>
+                        <option value="writing implements">Writing Implements</option>
+                        <option value="paper products">Paper Products</option>
+                        <option value="binders and folders">Binders and Folders</option>
+                        <option value="note-taking and organization tools">Note-taking and Organization Tools</option>
+                        <option value="adhesives and fasteners">Adhesives and Fasteners</option>
+                        <option value="art supplies">Art Supplies</option>
+                        <option value="stationery">Stationery</option>
+                        </select>
+                    </td>
+                    </tr>
                     <div class="form-group">
                         <label for="category">Stock</label>
                         <input type="text" name="stock" class="form-control" value="{{ $product->stock }}" readonly>
