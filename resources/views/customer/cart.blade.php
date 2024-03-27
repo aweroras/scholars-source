@@ -102,7 +102,7 @@
                                         <h5>Shipping</h5>
                                     </td>
                                     <td>
-                                        <!-- Your shipping details go here -->
+                                    <h5>₱{{ $shippingFee }}</h5>
                                     </td>
                                     <td></td> <!-- Empty column for layout consistency -->
                                 </tr>

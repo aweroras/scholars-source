@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
@@ -131,14 +132,24 @@ public function cart(Request $request)
         ->select('carts.customer_id', 'products.id as product_id', 'products.name', 'products.image', 'products.price', 'carts.quantity')
         ->get();
 
-    // Calculate the total
-    $cartTotal = 0;
-
-    foreach ($cart as $item) {
+     // Calculate the total (excluding shipping)
+        $cartTotal = 0;
+        foreach ($cart as $item) {
         $cartTotal += $item->quantity * $item->price;
-    }
+        }
 
-    return view('customer.cart', ['cart' => $cart, 'cartTotal' => $cartTotal]);
+        $shippingFee = 50; 
+
+    return view('customer.cart', ['cart' => $cart, 'cartTotal' => $cartTotal, 'shippingFee' => $shippingFee]);
+
+    // // Calculate the total
+    // $cartTotal = 0;
+
+    // foreach ($cart as $item) {
+    //     $cartTotal += $item->quantity * $item->price;
+    // }
+
+    // return view('customer.cart', ['cart' => $cart, 'cartTotal' => $cartTotal]);
 }
 
 
@@ -160,25 +171,123 @@ public function removeFromCart(Request $request, $product_id)
 {
     $customerId = auth()->id();
 
-    // Fetch cart items from the database based on the user's ID
-    $cart = DB::table('carts')
-        ->where('customer_id', $customerId)
-        ->where('product_id', $product_id)
-        ->delete();
+    $cart = Cart::where('customer_Id', $customerId)->get();
 
     return redirect()->route('customer.cart')->with('success', 'Product removed from cart successfully!');
 }
 
 
 
-public function checkout()
-{
-    return view('customer.checkout');
-}
 
+public function checkout()
+    {
+        $customerId = auth()->id();
+        $cartTotal = 0; // Initialize cartTotal
+        $subTotal = 0;  // Initialize subtotal
+    
+        // Fetch cart items with eager loading
+        $cart = Cart::where('customer_id', $customerId)
+            ->with('product') // Eager load the product relationship
+            ->get();
+    
+        // Calculate the subtotal (excluding shipping)
+        foreach ($cart as $item) {
+            // Access the product price from the relationship
+            $price = $item->product->price;
+            // Calculate subtotal for each item
+            $subTotal += $item->quantity * $price;
+        }
+    
+        // Calculate the total (including shipping)
+        $shippingFee = 50;
+        $totalAmount = $cartTotal + $shippingFee; // Assuming cartTotal includes additional costs
+    
+        return view('customer.checkout', [
+            'cart' => $cart,
+            'cartTotal' => $cartTotal, // Assuming cartTotal includes additional costs
+            'subTotal' => $subTotal,  // Pass the calculated subtotal
+            'shippingFee' => $shippingFee,
+            'totalAmount' => $totalAmount,
+        ]);
+    }
+    
+//      $customerId = auth()->id();
+// $cartTotal = 0;
+   
+//   // Fetch cart items with eager loading
+//   $cart = Cart::where('customer_id', $customerId)
+//   ->with('product') // Eager load the product relationship
+//   ->get();
+
+
+//       // Calculate the total (excluding shipping)
+//       foreach ($cart as $item) {
+//       $cartTotal += $item->quantity * $item->price;
+//       }
+
+//     // Total amount including shipping
+//     $shippingFee = 50;
+    
+//     $totalAmount = $cartTotal + $shippingFee;
+//     return view('customer.checkout', ['cart' => $cart, 'cartTotal' => $cartTotal, 'shippingFee' => $shippingFee, 'totalAmount' => $totalAmount]);
+//    // return view('customer.checkout', compact('cart'));
 
 public function orderinfo()
 {
     return view('customer.orderinfo');
 }
+
+    public function customerDetails()
+    {
+    
 }
+
+public function placeOrder(Request $request)
+    {
+        $user = auth()->user();
+
+        // Validation (optional)
+        $this->validate($request, [
+            'customerName' => 'required',
+            'phoneNumber' => 'required',
+            'shippingAddress' => 'required',
+            'product_id' => 'required|array', // Ensure product_id is an array
+            'quantity' => 'required|array|size:product_id', // Ensure quantity matches product_id count
+        ]);
+
+        // Create a new order
+        $order = new Order;
+        $order->user_id = $user->id;
+        $order->customer_name = $request->customerName;
+        $order->phone_number = $request->phoneNumber;
+        $order->shipping_address = $request->shippingAddress;
+        $order->status = 'pending'; // Or appropriate initial order status
+        $order->save();
+
+        // Process ordered products
+        $productIds = $request->input('product_id');
+        $quantities = $request->input('quantity');
+
+        // Attach products to the order using a single loop
+        for ($i = 0; $i < count($productIds); $i++) {
+            $productId = $productIds[$i];
+            $quantity = $quantities[$i];
+
+            // Check if product exists (optional)
+            $product = Product::find($productId);
+            if (!$product) {
+                // Handle case where product is not found (e.g., log error, continue with other products)
+                continue;
+            }
+
+            $order->products()->attach($productId, ['quantity' => $quantity]);
+        }
+
+        // Order placed successfully (optional)
+        return redirect()->route('customer.checkout')->with('success', 'Order placed successfully!');
+    }
+}
+
+
+
+
