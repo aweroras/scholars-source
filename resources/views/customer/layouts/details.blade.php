@@ -87,10 +87,16 @@
                                     </div>
                                 </li>
                                 <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                                <li><a href="{{ route('customer.cart') }}"><span class="flaticon-shopping-cart"></span></a> </li>
-                            </ul>
-                        </div>
+                                <li class="user-dropdown">
+                    <a id="user-icon" href="#">
+                        <span class="flaticon-shopping-cart"></span>
+                    </a>
+                <div class="user-dropdown-content" id="user-dropdown-content">
+                    <a href="{{ route('customer.cart') }}">My Cart</a>
+                    <a href="{{ route('customer.orderinfo') }}">Order History</a>
                     </div>
+                </div>
+            </div>
                     <!-- Mobile Menu -->
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
