@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 
 class AccountController extends Controller
 {
@@ -46,6 +48,7 @@ class AccountController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'roles' => 'customer',
+            'status' => 'Pending'
         ]);
         $user->save();
 
@@ -58,6 +61,10 @@ class AccountController extends Controller
             'image' => $imageName,
         ]);
         $customerInfo->save();
+
+        Mail::send('mess.verify', [], function ($message) use ($user) {
+            $message->to($user->email)->subject('Email Verification');
+        });
 
         return redirect()->route('login.form')->with('success', 'Registration successful!');
     }
@@ -74,8 +81,10 @@ class AccountController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'roles' => 'admin',
+            'status' => 'Verified',
         ]);
         $user->save();
+
         return redirect()->route('login.form')->with('success', 'Admin Register Successfully!');
     }
 
@@ -89,8 +98,11 @@ class AccountController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = auth()->user();
-
-            $roles = $user->roles;            
+            $roles = $user->roles;
+            $status = $user->status;
+        if($status === 'Verified')
+        {
+    
             if($roles === 'customer')
             {
                 return redirect()->route('customer.index')->with('success','Login Successfully');
@@ -103,6 +115,15 @@ class AccountController extends Controller
                 dd('ERROR');
             }
 
+        }
+        elseif($status === 'Pending')
+        {
+            return redirect()->route('login.form')->with('error','Please Verify your Account First');
+        }
+        else
+        {
+            return redirect()->route('login.form')->with('error','Your Account has been Ban');
+        }
         }
         else{
             return redirect()->route('login.form')->with('error','Incorrect Email or Password');
