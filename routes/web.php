@@ -55,7 +55,7 @@ Route::get('/changepass', [AccountController::class, 'showChangePasswordForm'])-
 Route::post('/changepass', [AccountController::class, 'changePassword'])->name('change.password');
 });
 
-Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
+Route::get('customer/search', [CustomerController::class, 'search'])->name('customer.search');
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
 
@@ -98,4 +98,5 @@ Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
