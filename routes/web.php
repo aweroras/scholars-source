@@ -12,6 +12,9 @@ use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Mail\Verification;
+use Illuminate\Support\Facades\Mail;
+
 
 // Public routes accessible by all users
 // Route::get('/', function () {
@@ -28,7 +31,7 @@ Route::post('/register/customer', [AccountController::class, 'register'])->name(
 Route::post('/register/admin', [AccountController::class, 'registerAdmin'])->name('register.admin');
 Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
 
-
+Route::get('/verify/{email}', [AccountController::class, 'verify'])->name('account.verify');
 
 
 // Customer dashboard routes 
@@ -99,4 +102,9 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
+
+
+
+
+
 
