@@ -22,6 +22,8 @@ class CustomerController extends Controller
 
     return view('customer.index', ['products' => $products]);
     }
+
+    
 public function search(Request $request)
 {
     $searchQuery = $request->input('search');

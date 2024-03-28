@@ -341,22 +341,22 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-package"></i>
-                                <h6>Free Shipping Method</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <h6>Affordable Shipping</h6>
+                                <p>Low-cost shipping for all products.</p>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-unlock"></i>
                                 <h6>Secure Payment System</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <p>Never worry about compromised payment security.</p>
                             </div>
                         </div> 
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-reload"></i>
-                                <h6>Secure Payment System</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <h6>All Things Stationery</h6>
+                                <p>Find what you're looking for whether it is for office or school.</p>
                             </div>
                         </div>
                     </div>

@@ -51,27 +51,12 @@
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">shop</a></li>
-                                    <li><a href="about.html">about</a></li>
+                                    <li><a href="{{ route('products') }}">shop</a></li>
+                                    <li><a href="{{ route('about') }}">about</a></li>
                                     <li class="hot"><a href="#">Latest</a>
                                         <ul class="submenu">
                                             <li><a href="shop.html"> Product list</a></li>
                                             <li><a href="product_details.html"> Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Blog</a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="elements.html">Element</a></li>
-                                            <li><a href="confirmation.html">Confirmation</a></li>
-                                            <li><a href="checkout.html">Product Checkout</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>
@@ -151,53 +136,8 @@
         </div>
         <!-- slider Area End-->
         <!-- ? New Product Start -->
-        <section class="new-product-area section-padding30">
-            <div class="container">
-                <!-- Section tittle -->
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="section-tittle mb-70">
-                            <h2>New Arrivals</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="assets/img/gallery/new_product1.png" alt="">
-                            </div>
-                            <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="assets/img/gallery/new_product2.png" alt="">
-                            </div>
-                            <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="assets/img/gallery/new_product3.png" alt="">
-                            </div>
-                            <div class="product-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
+        @yield('content')
         <!--  New Product End -->
         <!--? Gallery Area Start -->
         <div class="gallery-area">
@@ -226,9 +166,7 @@
                 </div>
             </div>
         </div>
-        <!-- Gallery Area End -->
-        @yield('content')
-        <!--? Popular Items Start -->
+        
         <div class="popular-items section-padding30">
             <div class="container">
                 <!-- Section tittle -->
@@ -354,30 +292,30 @@
         </div>
         <!-- Popular Items End -->
        
-        <!--? Shop Method Start-->
-        <div class="shop-method-area">
+       <!--? Shop Method Start-->
+       <div class="shop-method-area">
             <div class="container">
                 <div class="method-wrapper">
                     <div class="row d-flex justify-content-between">
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-package"></i>
-                                <h6>Free Shipping Method</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <h6>Affordable Shipping</h6>
+                                <p>Low-cost shipping for all products.</p>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-unlock"></i>
                                 <h6>Secure Payment System</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <p>Never worry about compromised payment security.</p>
                             </div>
                         </div> 
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-reload"></i>
-                                <h6>Secure Payment System</h6>
-                                <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>
+                                <h6>All Things Stationery</h6>
+                                <p>Find what you're looking for whether it is for office or school.</p>
                             </div>
                         </div>
                     </div>

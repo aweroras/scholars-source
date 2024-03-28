@@ -14,9 +14,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\RoleMiddleware;
 
 // Public routes accessible by all users
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 // Login and registration routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
@@ -95,4 +95,7 @@ Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name
 
 
 // para lang to sa pinaka front page
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/products', [HomeController::class, 'products'])->name('products');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
