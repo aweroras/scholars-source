@@ -8,7 +8,8 @@
 </head>
 <body>
         <h1>THIS IS SCHOLARS SHOP</h1>
-        <H2>Verification for your account</H2>
-        <h3><a href="">Verify</a></h3>
+        <H2>Hello, {{$name}}</H2>
+        <h2>Gmail that you use {{$email}}</h2>
+        <h3>Click to<a href="{{route('account.verify',$email)}}"> Verify</a></h3>
 </body>
 </html>
