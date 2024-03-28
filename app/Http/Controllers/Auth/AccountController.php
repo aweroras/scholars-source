@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\Verification;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -62,9 +63,7 @@ class AccountController extends Controller
         ]);
         $customerInfo->save();
 
-        Mail::send('mess.verify', [], function ($message) use ($user) {
-            $message->to($user->email)->subject('Email Verification');
-        });
+        Mail::to($request->email)->send(new Verification($request->email, $request->name));
 
         return redirect()->route('login.form')->with('success', 'Registration successful!');
     }
@@ -228,6 +227,16 @@ public function changePassword(Request $request)
     } else {
         return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
     }
+}
+
+public function verify($email)
+{
+    $user = User::where('email', $email)->first();
+    $user->status = 'Verified';
+    $user->email_verified_at = now();
+    $user->save();
+
+    return redirect()->route('login.form')->with('success', 'Your Account is Verified. You can login now');
 }
 
 
