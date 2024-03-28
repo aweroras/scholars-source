@@ -32,13 +32,13 @@
                      <td>
                         <select name="category" id="category" class="form-control">
                         <option value="">Select a Category</option>
-                        <option value="writing implements">Writing Implements</option>
-                        <option value="paper products">Paper Products</option>
-                        <option value="binders and folders">Binders and Folders</option>
-                        <option value="note-taking and organization tools">Note-taking and Organization Tools</option>
-                        <option value="adhesives and fasteners">Adhesives and Fasteners</option>
-                        <option value="art supplies">Art Supplies</option>
-                        <option value="stationery">Stationery</option>
+                        <option value="Writing Implements">Writing Implements</option>
+                        <option value="Paper Products">Paper Products</option>
+                        <option value="Binders and Folders">Binders and Folders</option>
+                        <option value="Note-taking and Organization Tools">Note-taking and Organization Tools</option>
+                        <option value="Adhesives and Fasteners">Adhesives and Fasteners</option>
+                        <option value="Art Aupplies">Art Supplies</option>
+                        <option value="Stationery">Stationery</option>
                         </select>
                     </td>
                     </tr>
