@@ -10,7 +10,7 @@
         <thead class="table-primary">
             <tr>
                 <th>Name</th>
-                <th>Gmail</th>
+                <th>Email</th>
                 <th>Address</th>
                 <th>Phone Number</th>
                 <th>Status</th>
