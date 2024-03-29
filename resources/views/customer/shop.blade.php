@@ -14,7 +14,7 @@
                             @if(isset($query))
                                 Search Results for: "{{ $query }}"
                             @else
-                                Products
+                                Newest Products
                             @endif
                         </h2>
                     </div>
@@ -23,15 +23,14 @@
             <div class="row product-btn justify-content-between mb-40">
                 <!-- Add your dynamic content for products here -->
                 @foreach($searchResults as $products)
+                    @php
+                        // Explode the 'image' string into an array
+                        $images = explode(',', $products->image);
+                    @endphp
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <!-- Add product details dynamically using the data from your database -->
-                        <div class="single-popular-items mb-50 text-center position-relative">
-                            <!-- Single Product Image -->
-                            @php
-                                // Explode the 'image' string into an array
-                                $images = explode(',', $products->image);
-                            @endphp
-                            
+                        <div class="single-popular-items mb-50" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
+                            <!-- Product Image -->
                             <div class="single-product-img position-relative">
                                 <a href="{{ route('customer.details', ['id' => $products->id]) }}">
                                     <img class="gallery-img big-img" src="{{ asset($images[0]) }}" alt="{{ $products->name }}" style="height: 300px; object-fit: cover;">
@@ -39,15 +38,18 @@
                                     <div class="product-hover"></div>
                                 </a>
                             </div>
-
-                            <!-- Other product details -->
-                            <div class="favorit-items"></div>
-                            <div class="product-caption">
-                                <h3 style="font-size: 20px;">{{ $products->name }}</h3>
-                                <span>₱{{ $products->price }}</span>
-                                <!-- Add to Cart button under the price -->
+                            <!-- Product Details -->
+                            <div class="product-caption mt-3">
+                                <h3 style="font-size: 20px; color: #333;">{{ $products->name }}</h3>
+                                <p>₱ {{ $products->price }}</p>
+                                <!-- Add to Cart button below the price -->
+                                <form method="POST" action="{{ route('customer.addToCart', ['id' => $products->id]) }}">
+                                    @csrf <!-- Add CSRF token field for security -->
+                                    <button type="submit" class="btn btn-sm hero-btn d-inline-flex align-items-center justify-content-center" style="font-size: 13px; padding: 5px 15px; background-color: #333; border-radius: 5px; border: none;">
+                                        <i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                    </button>
+                                </form>
                             </div>
-                            <a href="{{ route('customer.addToCart', ['id' => $products->id]) }}" class="btn btn-sm hero-btn" style="font-size: 13px; padding: 15px 20px;">Add to Cart</a>
                         </div>
                     </div>
                 @endforeach
@@ -57,6 +59,14 @@
     </section>
     <!-- Latest Products End -->
 
+   <!-- Pagination Links -->
+   <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                {{ $searchResults->links() }}
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Add the following JavaScript code -->
     <script>
         document.getElementById('priceFilter').addEventListener('change', function () {
@@ -89,14 +99,17 @@
             opacity: 1;
         }
 
-        .add-to-cart-btn {
-            display: block; /* Ensure the button is on a new line */
-            margin-top: 10px; /* Add some space between price and button */
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #333;
-            border-radius: 5px;
+        .pagination {
+            justify-content: center;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: red;
+            border-color: red;
+        }
+
+        .pagination .page-link {
+            color: red;
         }
     </style>
     <!-- Other sections go here -->

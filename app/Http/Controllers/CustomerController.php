@@ -51,26 +51,28 @@ class CustomerController extends Controller
     {
         // Retrieve the search query from the request
         $searchQuery = $request->input('search');
-
+    
+        // Query builder for products
+        $queryBuilder = Product::whereNotNull('stock')->where('stock', '>', 0);
+    
         // Check if a search query is provided
         if ($searchQuery) {
-            // Filter out products with non-zero or non-null stock
-            $products = Product::whereNotNull('stock')->where('stock', '>', 0)
-                ->where('name', 'like', '%' . $searchQuery . '%')
-                ->orWhere('price', 'like', '%' . $searchQuery . '%')
-                ->orWhere('category', 'like', '%' . $searchQuery . '%')
-                ->latest('created_at')
-                ->get();
-        } else {
-            // If no search query, retrieve the latest 5 products with non-zero or non-null stock
-            $products = Product::whereNotNull('stock')->where('stock', '>', 0)
-                ->latest('created_at')->take(5)->get();
+            // Filter products based on search query
+            $queryBuilder->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                      ->orWhere('price', 'like', '%' . $searchQuery . '%')
+                      ->orWhere('category', 'like', '%' . $searchQuery . '%');
+            });
         }
-
+    
+        // Paginate the results with 5 products per page
+        $products = $queryBuilder->latest('created_at')->paginate(6);
+    
         // Pass the products and search query to the view
         return view('customer.shop', ['products' => $products, 'searchResults' => $products, 'query' => $searchQuery]);
     }
-
+    
+ 
 
 
 public function details($id)

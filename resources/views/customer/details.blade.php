@@ -80,7 +80,7 @@
     }
 
     #productCarousel .carousel-item img {
-        max-width: 100%;
+        max-width: 100%; /* Set maximum width to 100% */
         height: auto;
     }
 
