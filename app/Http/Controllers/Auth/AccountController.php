@@ -117,10 +117,14 @@ class AccountController extends Controller
         }
         elseif($status === 'Pending')
         {
+            Auth::logout(); // Logout the user
+            $request->session()->invalidate(); // Invalidate the session
             return redirect()->route('login.form')->with('error','Please Verify your Account First');
         }
         else
         {
+            Auth::logout(); // Logout the user
+            $request->session()->invalidate(); // Invalidate the session
             return redirect()->route('login.form')->with('error','Your Account has been Banned');
         }
         }
@@ -144,9 +148,7 @@ class AccountController extends Controller
     public function logout(Request $request)
     {
         Auth::logout(); // Logout the user
-
         $request->session()->invalidate(); // Invalidate the session
-
         $request->session()->regenerateToken(); // Regenerate CSRF token
 
         return redirect()->route('login.form')->with('success', 'You have been logged out.');
