@@ -20,7 +20,9 @@
             @foreach ($suppliers as $supplier)
             <tr>
                 <td class="align-middle">
-                    <img src="{{ asset('supplier_images/' . $supplier->image) }}" alt="wala" style="width: 100; height: 100px;">
+                    @foreach(explode(',', $supplier->image) as $imagePath)
+                    <img src="{{ asset(trim($imagePath)) }}" alt="{{ $supplier->name }}" width="150" height="150">
+                @endforeach
                 </td>                
                 <td class="align-middle">{{$supplier->supplier_name}}</td>
                 <td class="align-middle"><a href="{{route('supplier.update', $supplier->id)}}">Update</a></td>
