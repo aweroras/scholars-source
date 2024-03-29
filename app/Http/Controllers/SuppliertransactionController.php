@@ -6,25 +6,29 @@ use App\Models\Product;
 use App\Models\Supplier_Transaction;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Pagination\Paginator;
 class SuppliertransactionController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = $request->input('query');
+{
+    $query = $request->input('query');
 
-        $suppliers = Supplier_Transaction::join('products as p', 'supplier_transaction.product_id', '=', 'p.id')
-            ->join('suppliers as s', 'supplier_transaction.supplier_id', '=', 's.id')
-            ->select('supplier_transaction.*', 's.supplier_name', 'p.name')
-            ->whereNull('supplier_transaction.deleted_at') // Exclude soft-deleted records
-            ->where(function ($q) use ($query) {
-                $q->where('s.supplier_name', 'like', "%$query%")
-                    ->orWhere('p.name', 'like', "%$query%")
-                    ->orWhere('supplier_transaction.quantity', 'like', "%$query%");
-            })
-            ->get();
+    $suppliers = Supplier_Transaction::join('products as p', 'supplier_transaction.product_id', '=', 'p.id')
+        ->join('suppliers as s', 'supplier_transaction.supplier_id', '=', 's.id')
+        ->select('supplier_transaction.*', 's.supplier_name', 'p.name')
+        ->whereNull('supplier_transaction.deleted_at') // Exclude soft-deleted records
+        ->where(function ($q) use ($query) {
+            $q->where('s.supplier_name', 'like', "%$query%")
+                ->orWhere('p.name', 'like', "%$query%")
+                ->orWhere('supplier_transaction.quantity', 'like', "%$query%");
+        })
+        ->paginate(5); // Paginate with 10 records per page
 
-        return view('admin.supplier_transaction.index', compact('suppliers'));
-    }
+    // Fix pagination links when using custom pagination
+    $suppliers->withQueryString()->links();
+
+    return view('admin.supplier_transaction.index', compact('suppliers'));
+}
 
     public function create($id)
     {
@@ -65,7 +69,7 @@ class SuppliertransactionController extends Controller
         $product->stock += $request->quantity;
         $product->save();
 
-        return redirect()->route('supplier_transaction.index')->with('success','Transaction to the Supplier is Success');
+        return redirect()->route('supplier_transaction.index')->with('success','Transaction successful.');
 
     }
 
@@ -142,13 +146,13 @@ class SuppliertransactionController extends Controller
        }
 
 
-        return redirect()->route('supplier_transaction.index')->with('success','Change Successfully');
+        return redirect()->route('supplier_transaction.index')->with('success','Updated successfully.');
 
     }
 
     public function delete($id) {
         Supplier_Transaction::destroy($id);
-        return redirect()->route('supplier_transaction.index')->with('success', 'Delete Transaction Successfully');
+        return redirect()->route('supplier_transaction.index')->with('success', 'Deleted successfully.');
     }
 
 }

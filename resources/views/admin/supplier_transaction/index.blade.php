@@ -1,7 +1,7 @@
 @extends('admin.layouts.transac')
 
 @section('content')
-@include('messages')
+    @include('messages')
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="mb-0">Supplier Transaction</h1>
     </div>
@@ -35,5 +35,9 @@
             @endforeach
         </tbody>
     </table>
+    
+    <!-- Pagination Links -->
+    <div class="d-flex justify-content-center">
+        {{ $suppliers->links() }}
+    </div>
 @endsection
-

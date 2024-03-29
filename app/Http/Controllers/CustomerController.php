@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
+use Illuminate\Pagination\Paginator;
 
 class CustomerController extends Controller
 {
@@ -310,7 +311,7 @@ public function placeOrder(Request $request)
                     ->orWhere('customers.Address', 'like', "%$query%")
                     ->orWhere('customers.PhoneNumber', 'like', "%$query%")
                     ->orWhere('users.status', 'like', "%$query%")
-                    ->get();
+                    ->paginate(10);
 
     return view('admin.users.index', compact('users'));
 }
@@ -320,7 +321,7 @@ public function placeOrder(Request $request)
         $user = User::find($id);
         $user->status = 'Deactivated';
         $user->save();
-        return redirect()->route('users.index')->with('success', 'Deactivated Successfully');
+        return redirect()->route('users.index')->with('success', 'Account deactivated Successfully.');
     }
 }
 

@@ -9,7 +9,7 @@
     <table class="table table-hover">
         <thead class="table-primary">
             <tr>
-                <th>LOGO</th>
+                <th>Images</th>
                 <th>Supplier Name</th>
                 <th>Update</th>
                 <th>Delete</th>
