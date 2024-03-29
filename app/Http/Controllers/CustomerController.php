@@ -304,6 +304,14 @@ public function placeOrder(Request $request)
 
         return view('admin.users.index',compact('users'));
     }
+
+    public function deactivate($id)
+    {
+        $user = User::find($id);
+        $user->status = 'Deactivated';
+        $user->save();
+        return redirect()->route('users.index')->with('success', 'Deactivated Successfully');
+    }
 }
 
 
