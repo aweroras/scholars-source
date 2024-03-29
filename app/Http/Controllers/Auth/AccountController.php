@@ -121,7 +121,7 @@ class AccountController extends Controller
         }
         else
         {
-            return redirect()->route('login.form')->with('error','Your Account has been Ban');
+            return redirect()->route('login.form')->with('error','Your Account has been Banned');
         }
         }
         else{
