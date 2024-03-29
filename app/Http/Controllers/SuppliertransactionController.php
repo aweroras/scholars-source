@@ -39,13 +39,25 @@ class SuppliertransactionController extends Controller
         $request->validate([
             'product' => 'required|string|max:255',
             'quantity' => 'required|numeric',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+            // Handle file upload for multiple images
+            $imagePaths = [];
+            if ($request->hasFile('image')) {
+                    foreach ($request->file('image') as $image) {
+                        $imageName = time() . '_' . $image->getClientOriginalName();
+                        $image->move(public_path('product_img'), $imageName);
+                        $imagePaths[] = 'product_img/' . $imageName;
+                    }
+            }
 
         $store = new Supplier_Transaction(
             [
                 'supplier_id' => $request->supplier_id,
                 'product_id' => $request->product,
                 'quantity' => $request->quantity,
+                'image' => implode(',', $imagePaths), // Implode array into a comma-separated string
             ]
         );
         $store->save();
@@ -78,18 +90,39 @@ class SuppliertransactionController extends Controller
 
     public function update(request $request, $id)
     {
-        $request->validate([
+        $data = $request->validate([
             'supplier' => 'required|string|max:255',
             'product' => 'required|string|max:255',
             'quantity' => 'required|numeric',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            
         ]);
-        $SupplierTransaction = Supplier_Transaction::find($id);
+
+        $imagePaths = [];
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('product_img'), $imageName);
+                $imagePaths[] = 'product_img/' . $imageName;
+            }
+    
+            $SupplierTransaction = Supplier_Transaction::find($id);
+            $previousQuantity = $SupplierTransaction->quantity;
+            $currentQuantity = $request->quantity;
+            $SupplierTransaction->supplier_id = $request->supplier;
+            $SupplierTransaction->product_id = $request->product;
+            $SupplierTransaction->quantity = $request->quantity;
+            $SupplierTransaction->image = implode(',', $imagePaths);
+            $SupplierTransaction->save();
+        }
+
+        /*$SupplierTransaction = Supplier_Transaction::find($id);
         $previousQuantity = $SupplierTransaction->quantity;
         $currentQuantity = $request->quantity;
         $SupplierTransaction->supplier_id = $request->supplier;
         $SupplierTransaction->product_id = $request->product;
         $SupplierTransaction->quantity = $request->quantity;
-        $SupplierTransaction->save();
+        $SupplierTransaction->save();*/
 
         $product = product::find($request->product);
        if($previousQuantity >= $currentQuantity)
