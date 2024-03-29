@@ -21,11 +21,13 @@
                     </tr>
                     <tr>
                         <td><label for="image">Images</label></td>
-                        <td><input type="file" class="form-control-file" id="image" name="image" accept="image/*" required></td><br>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
                     </tr>
                     <tr>
                         <td>
-                            <img src="{{ asset('supplier_images/' . $supplier->image) }}" alt="wala" style="width: 100; height: 100px;">
+                            @foreach(explode(',', $supplier->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $supplier->name }}" width="150" height="150">
+                            @endforeach
                         </td>
                     </tr>
                 </tbody>
