@@ -14,6 +14,7 @@ class Supplier_Transaction extends Model
     protected $fillable = [
         'supplier_id',
         'product_id',
-        'quantity'
+        'quantity',
+        'image'
     ];
 }
