@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
 
@@ -191,7 +193,8 @@ public function checkout()
         $customerId = auth()->id();
         $cartTotal = 0; // Initialize cartTotal
         $subTotal = 0;  // Initialize subtotal
-    
+
+        $customerInfo = Customer::where('user_id',$customerId)->first();
         // Fetch cart items with eager loading
         $cart = Cart::where('customer_id', $customerId)
             ->with('product') // Eager load the product relationship
@@ -215,7 +218,7 @@ public function checkout()
             'subTotal' => $subTotal,  // Pass the calculated subtotal
             'shippingFee' => $shippingFee,
             'totalAmount' => $totalAmount,
-        ]);
+        ],compact('customerInfo'));
     }
     
 //      $customerId = auth()->id();
