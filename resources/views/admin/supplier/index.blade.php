@@ -26,7 +26,9 @@
                 </td>                
                 <td class="align-middle">{{$supplier->supplier_name}}</td>
                 <td class="align-middle"><a href="{{route('supplier.update', $supplier->id)}}">Update</a></td>
-                <td class="align-middle"><a href="{{route('supplier.delete', $supplier->id)}}">Delete</a></td>
+                <td class="align-middle">
+                    <a href="{{ route('supplier.delete', $supplier->id) }}" onclick="return confirm('Are you sure you want to delete this supplier?')">Delete</a>
+                </td>
                 <td class="align-middle"><a href="{{route('supplier_transaction.create', $supplier->id)}}">Transaction</a></td>
             </tr>
             @endforeach

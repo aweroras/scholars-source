@@ -28,7 +28,9 @@
                     <td class="align-middle">{{$supplier->name}}</td>
                     <td class="align-middle">{{$supplier->quantity}}</td>
                     <td class="align-middle"><a href="{{route('supplier_transaction.edit', $supplier->id)}}">Update</a></td>
-                    <td class="align-middle"><a href="">Delete</a></td>
+                    <td class="align-middle">
+                        <a href="{{ route('supplier_transaction.delete', $supplier->id) }}" onclick="return confirm('Are you sure you want to delete this transaction?')">Delete</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
