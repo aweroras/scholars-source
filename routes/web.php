@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Mail\Verification;
 use Illuminate\Support\Facades\Mail;
@@ -92,6 +93,7 @@ Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::cl
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
 
+Route::get('/admin/dashboard/userchart', [DashboardController::class, 'userchart'])->name('admin.dashboard.userchart');
 })->middleware(RoleMiddleware::class);
 
 //Reviews
