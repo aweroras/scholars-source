@@ -8,6 +8,7 @@
     <table class="table table-hover">
         <thead class="table-primary">
             <tr>
+                <th>Images</th>
                 <th>Supplier Name</th>
                 <th>Product</th>
                 <th>Quantity</th>
@@ -18,6 +19,11 @@
         <tbody>
             @foreach ($suppliers as $supplier)
                 <tr>
+                    <td>
+                        @foreach(explode(',', $supplier->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $supplier->name }}" width="150" height="150">
+                        @endforeach
+                    </td>
                     <td class="align-middle">{{$supplier->supplier_name}}</td>
                     <td class="align-middle">{{$supplier->name}}</td>
                     <td class="align-middle">{{$supplier->quantity}}</td>
