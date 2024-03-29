@@ -24,14 +24,22 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-        $imageName = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('supplier_images'), $imageName);
+        
+         // Handle file upload for multiple images
+         $imagePaths = [];
+         if ($request->hasFile('image')) {
+                 foreach ($request->file('image') as $image) {
+                     $imageName = time() . '_' . $image->getClientOriginalName();
+                     $image->move(public_path('product_img'), $imageName);
+                     $imagePaths[] = 'product_img/' . $imageName;
+                 }
+         }
 
         $supplier = new Supplier([
             'supplier_name' => $request->name,
-            'image' => $imageName,
+            'image' => implode(',', $imagePaths),
         ]);
         $supplier->save();
 
@@ -50,14 +58,21 @@ class SupplierController extends Controller
     $supplier = Supplier::find($id);
     $request->validate([
         'name' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    $imageName = time().'.'.$request->image->extension();  
-    $request->image->move(public_path('supplier_images'), $imageName);
-    $supplier->image = $imageName; 
-    $supplier->supplier_name = $request->name;
-    $supplier->save();
+    $imagePaths = [];
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('product_img'), $imageName);
+                $imagePaths[] = 'product_img/' . $imageName;
+            }
+            $supplier->image = implode(',', $imagePaths); 
+            $supplier->supplier_name = $request->name;
+            $supplier->save();
+        }
+
 
     return redirect()->route('supplier.index')->with('success', 'Edit Supplier Successfully');
     }
