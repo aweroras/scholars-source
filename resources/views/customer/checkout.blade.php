@@ -12,15 +12,15 @@
                 @endif
                 <div class="mb-3">
                         <label for="customerName" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customerName" name="customerName"  readonly>
+                        <input type="text" class="form-control" id="customerName" name="customerName" value="{{$customerInfo->name}}"  readonly>
                     </div>
                     <div class="mb-3">
                         <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"  readonly>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"  value="{{$customerInfo->PhoneNumber}}" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="shippingAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="shippingAddress" name="shippingAddress"  readonly>
+                        <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="{{$customerInfo->Address}}" readonly>
                     </div>
         
                     <button type="submit" class="btn_1 checkout_btn_1">Place Order</button>

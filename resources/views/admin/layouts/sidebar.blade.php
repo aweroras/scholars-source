@@ -31,7 +31,7 @@
   
 
   <li class="nav-item">
-    <a class="nav-link" href="user">
+    <a class="nav-link" href="{{route('users.index')}}">
       <i class="fa-solid fa-user"></i>
       <span>User Account</span></a>
   </li>
