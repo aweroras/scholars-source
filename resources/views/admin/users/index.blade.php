@@ -24,7 +24,7 @@
                     <td class="align-middle">{{$user->Address}}</td>
                     <td class="align-middle">{{$user->PhoneNumber}}</td>
                     <td class="align-middle">{{$user->user->status}}</td>
-                    <td class="align-middle"><a href="">Deactivate</a></td>
+                    <td class="align-middle"><a href="{{route('users.deactivate', $user->user_id)}}">Deactivate</a></td>
                 </tr>
             @endforeach
         </tbody>
