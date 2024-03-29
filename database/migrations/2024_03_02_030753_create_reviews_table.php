@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('rate');
             $table->string('comment');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->timestamps();
             //fk
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('Cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('Cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('Cascade');
         });
     }
