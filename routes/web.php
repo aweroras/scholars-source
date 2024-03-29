@@ -87,6 +87,11 @@ Route::get('admin/supplytransac/create/{id}', [SuppliertransactionController::cl
 Route::post('admin/supplytransac/store', [SuppliertransactionController::class, 'store'])->name('supplier_transaction.store');
 Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::class, 'edit'])->name('supplier_transaction.edit');
 Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
+
+//users
+Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
+
+
 })->middleware(RoleMiddleware::class);
 
 //Reviews
