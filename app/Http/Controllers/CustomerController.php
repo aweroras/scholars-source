@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query;
 
 class CustomerController extends Controller
 {
@@ -176,8 +177,8 @@ public function updateQuantity(Request $request, $customer_id, $product_id)
 public function removeFromCart(Request $request, $product_id)
 {
     $customerId = auth()->id();
+    $cart = Cart::where('product_id', $product_id)->delete();
 
-    $cart = Cart::where('customer_Id', $customerId)->get();
 
     return redirect()->route('customer.cart')->with('success', 'Product removed from cart successfully!');
 }
