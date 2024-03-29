@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center">
     
     <div class="logo">
        <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt=""></div>
@@ -12,7 +12,7 @@
   
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
-  <a class="nav-link" href="">
+  <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
     <i class="fa-solid fa-chart-line"></i>
       <span>Dashboard</span></a>
   </li>

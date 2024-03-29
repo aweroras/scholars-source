@@ -95,7 +95,7 @@ Route::get('/admin/supplytransac/delete/{id}', [SuppliertransactionController::c
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
 
-Route::get('/admin/dashboard/userchart', [DashboardController::class, 'userchart'])->name('admin.dashboard.userchart');
+Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->name('admin.dashboard.index');
 })->middleware(RoleMiddleware::class);
 
 //Reviews
