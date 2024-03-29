@@ -296,6 +296,14 @@ public function placeOrder(Request $request)
         // Order placed successfully (optional)
         return redirect()->route('customer.checkout')->with('success', 'Order placed successfully!');
     }
+
+    public function users()
+    {
+        $users = Customer::all();
+
+
+        return view('admin.users.index',compact('users'));
+    }
 }
 
 
