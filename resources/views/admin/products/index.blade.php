@@ -11,7 +11,7 @@
             {{ Session::get('success') }}
         </div>
     @endif
-    <table class="table table-hover">
+    <table id="productTable" class="table table-hover">
         <thead class="table-primary">
             <tr>
                 <th>ID</th>
@@ -25,26 +25,26 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($product as $products)
+        @foreach($products as $product) <!-- Fix variable name here -->
             <tr>
-                <td class="align-middle">{{$products->id}}</td>
+                <td class="align-middle">{{$product->id}}</td>
                 <td class="align-middle">
-                    @if($products->image)
-                        @foreach(explode(',', $products->image) as $imagePath)
-                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $products->name }}" width="150" height="150">
+                    @if($product->image)
+                        @foreach(explode(',', $product->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $product->name }}" width="150" height="150">
                         @endforeach
                     @endif
                 </td>
-                <td class="align-middle">{{$products->name}}</td>
-                <td class="align-middle">{{$products->description}}</td>
-                <td class="align-middle">₱ {{$products->price}}</td>
-                <td class="align-middle">{{$products->category}}</td>
-                <td class="align-middle">{{$products->stock}}</td>
+                <td class="align-middle">{{$product->name}}</td>
+                <td class="align-middle">{{$product->description}}</td>
+                <td class="align-middle">₱ {{$product->price}}</td>
+                <td class="align-middle">{{$product->category}}</td>
+                <td class="align-middle">{{$product->stock}}</td>
                 <td class="align-middle">
-                    <a href="{{ route('admin.products.edit', $products) }}" class="btn btn-warning">
+                    <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="{{ route('admin.products.delete', $products->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">
+                    <a href="{{ route('admin.products.delete', $product->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
@@ -52,5 +52,11 @@
         @endforeach 
         </tbody>
     </table>
-    {{ $product->links() }}
+    {{ $products->links() }} <!-- Fix variable name here -->
+
+    <script>
+        $(document).ready( function () {
+            $('#productTable').DataTable();
+        } );
+    </script>
 @endsection

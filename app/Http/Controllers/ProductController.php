@@ -8,10 +8,23 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::paginate(5);
-        return view('admin.products.index', compact('product'));
+        // Check if there's a search query in the request
+        $searchQuery = $request->input('query');
+
+        // If there's a search query, filter the products accordingly
+        if ($searchQuery) {
+            $products = Product::where('name', 'like', "%$searchQuery%")
+                ->orWhere('category', 'like', "%$searchQuery%")
+                ->orWhere('price', 'like', "%$searchQuery%")
+                ->paginate(5);
+        } else {
+            // If there's no search query, retrieve all products paginated
+            $products = Product::paginate(5);
+        }
+
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
