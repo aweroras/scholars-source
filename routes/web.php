@@ -90,7 +90,7 @@ Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::cl
 
 //users
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
-
+Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
 
 })->middleware(RoleMiddleware::class);
 
