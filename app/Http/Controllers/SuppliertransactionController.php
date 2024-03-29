@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 use DB;
 class SuppliertransactionController extends Controller
 {
-    public function index()
-    {
-        $suppliers = DB::table('supplier_transaction as st')
-        ->join('products as p','st.product_id', '=', 'p.id')
-        ->join('suppliers as s','st.supplier_id', '=', 's.id')
-        ->select('st.*','s.supplier_name','p.name')
+    public function index(Request $request)
+{
+    $query = $request->input('query');
+
+    $suppliers = DB::table('supplier_transaction as st')
+        ->join('products as p', 'st.product_id', '=', 'p.id')
+        ->join('suppliers as s', 'st.supplier_id', '=', 's.id')
+        ->select('st.*', 's.supplier_name', 'p.name')
+        ->where(function ($q) use ($query) {
+            $q->where('s.supplier_name', 'like', "%$query%")
+                ->orWhere('p.name', 'like', "%$query%")
+                ->orWhere('st.quantity', 'like', "%$query%");
+        })
         ->get();
-        
-        return view('admin.supplier_transaction.index',compact('suppliers'));
-    }
+
+    return view('admin.supplier_transaction.index', compact('suppliers'));
+}
 
 
     public function create($id)

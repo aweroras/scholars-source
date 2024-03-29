@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.transac')
 
 @section('content')
 @include('messages')
