@@ -41,6 +41,19 @@
                         <td><label for="name">Quantity</label></td>
                         <td><input type="text" name="quantity" class="form-control" value="{{$supplierTransaction->quantity}}"></td>
                     </tr>
+                    <tr>
+                        <td><label for="image">Images</label></td>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td>
+                            @foreach(explode(',', $supplierTransaction->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $supplierTransaction->name }}" width="150" height="150">
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <button type="submit" class="btn btn-success">Submit</button>
