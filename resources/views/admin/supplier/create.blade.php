@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td><label for="image">Images</label></td>
-                        <td><input type="file" class="form-control-file" id="image" name="image" accept="image/*" required></td>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
                     </tr>
                 </tbody>
             </table>
