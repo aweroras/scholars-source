@@ -35,6 +35,10 @@
                         <td><label for="name">Quantity</label></td>
                         <td><input type="text" name="quantity" class="form-control"></td>
                     </tr>
+                    <tr>
+                        <td><label for="image">Images</label></td>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
+                    </tr>
                 </tbody>
             </table>
             <button type="submit" class="btn btn-success">Submit</button>
