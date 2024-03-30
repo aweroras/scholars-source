@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 use App\Models\User;
+use App\Mail\Verification;
+use Illuminate\Support\Facades\Mail;
+
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -27,9 +30,8 @@ class UserFactory extends Factory
         return [
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'roles' => 'User', // Assuming default role is 'User'
-            'status' => 'Pending', // Assuming default status is 'active'
-            'email_verified_at' => now(),
+            'roles' => 'customer',
+            'status' => 'Pending',
             'created_at' => now(),
         ];
     }
@@ -42,13 +44,17 @@ class UserFactory extends Factory
     public function withCustomer()
     {
         return $this->afterCreating(function (User $user) {
+            $name = $this->faker->name(); // Generate a name using Faker
             $user->customer()->create([
-                'name' => $this->faker->name(),
+                'name' => $name,
                 'Address' => $this->faker->address(),
                 'PhoneNumber' => $this->faker->regexify('[0-9]{11}'),
-                'image' => 'default.jpg', // Default image or generate random image path
+                'image' => 'default.jpg',
                 'created_at' => now(),
             ]);
+            
+            // Send verification email with the generated name
+            Mail::to($user->email)->send(new Verification($user->email, $name));
         });
     }
 }

@@ -61,11 +61,12 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ asset('template/assets/img/logo/logo.png') }}" alt="Scholars Shop Logo">
+            <img src="http://127.0.0.1:8000/template/assets/img/logo/logo.png" alt="Scholars Shop Logo">
         </div>
         <h2>Email Confirmation</h2>
-        <p>Hey, {{$name}}! Your account is almost ready for usage. Simply click the button below to verify your email address.</p>
-        <a href="{{route('account.verify',$email)}}" class="btn">Verify Email</a>
+        <p>Hey, {{ $name }}! Your account is almost ready for usage. Simply click the button below to verify your email address.</p>
+        <a href="http://127.0.0.1:8000/account/verify/{{ $email }}" class="btn">Verify Email</a>
+
     </div>
 </body>
 </html>

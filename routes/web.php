@@ -32,7 +32,7 @@ Route::post('/register/customer', [AccountController::class, 'register'])->name(
 Route::post('/register/admin', [AccountController::class, 'registerAdmin'])->name('register.admin');
 Route::get('/login', [AccountController::class, 'loginform'])->name('login.form');
 
-Route::get('/verify/{email}', [AccountController::class, 'verify'])->name('account.verify');
+Route::get('/account/verify/{email}', [AccountController::class, 'verify'])->name('account.verify');
 
 
 // Customer dashboard routes 

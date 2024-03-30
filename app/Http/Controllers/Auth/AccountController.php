@@ -234,12 +234,20 @@ public function changePassword(Request $request)
 public function verify($email)
 {
     $user = User::where('email', $email)->first();
-    $user->status = 'Verified';
-    $user->email_verified_at = now();
-    $user->save();
 
-    return redirect()->route('login.form')->with('success', 'Your Account is Verified. You can login now');
+    // If the user doesn't exist, handle the error
+    if (!$user) {
+        return redirect()->route('login.form')->with('error', 'Invalid verification link.');
+    }
+
+    // Update user status and email_verified_at
+    $user->update([
+        'status' => 'Verified',
+        'email_verified_at' => now(),
+    ]);
+
+    // Redirect the user to the login form with a success message
+    return redirect()->route('login.form')->with('success', 'Your account is now verified! You can login now.');
 }
-
 
 }
