@@ -1,4 +1,4 @@
-@extends('admin.layouts.users')
+@extends('admin.layouts.app')
 
 @section('content')
     @include('messages')
@@ -6,7 +6,7 @@
         <h1 class="mb-0">Customer Dashboard</h1>
     </div>
    
-    <table class="table table-hover">
+    <table id="user-table" class="table table-hover">
         <thead class="table-primary">
             <tr>
                 <th>Name</th>
@@ -31,8 +31,9 @@
         </tbody>
     </table>
 
-    <!-- Pagination Links -->
-    <div class="d-flex justify-content-center">
-        {{ $users->links() }}
-    </div>
+    <script>
+        $(document).ready(function() {
+            $('#user-table').DataTable();
+        });
+    </script>
 @endsection

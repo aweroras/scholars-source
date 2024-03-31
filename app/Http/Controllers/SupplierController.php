@@ -55,27 +55,37 @@ class SupplierController extends Controller
 
     public function edit(Request $request, $id)
     {
-    $supplier = Supplier::find($id);
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    $imagePaths = [];
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        $supplier = Supplier::find($id);
+    
+        if (!$supplier) {
+            return redirect()->route('supplier.index')->with('error', 'Supplier not found.');
+        }
+    
+        // Update supplier name
+        $supplier->supplier_name = $request->name;
+    
+        // Handle image upload
         if ($request->hasFile('image')) {
+            $imagePaths = [];
             foreach ($request->file('image') as $image) {
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('product_img'), $imageName);
                 $imagePaths[] = 'product_img/' . $imageName;
             }
-            $supplier->image = implode(',', $imagePaths); 
-            $supplier->supplier_name = $request->name;
-            $supplier->save();
+            // Merge new image paths with existing ones
+            $supplier->image = implode(',', array_merge(explode(',', $supplier->image), $imagePaths));
         }
-
-
-    return redirect()->route('supplier.index')->with('success', 'Edit Supplier Successfully');
+    
+        $supplier->save();
+    
+        return redirect()->route('supplier.index')->with('success', 'Supplier updated successfully');
     }
+    
 
     public function delete($id) {
         Supplier::destroy($id);

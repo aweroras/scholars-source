@@ -11,7 +11,7 @@
             {{ Session::get('success') }}
         </div>
     @endif
-    <table id="productTable" class="table table-hover">
+    <table id="productTable" class="table table-hover" style="width: 100%;">
         <thead class="table-primary">
             <tr>
                 <th>ID</th>
@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($products as $product) <!-- Fix variable name here -->
+        @foreach($products as $product)
             <tr>
                 <td class="align-middle">{{$product->id}}</td>
                 <td class="align-middle">
@@ -39,7 +39,8 @@
                 <td class="align-middle">{{$product->description}}</td>
                 <td class="align-middle">₱ {{$product->price}}</td>
                 <td class="align-middle">{{$product->category}}</td>
-                <td class="align-middle">{{$product->stock}}</td>
+                <td class="align-middle" style="text-align: center;">{{$product->stock}}</td>
+
                 <td class="align-middle">
                     <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
@@ -52,11 +53,11 @@
         @endforeach 
         </tbody>
     </table>
-    {{ $products->links() }} <!-- Fix variable name here -->
 
+    <!-- DataTables Initialization Script -->
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#productTable').DataTable();
-        } );
+        });
     </script>
 @endsection

@@ -300,21 +300,15 @@ public function placeOrder(Request $request)
         return redirect()->route('customer.checkout')->with('success', 'Order placed successfully!');
     }
 
-    public function users(Request $request)
-{
-    $query = $request->input('query');
-
-    // Filter users based on name, email, address, and status
-    $users = Customer::join('users', 'customers.user_id', '=', 'users.id')
-                    ->where('users.email', 'like', "%$query%")
-                    ->orWhere('customers.name', 'like', "%$query%")
-                    ->orWhere('customers.Address', 'like', "%$query%")
-                    ->orWhere('customers.PhoneNumber', 'like', "%$query%")
-                    ->orWhere('users.status', 'like', "%$query%")
-                    ->paginate(10);
-
-    return view('admin.users.index', compact('users'));
-}
+    public function users()
+    {
+        
+        $users = Customer::join('users', 'customers.user_id', '=', 'users.id')
+                        ->get();
+    
+        return view('admin.users.index', compact('users'));
+    }
+    
 
     public function deactivate($id)
     {

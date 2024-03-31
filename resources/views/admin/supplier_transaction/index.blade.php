@@ -5,7 +5,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="mb-0">Supplier Transaction</h1>
     </div>
-    <table class="table table-hover">
+    <table id="supplierTransactionTable" class="table table-hover">
         <thead class="table-primary">
             <tr>
                 <th>Images</th>
@@ -35,9 +35,11 @@
             @endforeach
         </tbody>
     </table>
-    
-    <!-- Pagination Links -->
-    <div class="d-flex justify-content-center">
-        {{ $suppliers->links() }}
-    </div>
+
+    <!-- DataTables Initialization Script -->
+    <script>
+        $(document).ready(function () {
+            $('#supplierTransactionTable').DataTable();
+        });
+    </script>
 @endsection
