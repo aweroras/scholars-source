@@ -250,10 +250,7 @@ public function orderinfo()
     return view('customer.orderinfo');
 }
 
-    public function customerDetails()
-    {
-    
-}
+
 
 public function placeOrder(Request $request)
     {
