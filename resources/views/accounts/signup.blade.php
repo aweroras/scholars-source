@@ -6,6 +6,7 @@
   <title>Signup</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
   <style>
     .signup-form {
       max-width: 400px;
@@ -15,6 +16,12 @@
       border-radius: 5px;
       margin-top: 50px;
     }
+
+    .logo {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
@@ -23,7 +30,8 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="signup-form">
-        <h2 class="text-center mb-4">Signup</h2>
+        <img src="http://127.0.0.1:8000/template/assets/img/logo/logo.png" alt="Scholars Shop Logo" class="logo">
+        <!-- <h2 class="text-center mb-4">Signup</h2> -->
         <form action="{{ route('register.customer') }}" method="POST" enctype="multipart/form-data">
             @csrf
           <div class="form-group">
@@ -59,5 +67,4 @@
 </div>
 
 </body>
-</html>
 </html>

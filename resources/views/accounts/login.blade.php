@@ -15,6 +15,12 @@
       border-radius: 5px;
       margin-top: 50px;
     }
+
+    .logo {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
   </style>
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -27,7 +33,8 @@
         <div class="row">
           <div class="col-md-6 offset-md-3">
             <div class="login-form">
-              <h2 class="text-center mb-4">Login</h2>
+              <img src="http://127.0.0.1:8000/template/assets/img/logo/logo.png" alt="Scholars Shop Logo" class="logo">
+              <!-- <h2 class="text-center mb-4">Login</h2> -->
               <form action="{{route('login')}}" method="POST">
                 @csrf
                 <div class="form-group">
