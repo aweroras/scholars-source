@@ -32,7 +32,7 @@
       <div id="content">
   
         <!-- Topbar -->
-        @include('admin.layouts.navbardashboard')
+        @include('admin.layouts.navbar')
         <!-- End of Topbar -->
   
         <!-- Begin Page Content -->

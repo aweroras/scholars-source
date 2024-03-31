@@ -30,7 +30,7 @@
       <div id="content">
   
         <!-- Topbar -->
-        @include('admin.layouts.navbartransac')
+        @include('admin.layouts.navbar')
         <!-- End of Topbar -->
   
         <!-- Begin Page Content -->
