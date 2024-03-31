@@ -45,6 +45,7 @@
                                 <!-- Add to Cart button below the price -->
                                 <form method="POST" action="{{ route('customer.addToCart', ['id' => $products->id]) }}">
                                     @csrf <!-- Add CSRF token field for security -->
+                                    <input type="hidden" name="quantity" value="1">
                                     <button type="submit" class="btn btn-sm hero-btn d-inline-flex align-items-center justify-content-center" style="font-size: 13px; padding: 5px 15px; background-color: #333; border-radius: 5px; border: none;">
                                         <i class="fas fa-shopping-cart mr-1"></i> Add to Cart
                                     </button>
