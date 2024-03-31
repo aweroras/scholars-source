@@ -37,6 +37,13 @@
   </li>
 
   <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.orders.index') }}">
+      <i class="fa-solid fa-shopping-cart"></i>
+      <span>Orders</span></a>
+  </li>
+
+
+  <li class="nav-item">
     <a class="nav-link" href="{{ route('reviews.index') }}">
       <i class="fa-regular fa-star"></i>
       <span>Reviews</span></a>

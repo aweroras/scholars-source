@@ -1,15 +1,14 @@
-@extends('admin.layouts.app')
+@extends('customer.layouts.details')
 
 @section('content')
 @include('messages')
 
     <div class="d-flex align-items-center justify-content-between">
-        <h1 class="mb-0">Reviews Dashboard</h1>
+        <h1 class="mb-0">My Reviews</h1>
 </div>
     <table class="table table-hover">
         <thead class="table-primary">
             <tr>
-                <th>Customer</th>
                 <th>Product</th>
                 <th>Rate</th>
                 <th>Comment</th>
@@ -19,7 +18,8 @@
         <tbody>
         @foreach ($reviews as $review)
                 <tr>
-                    <td>{{ $review->customer->name }}</td>  <td>{{ $review->product->name }}</td>   <td>{{ $review->rate }}</td>
+                    td>{{ $review->product->name }}</td>
+                    <td>{{ $review->rate }}</td>
                     <td>{{ $review->comment }}</td>
                     @if ($review->image)
                         <td><img src="{{ asset('storage/uploads/reviews/' . $review->image) }}" alt="Review Image" style="width: 50px; height: 50px;"></td>
