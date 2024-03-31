@@ -43,7 +43,14 @@ class DashboardController extends Controller
         }
 
         $customTicks = [0, 10, 50, 100];
-        
-        return view('admin.dashboard.index', compact('labels', 'data', 'customTicks', 'pendingUsersCount', 'verifiedUsersCount', 'deactivatedUsersCount'));
+
+        // Fetch stock data for each product
+        $products = Product::select('name', 'stock')->get();
+
+        // Prepare data for the pie chart
+        $pieLabels = $products->pluck('name');
+        $pieData = $products->pluck('stock');
+
+        return view('admin.dashboard.index', compact('labels', 'data', 'customTicks', 'pendingUsersCount', 'verifiedUsersCount', 'deactivatedUsersCount', 'pieLabels', 'pieData'));
     }
 }

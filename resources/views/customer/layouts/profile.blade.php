@@ -39,7 +39,7 @@
                                 <ul id="navigation">  
                                     <li><a href="{{ route('customer.index') }}">Home</a></li>
                                     <li><a href="{{ route('customer.shop') }}">shop</a></li>
-                                    <li><a href="about.html">about</a></li>
+                                    <li><a href="{{ route('about') }}">about</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </nav>
