@@ -90,7 +90,7 @@ class SuppliertransactionController extends Controller
             'supplier' => 'required|string|max:255',
             'product' => 'required|string|max:255',
             'quantity' => 'required|numeric',
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
         $SupplierTransaction = Supplier_Transaction::find($id);

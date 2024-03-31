@@ -32,12 +32,12 @@ th {
   </thead>
   <tbody>
     <tr>
-      <td>#1234</td>
-      <td>John Doe</td>
-      <td>Shipped</td>
-      <td>Credit Card</td>
-      <td>FedEx</td>
-      <td>2024-03-10</td>
+      <td>{{ $order->id }}</td>
+      <td>{{ $order->customer }}</td>
+      <td>{{ $order->status }}</td>
+      <td>{{ $order->payment_method }}</td>
+      <td>{{ $order->courier }}</td>
+      <td>{{ $order->created_at->format('Y-m-d') }}</td>
       <td>
         <a href="{{ route('reviews.create')}}">add review</a>
       </td>

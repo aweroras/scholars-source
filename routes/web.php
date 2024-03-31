@@ -41,7 +41,7 @@ Route::get('customer', [CustomerController::class, 'index'])->name('customer.ind
 Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
 Route::get('/customer/details/{id}', [CustomerController::class, 'details'])->name('customer.details');
 Route::get('/customer/details/{id}', [CustomerController::class, 'showProductDetails'])->name('customer.details');
-Route::get('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
+//Route::get('/customer/addToCart/{id}', [CustomerController::class, 'addToCartSingle'])->name('customer.addToCartSingle');
 Route::post('/customer/addToCart/{id}', [CustomerController::class, 'addToCart'])->name('customer.addToCart');
 Route::get('customer/cart', [CustomerController::class, 'cart'])->name('customer.cart');
 Route::put('customer/update-quantity/{customer_id}/{product_id}', [CustomerController::class, 'updateQuantity'])->name('customer.updateQuantity');

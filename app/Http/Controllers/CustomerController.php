@@ -101,12 +101,18 @@ public function showProductDetails($productId)
     return view('customer.details', compact('product', 'similarProducts'));
 }
 
+
+/*public function addToCartSingle($productId)
+{
+
+}*/
+
 public function addToCart(Request $request, $productId)
 {
     $product = Product::find($productId);
 
     // Get the quantity from the input box (default to 1 if not provided or invalid)
-    $quantity = $request->input('quantity', 1);
+    $quantity = $request->quantity;
 
     // Get the authenticated user's ID, assuming you have user authentication
     $customerId = auth()->id();
@@ -250,10 +256,7 @@ public function orderinfo()
     return view('customer.orderinfo');
 }
 
-    public function customerDetails()
-    {
-    
-}
+
 
 public function placeOrder(Request $request)
     {
