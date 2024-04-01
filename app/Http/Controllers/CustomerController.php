@@ -7,11 +7,14 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\OrderProduct;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
+use App\Mail\Orders;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
@@ -278,8 +281,7 @@ public function placeOrder(Request $request)
         Log::info('Request data:', $request->all());
         try {
         $user = auth()->user()->customer->id;
-
-        // Validation (optional)
+        $userDetails = auth()->user();
         $this->validate($request, [
 /*             'customerName' => 'required',
             'phoneNumber' => 'required',
@@ -324,6 +326,7 @@ public function placeOrder(Request $request)
                 continue;
             }
             $product->stock -= $quantity;
+
             $product->save();
 
             $order->products()->attach($productId, ['quantity' => $quantity]);
@@ -336,7 +339,10 @@ public function placeOrder(Request $request)
             Log::info('Cart items deleted successfully!');
         }
 
-        // Order placed successfully (optional)
+        $name = $userDetails->customer->name;
+        $orderProducts = OrderProduct::with('product', 'order')->where('order_id',$order->id)->get();
+
+        Mail::to($userDetails->email)->send(new Orders($name,$orderProducts));
         return redirect()->route('customer.orderinfo')->with('success', 'Order placed successfully!');
 
 
