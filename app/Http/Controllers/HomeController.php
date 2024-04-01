@@ -45,6 +45,12 @@ class HomeController extends Controller
         return view('products', ['groupedProducts' => $groupedProducts]);
     }
 
+    public function productDetails($id)
+    {
+        $product = Product::findOrFail($id); // Assuming Product is your model name
+        return view('details', compact('product'));
+    }
+
     public function about()
     {
         return view('about');

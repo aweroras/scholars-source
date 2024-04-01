@@ -10,6 +10,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -109,13 +110,23 @@ public function showProductDetails($productId)
 
 public function addToCart(Request $request, $productId)
 {
+    Log::info('Request data:', $request->all());
+    Log::info('Product ID: ' . $productId);
+    Log::info('User ID: ' . auth()->user()->customer->id);
     $product = Product::find($productId);
+    
 
     // Get the quantity from the input box (default to 1 if not provided or invalid)
-    $quantity = $request->quantity;
+    $quantity = $request->input('quantity', 1);
 
     // Get the authenticated user's ID, assuming you have user authentication
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
+
+    // Check if the authenticated user has a corresponding record in the customers table
+    if (!DB::table('customers')->where('id', $customerId)->exists()) {
+        // Show an error message
+        return back()->withErrors(['error' => 'User does not have a corresponding customer record.']);
+    }
 
     // Check if the product is already in the cart
     if ($cart = DB::table('carts')->where('customer_id', $customerId)->where('product_id', $productId)->first()) {

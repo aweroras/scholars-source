@@ -109,6 +109,7 @@ Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name
 // para lang to sa pinaka front page
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
+Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('product.details');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
