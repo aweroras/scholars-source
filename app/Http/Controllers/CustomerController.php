@@ -297,8 +297,6 @@ public function placeOrder(Request $request)
             return back()->with('error', 'The quantity field must match product id.');
         }
 
-        $statuss = 'Pending';
-
         // Create a new order
         $order = new Order;
         $order->customer_id = $user; // Use customer_id instead of user_id
@@ -306,7 +304,7 @@ public function placeOrder(Request $request)
 /*         $order->phone_number = $request->phoneNumber;
         $order->shipping_address = $request->shippingAddress; */
         $order->payment_method = $request->paymentMethod; // Assign payment method from request
-        $order->status = $statuss; // Assign status from request
+        $order->status = 'Order Placed'; // Assign status from request
         $order->courier = $request->Courier; // Assign courier from request
         $order->save();
 
