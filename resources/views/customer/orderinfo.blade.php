@@ -17,8 +17,10 @@ th {
   background-color: #f2f2f2;
 }
 </style>
-<body> <table>
-    
+
+<h1>Order Details</h1>
+
+<table id="orderTable" class="display">
   <thead>
     <tr>
       <th>Order ID</th>
@@ -26,25 +28,37 @@ th {
       <th>Status</th>
       <th>Payment Method</th>
       <th>Courier</th>
+      <th>Shipping Fee</th>
+      <th>Total Amount</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
+  @foreach ($orders as $order)
     <tr>
       <td>{{ $order->id }}</td>
-      <td>{{ $order->customer }}</td>
+      <td>{{ $order->customer_id }}</td>
       <td>{{ $order->status }}</td>
       <td>{{ $order->payment_method }}</td>
-      <td>{{ $order->courier }}</td>
-      <td>{{ $order->created_at->format('Y-m-d') }}</td>
+      <td>{{ $order->courier}}</td>
+      <td>{{ $order->shippingFee }}</td>
+      <td>{{ $order->totalAmount}}</td>
+      <td>{{ $order->created_at }}</td>
       <td>
-        <a href="{{ route('reviews.create')}}">add review</a>
+      <a href="{{ route('reviews.index', ['order' => $order->id]) }}">Review</a>
       </td>
     </tr>
-    </tbody>
+    @endforeach
+  </tbody>
 </table>
-</body>
 
 @endsection
 
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#orderTable').DataTable();
+});
+</script>
+@endpush

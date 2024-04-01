@@ -48,6 +48,8 @@ Route::put('customer/update-quantity/{customer_id}/{product_id}', [CustomerContr
 Route::delete('/customer/remove-from-cart/{product_id}', [CustomerController::class, 'removeFromCart'])->name('customer.removeFromCart');
 Route::get('customer/checkout',[CustomerController::class,'checkout'])->name('customer.checkout');
 Route::get('customer/orderinfo',[CustomerController::class,'orderinfo'])->name('customer.orderinfo');
+Route::post('customer/placeorder',[CustomerController::class,'placeorder'])->name('customer.placeorder');
+
 
 // Edit and update account info (profile pic, name, address, phonenum, and email)
 Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
@@ -72,7 +74,9 @@ Route::post('admin/products', [ProductController::class, 'store'])->name('admin.
 Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::put('/admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.update');
 Route::get('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
-
+Route::get('/admin/orders', [HomeController::class, 'viewOrders'])->name('admin.orders.index');
+Route::get('/admin/orders/update/{order}', [HomeController::class, 'updateOrderStatusForm'])->name('admin.orders.update');
+Route::post('/admin/orders/update', [HomeController::class, 'updateOrderStatus'])->name('admin.orders.updates');
     
 // Supplier routes
 Route::get('admin/supplier/index', [SupplierController::class, 'index'])->name('supplier.index');
@@ -102,6 +106,7 @@ Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->na
 Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
 Route::get('customer/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/customer/reviews/reviewedProducts', [ReviewController::class, 'reviewedProducts'])->name('reviews.reviewlist');
 
 // Route::get('/{review}', 'ReviewController@show')->name('reviews.show'); -- specific review to di ko pa natatry
 

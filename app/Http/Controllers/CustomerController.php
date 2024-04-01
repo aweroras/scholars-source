@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
 use Illuminate\Pagination\Paginator;
@@ -102,12 +103,6 @@ public function showProductDetails($productId)
     return view('customer.details', compact('product', 'similarProducts'));
 }
 
-
-/*public function addToCartSingle($productId)
-{
-
-}*/
-
 public function addToCart(Request $request, $productId)
 {
     Log::info('Request data:', $request->all());
@@ -152,7 +147,7 @@ public function addToCart(Request $request, $productId)
 public function cart(Request $request)
 {
     // Get the authenticated user's ID, assuming you have user authentication
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
 
     // Fetch cart items from the database based on the user's ID
     $cart = DB::table('carts')
@@ -186,11 +181,38 @@ public function updateQuantity(Request $request, $customer_id, $product_id)
 {
     $quantity = $request->input('action') === 'increment' ? 1 : -1;
 
-    // Update the quantity and set the updated_at column to the current timestamp
-    DB::table('carts')
+    // Check if a cart record exists
+    $cart = DB::table('carts')
         ->where('customer_id', $customer_id)
         ->where('product_id', $product_id)
-        ->update(['quantity' => DB::raw('quantity + ' . $quantity), 'updated_at' => now()]);
+        ->first();
+
+    if (!$cart) {
+        // If the cart record doesn't exist and the action is 'increment', create a new record
+        if ($quantity > 0) {
+            DB::table('carts')->insert([
+                'customer_id' => $customer_id,
+                'product_id' => $product_id,
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        // If the action is 'decrement', do nothing
+    } else {
+        // If the cart record exists, proceed as before
+        if ($cart->quantity + $quantity <= 0) {
+            DB::table('carts')
+                ->where('customer_id', $customer_id)
+                ->where('product_id', $product_id)
+                ->delete();
+        } else {
+            DB::table('carts')
+                ->where('customer_id', $customer_id)
+                ->where('product_id', $product_id)
+                ->update(['quantity' => DB::raw('quantity + ' . $quantity), 'updated_at' => now()]);
+        }
+    }
 
     return redirect()->route('customer.cart');
 }
@@ -198,7 +220,7 @@ public function updateQuantity(Request $request, $customer_id, $product_id)
 
 public function removeFromCart(Request $request, $product_id)
 {
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
     $cart = Cart::where('product_id', $product_id)->delete();
 
 
@@ -210,16 +232,19 @@ public function removeFromCart(Request $request, $product_id)
 
 public function checkout()
     {
-        $customerId = auth()->id();
+        
+        try {
+            $customerId = auth()->user()->customer->id;
         $cartTotal = 0; // Initialize cartTotal
         $subTotal = 0;  // Initialize subtotal
 
-        $customerInfo = Customer::where('user_id',$customerId)->first();
+        $customerInfo = Customer::where('id',$customerId)->first();
         // Fetch cart items with eager loading
         $cart = Cart::where('customer_id', $customerId)
             ->with('product') // Eager load the product relationship
             ->get();
-    
+            Log::info('customerId: ' . $customerId);
+            Log::info('customerInfo: ' . $customerInfo);
         // Calculate the subtotal (excluding shipping)
         foreach ($cart as $item) {
             // Access the product price from the relationship
@@ -239,56 +264,53 @@ public function checkout()
             'shippingFee' => $shippingFee,
             'totalAmount' => $totalAmount,
         ],compact('customerInfo'));
+    } catch (\Exception $e) {
+        Log::error('Error in checkout: ' . $e->getMessage());
+        // Optionally, return a response or redirect
+        return back()->with('error', 'An error occurred while checking out.');
     }
-    
-//      $customerId = auth()->id();
-// $cartTotal = 0;
-   
-//   // Fetch cart items with eager loading
-//   $cart = Cart::where('customer_id', $customerId)
-//   ->with('product') // Eager load the product relationship
-//   ->get();
-
-
-//       // Calculate the total (excluding shipping)
-//       foreach ($cart as $item) {
-//       $cartTotal += $item->quantity * $item->price;
-//       }
-
-//     // Total amount including shipping
-//     $shippingFee = 50;
-    
-//     $totalAmount = $cartTotal + $shippingFee;
-//     return view('customer.checkout', ['cart' => $cart, 'cartTotal' => $cartTotal, 'shippingFee' => $shippingFee, 'totalAmount' => $totalAmount]);
-//    // return view('customer.checkout', compact('cart'));
-
-public function orderinfo()
-{
-    return view('customer.orderinfo');
-}
+    }
 
 
 
 public function placeOrder(Request $request)
     {
-        $user = auth()->user();
+        Log::info('Request data:', $request->all());
+        try {
+        $user = auth()->user()->customer->id;
 
         // Validation (optional)
         $this->validate($request, [
-            'customerName' => 'required',
+/*             'customerName' => 'required',
             'phoneNumber' => 'required',
-            'shippingAddress' => 'required',
+            'shippingAddress' => 'required', */
+            'paymentMethod' => 'required',
+/*             'status' => 'required', // Add status to validation rules
+            'courier' => 'required', // Add courier to validation rules */
+            'shippingFee' => 'required',
+            'totalAmount' => 'required',
             'product_id' => 'required|array', // Ensure product_id is an array
-            'quantity' => 'required|array|size:product_id', // Ensure quantity matches product_id count
+            'quantity' => 'required|array', // Ensure quantity matches product_id count
         ]);
 
+        if (count($request->input('product_id')) !== count($request->input('quantity'))) {
+            return back()->with('error', 'The quantity field must match product id.');
+        }
+
+        $statuss = 'Pending';
+        $couriers = 'LBC';
+        $paymentMethod = 'Cash on Delivery';
         // Create a new order
         $order = new Order;
-        $order->user_id = $user->id;
-        $order->customer_name = $request->customerName;
-        $order->phone_number = $request->phoneNumber;
-        $order->shipping_address = $request->shippingAddress;
-        $order->status = 'pending'; // Or appropriate initial order status
+        $order->customer_id = $user; // Use customer_id instead of user_id
+        /* $order->customer_name = $request->customerName; */
+/*         $order->phone_number = $request->phoneNumber;
+        $order->shipping_address = $request->shippingAddress; */
+        $order->payment_method = $paymentMethod; // Assign payment method from request
+        $order->status = $statuss; // Assign status from request
+        $order->courier = $couriers; // Assign courier from request
+        $order->shippingFee = $request->shippingFee;
+        $order->totalAmount = $request->totalAmount;
         $order->save();
 
         // Process ordered products
@@ -306,13 +328,43 @@ public function placeOrder(Request $request)
                 // Handle case where product is not found (e.g., log error, continue with other products)
                 continue;
             }
+            $product->stock -= $quantity;
+            $product->save();
 
             $order->products()->attach($productId, ['quantity' => $quantity]);
         }
 
+        $deletedRows = auth()->user()->customer->cartItems()->delete();
+
+        // If any rows were deleted, log a success message
+        if ($deletedRows > 0) {
+            Log::info('Cart items deleted successfully!');
+        }
+
         // Order placed successfully (optional)
-        return redirect()->route('customer.checkout')->with('success', 'Order placed successfully!');
+        return redirect()->route('customer.orderinfo')->with('success', 'Order placed successfully!');
+
+
+
+    } catch (\Exception $e) {
+        Log::error('Error in placeOrder: ' . $e->getMessage());
+        // Optionally, return a response or redirect
+        return back()->with('error', 'An error occurred while placing the order.');
+
+        
     }
+        
+    }
+
+    public function orderInfo()
+    {
+        // Retrieve all orders for the current user
+        $orders = Order::where('customer_id', auth()->user()->customer->id)->get();
+    
+        // Pass the orders to the view
+        return view('customer.orderinfo', ['orders' => $orders]);
+    }
+
 
     public function users()
     {
@@ -331,6 +383,7 @@ public function placeOrder(Request $request)
         $user->save();
         return redirect()->route('users.index')->with('success', 'Account deactivated Successfully.');
     }
+
 }
 
 

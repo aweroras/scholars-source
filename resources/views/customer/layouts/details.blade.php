@@ -73,6 +73,7 @@
                 <div class="user-dropdown-content" id="user-dropdown-content">
                     <a href="{{ route('customer.cart') }}">My Cart</a>
                     <a href="{{ route('customer.orderinfo') }}">Order History</a>
+                    <a href="{{ route('reviews.index') }}">My Reviews</a>
                     </div>
                 </div>
             </div>

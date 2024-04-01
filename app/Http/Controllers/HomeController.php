@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -75,4 +76,26 @@ class HomeController extends Controller
         // Pass the results to the view
         return view('shop', ['searchResults' => $searchResults, 'query' => $searchQuery]);
     }
+
+    public function viewOrders()
+    {
+        $orders = Order::all();
+        return view('admin.orders.index', ['orders' => $orders]);
+    }
+
+    public function updateOrderStatusForm($orderId)
+    {
+        $order = Order::find($orderId);
+        return view('admin.orders.update', ['order' => $order]);
+    }
+
+    public function updateOrderStatus(Request $request)
+{
+    $orderIds = $request->orderId;
+    $order = Order::find($orderIds);
+    $order->status = $request->status;
+    $order->save();
+
+    return redirect()->route('admin.orders.index', ['order' => $order->id])->with('success', 'Order status updated successfully!');
+}
 }
