@@ -357,14 +357,25 @@ public function placeOrder(Request $request)
         
     }
 
-    public function orderInfo()
+    public function orderInfo(Request $request)
     {
-        // Retrieve all orders for the current user
-        $orders = Order::where('customer_id', auth()->user()->customer->id)->get();
+        $customerId = auth()->user()->customer->id;
+    
+        // If a status filter is applied, retrieve filtered orders
+        if ($request->has('status')) {
+            $status = $request->input('status');
+            $orders = Order::where('customer_id', $customerId)
+                           ->where('status', $status)
+                           ->get();
+        } else {
+            // Otherwise, retrieve all orders for the current user
+            $orders = Order::where('customer_id', $customerId)->get();
+        }
     
         // Pass the orders to the view
         return view('customer.orderinfo', ['orders' => $orders]);
     }
+    
 
 
     public function users()
