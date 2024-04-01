@@ -21,4 +21,10 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Models\Product');
     }
+
+    public function review()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
+
 }

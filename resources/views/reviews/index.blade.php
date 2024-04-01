@@ -4,30 +4,29 @@
 @include('messages')
 
     <div class="d-flex align-items-center justify-content-between">
-        <h1 class="mb-0">My Reviews</h1>
+        <h1 class="mb-0">To Review</h1>
+        <a href="{{ route('reviews.reviewlist') }}" class="btn btn-primary">Reviewed Products</a>
 </div>
     <table class="table table-hover">
         <thead class="table-primary">
             <tr>
-                <th>Product</th>
-                <th>Rate</th>
-                <th>Comment</th>
-                <th>Image</th>
+            <th>Product</th>
+            <th>Order</th>
+            <th>Review</th>
             </tr>
         </thead>
         <tbody>
-        @foreach ($reviews as $review)
-                <tr>
-                    td>{{ $review->product->name }}</td>
-                    <td>{{ $review->rate }}</td>
-                    <td>{{ $review->comment }}</td>
-                    @if ($review->image)
-                        <td><img src="{{ asset('storage/uploads/reviews/' . $review->image) }}" alt="Review Image" style="width: 50px; height: 50px;"></td>
-                    @else
-                        <td>No Image</td>
-                    @endif
-                </tr>
-            @endforeach
+        @foreach ($orders as $order)
+        @foreach ($order->products as $product)
+            <tr>
+                <td>{{ $product->name }}</td>
+                <td>Order #{{ $order->id }}</td>
+                <td>
+                <a href="{{ route('reviews.create', ['product' => $product->id, 'order' => $order->id]) }}">Write a review</a>
+                </td>
+            </tr>
+        @endforeach
+    @endforeach
         </tbody>
     </table>
 @endsection

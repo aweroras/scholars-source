@@ -105,13 +105,23 @@ public function showProductDetails($productId)
 
 public function addToCart(Request $request, $productId)
 {
+    Log::info('Request data:', $request->all());
+    Log::info('Product ID: ' . $productId);
+    Log::info('User ID: ' . auth()->user()->customer->id);
     $product = Product::find($productId);
+    
 
     // Get the quantity from the input box (default to 1 if not provided or invalid)
     $quantity = $request->input('quantity', 1);
 
     // Get the authenticated user's ID, assuming you have user authentication
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
+
+    // Check if the authenticated user has a corresponding record in the customers table
+    if (!DB::table('customers')->where('id', $customerId)->exists()) {
+        // Show an error message
+        return back()->withErrors(['error' => 'User does not have a corresponding customer record.']);
+    }
 
     // Check if the product is already in the cart
     if ($cart = DB::table('carts')->where('customer_id', $customerId)->where('product_id', $productId)->first()) {
@@ -137,7 +147,7 @@ public function addToCart(Request $request, $productId)
 public function cart(Request $request)
 {
     // Get the authenticated user's ID, assuming you have user authentication
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
 
     // Fetch cart items from the database based on the user's ID
     $cart = DB::table('carts')
@@ -171,11 +181,38 @@ public function updateQuantity(Request $request, $customer_id, $product_id)
 {
     $quantity = $request->input('action') === 'increment' ? 1 : -1;
 
-    // Update the quantity and set the updated_at column to the current timestamp
-    DB::table('carts')
+    // Check if a cart record exists
+    $cart = DB::table('carts')
         ->where('customer_id', $customer_id)
         ->where('product_id', $product_id)
-        ->update(['quantity' => DB::raw('quantity + ' . $quantity), 'updated_at' => now()]);
+        ->first();
+
+    if (!$cart) {
+        // If the cart record doesn't exist and the action is 'increment', create a new record
+        if ($quantity > 0) {
+            DB::table('carts')->insert([
+                'customer_id' => $customer_id,
+                'product_id' => $product_id,
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        // If the action is 'decrement', do nothing
+    } else {
+        // If the cart record exists, proceed as before
+        if ($cart->quantity + $quantity <= 0) {
+            DB::table('carts')
+                ->where('customer_id', $customer_id)
+                ->where('product_id', $product_id)
+                ->delete();
+        } else {
+            DB::table('carts')
+                ->where('customer_id', $customer_id)
+                ->where('product_id', $product_id)
+                ->update(['quantity' => DB::raw('quantity + ' . $quantity), 'updated_at' => now()]);
+        }
+    }
 
     return redirect()->route('customer.cart');
 }
@@ -183,7 +220,7 @@ public function updateQuantity(Request $request, $customer_id, $product_id)
 
 public function removeFromCart(Request $request, $product_id)
 {
-    $customerId = auth()->id();
+    $customerId = auth()->user()->customer->id;
     $cart = Cart::where('product_id', $product_id)->delete();
 
 
@@ -195,17 +232,19 @@ public function removeFromCart(Request $request, $product_id)
 
 public function checkout()
     {
+        
         try {
-        $customerId = auth()->id();
+            $customerId = auth()->user()->customer->id;
         $cartTotal = 0; // Initialize cartTotal
         $subTotal = 0;  // Initialize subtotal
 
-        $customerInfo = Customer::where('user_id',$customerId)->first();
+        $customerInfo = Customer::where('id',$customerId)->first();
         // Fetch cart items with eager loading
         $cart = Cart::where('customer_id', $customerId)
             ->with('product') // Eager load the product relationship
             ->get();
-    
+            Log::info('customerId: ' . $customerId);
+            Log::info('customerInfo: ' . $customerInfo);
         // Calculate the subtotal (excluding shipping)
         foreach ($cart as $item) {
             // Access the product price from the relationship
@@ -238,7 +277,7 @@ public function placeOrder(Request $request)
     {
         Log::info('Request data:', $request->all());
         try {
-        $user = auth()->user();
+        $user = auth()->user()->customer->id;
 
         // Validation (optional)
         $this->validate($request, [
@@ -262,7 +301,7 @@ public function placeOrder(Request $request)
         $couriers = 'LBC';
         // Create a new order
         $order = new Order;
-        $order->customer_id = $user->id; // Use customer_id instead of user_id
+        $order->customer_id = $user; // Use customer_id instead of user_id
         /* $order->customer_name = $request->customerName; */
 /*         $order->phone_number = $request->phoneNumber;
         $order->shipping_address = $request->shippingAddress; */
@@ -288,6 +327,8 @@ public function placeOrder(Request $request)
                 // Handle case where product is not found (e.g., log error, continue with other products)
                 continue;
             }
+            $product->stock -= $quantity;
+            $product->save();
 
             $order->products()->attach($productId, ['quantity' => $quantity]);
         }
@@ -300,7 +341,7 @@ public function placeOrder(Request $request)
         }
 
         // Order placed successfully (optional)
-        return redirect()->route('customer.checkout')->with('success', 'Order placed successfully!');
+        return redirect()->route('customer.orderinfo')->with('success', 'Order placed successfully!');
 
 
 
@@ -313,11 +354,11 @@ public function placeOrder(Request $request)
     }
         
     }
-    
+
     public function orderInfo()
     {
         // Retrieve all orders for the current user
-        $orders = Order::where('customer_id', auth()->id())->get();
+        $orders = Order::where('customer_id', auth()->user()->customer->id)->get();
     
         // Pass the orders to the view
         return view('customer.orderinfo', ['orders' => $orders]);

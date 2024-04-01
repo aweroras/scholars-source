@@ -46,7 +46,7 @@ th {
       <td>{{ $order->totalAmount}}</td>
       <td>{{ $order->created_at }}</td>
       <td>
-      <a href="{{ route('reviews.create', ['order' => $order->id]) }}">Review</a>
+      <a href="{{ route('reviews.index', ['order' => $order->id]) }}">Review</a>
       </td>
     </tr>
     @endforeach
