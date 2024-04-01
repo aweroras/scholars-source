@@ -298,19 +298,16 @@ public function placeOrder(Request $request)
         }
 
         $statuss = 'Pending';
-        $couriers = 'LBC';
-        $paymentMethod = 'Cash on Delivery';
+
         // Create a new order
         $order = new Order;
         $order->customer_id = $user; // Use customer_id instead of user_id
         /* $order->customer_name = $request->customerName; */
 /*         $order->phone_number = $request->phoneNumber;
         $order->shipping_address = $request->shippingAddress; */
-        $order->payment_method = $paymentMethod; // Assign payment method from request
+        $order->payment_method = $request->paymentMethod; // Assign payment method from request
         $order->status = $statuss; // Assign status from request
-        $order->courier = $couriers; // Assign courier from request
-        $order->shippingFee = $request->shippingFee;
-        $order->totalAmount = $request->totalAmount;
+        $order->courier = $request->Courier; // Assign courier from request
         $order->save();
 
         // Process ordered products
