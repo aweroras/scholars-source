@@ -55,14 +55,7 @@
                                 <ul id="navigation">  
                                     <li><a href="{{ route('home') }}">Home</a></li>
                                     <li><a href="{{ route('products') }}">shop</a></li>
-                                    <li><a href="{{ route('about') }}"about</a></li>
-                                    <li class="hot"><a href="#">Latest</a>
-                                        <ul class="submenu">
-                                            <li><a href="shop.html"> Product list</a></li>
-                                            <li><a href="product_details.html"> Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                  
+                                    <li><a href="{{ route('about') }}">about</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </nav>

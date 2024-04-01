@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Order; 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
 
 class DashboardController extends Controller
 {
@@ -33,16 +33,23 @@ class DashboardController extends Controller
         $data = [];
 
         foreach ($usersPerWeek as $record) {
-            // Parse year and week
             $year = substr($record->week, 0, 4);
             $week = substr($record->week, 4);
-            // Create Carbon instance for the start of the week
             $weekStartDate = Carbon::now()->setISODate($year, $week)->startOfWeek();
             $labels[] = $weekStartDate->format('Y-m-d');
             $data[] = $record->count;
         }
 
-        $customTicks = [0, 10, 50, 100];
+        
+        $quantitySoldPerProduct = DB::table('order_product')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->select('products.name', DB::raw('SUM(order_product.quantity) as quantity_sold'))
+            ->groupBy('products.name')
+            ->get();
+
+        // Extract product names and quantities from the query results
+        $quantitySoldLabels = $quantitySoldPerProduct->pluck('name');
+        $quantitySoldData = $quantitySoldPerProduct->pluck('quantity_sold');
 
         // Fetch stock data for each product
         $products = Product::select('name', 'stock')->get();
@@ -51,6 +58,6 @@ class DashboardController extends Controller
         $pieLabels = $products->pluck('name');
         $pieData = $products->pluck('stock');
 
-        return view('admin.dashboard.index', compact('labels', 'data', 'customTicks', 'pendingUsersCount', 'verifiedUsersCount', 'deactivatedUsersCount', 'pieLabels', 'pieData'));
+        return view('admin.dashboard.index', compact('labels', 'data', 'pendingUsersCount', 'verifiedUsersCount', 'deactivatedUsersCount', 'pieLabels', 'pieData', 'quantitySoldLabels', 'quantitySoldData'));
     }
 }

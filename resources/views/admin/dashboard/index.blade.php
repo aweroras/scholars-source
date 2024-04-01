@@ -74,10 +74,27 @@
             </div>
         </div>
     </div>
+
+     <!-- New canvas for pie chart -->
+     <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
+                </div>
+                <div class="card-body">
+                    <div class="col d-flex justify-content-center">
+                        <canvas id="quantitySoldChart" width="600" height="370"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // JavaScript code for existing charts
     var ctx = document.getElementById('userChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -111,6 +128,56 @@
             datasets: [{
                 label: 'Stock',
                 data: {!! json_encode($pieData) !!},
+                backgroundColor: [
+                    '#4e73df',
+                    '#1cc88a',
+                    '#36b9cc',
+                    '#f6c23e',
+                    '#e74a3b',
+                    '#858796'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true,
+                position: 'right',
+                labels: {
+                    usePointStyle: true,
+                    padding: 20,
+                    fontColor: '#4e73df',
+                    fontSize: 16
+                }
+            },
+            tooltips: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                bodyFontColor: '#fff',
+                titleFontColor: '#fff',
+                borderColor: '#fff',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10
+            }
+        }
+    });
+
+    // New pie chart for quantity sold per product
+    var ctx3 = document.getElementById('quantitySoldChart').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: {!! json_encode($quantitySoldLabels) !!},
+            datasets: [{
+                label: 'Quantity Sold',
+                data: {!! json_encode($quantitySoldData) !!},
                 backgroundColor: [
                     '#4e73df',
                     '#1cc88a',
