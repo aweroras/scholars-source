@@ -9,8 +9,9 @@
         <label for="status">Status:</label>
         <input type="hidden" name="orderId" value="{{ $order->id }}">
         <select id="status" name="status">
-            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
+            <option value="To Ship" {{ $order->status == 'To Ship' ? 'selected' : '' }}>To Ship</option>
+            <option value="Shipped" {{ $order->status == 'Shipped' ? 'selected' : '' }}>Shipped</option>
+            <option value="To Deliver" {{ $order->status == 'To Deliver ' ? 'selected' : '' }}>To Deliver </option>
             <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
         </select>
 
