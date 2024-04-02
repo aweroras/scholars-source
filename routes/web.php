@@ -106,6 +106,9 @@ Route::get('admin/courier/create', [CourierController::class, 'create'])->name('
 Route::post('admin/courier/create', [CourierController::class, 'store'])->name('courier.store');
 Route::get('admin/courier/update/{id}', [CourierController::class, 'update'])->name('courier.update');
 Route::put('/admin/courier/edit/{id}', [CourierController::class, 'edit'])->name('courier.edit');
+Route::delete('/admin/courier/{id}/delete', [CourierController::class, 'delete'])->name('courier.delete'); 
+Route::post('/admin/courier/restore/all', [CourierController::class, 'restoreAll'])->name('courier.restoreAll');
+
 //users
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
