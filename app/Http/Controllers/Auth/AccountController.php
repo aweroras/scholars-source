@@ -65,7 +65,7 @@ class AccountController extends Controller
 
         Mail::to($request->email)->send(new Verification($request->email, $request->name));
 
-        return redirect()->route('login.form')->with('success', 'Registration successful!');
+        return redirect()->route('login.form')->with('success', 'Registration successful, verify your email first before to login!');
     }
 
     public function registerAdmin(Request $request)
