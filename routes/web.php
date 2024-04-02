@@ -139,6 +139,7 @@ Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('pr
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
+//php artisan db:seed --class=DatabaseSeeder
 
 
 

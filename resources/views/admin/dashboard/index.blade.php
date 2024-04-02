@@ -75,7 +75,6 @@
         </div>
     </div>
 
-     <!-- New canvas for pie chart -->
      <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card shadow h-100">
@@ -94,7 +93,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // JavaScript code for existing charts
     var ctx = document.getElementById('userChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -103,8 +101,8 @@
             datasets: [{
                 label: 'Accounts Created per Week',
                 data: {!! json_encode($data) !!},
-                backgroundColor: '#e74a3b', // Red color
-                borderColor: '#e74a3b', // Border color
+                backgroundColor: '#e74a3b', 
+                borderColor: '#e74a3b', 
                 borderWidth: 1
             }]
         },
@@ -169,7 +167,7 @@
         }
     });
 
-    // New pie chart for quantity sold per product
+    
     var ctx3 = document.getElementById('quantitySoldChart').getContext('2d');
     var myChart3 = new Chart(ctx3, {
         type: 'pie',
