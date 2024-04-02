@@ -69,7 +69,7 @@ class CourierController extends Controller
         $Courier = Courier::find($id);
     
         if (!$Courier) {
-            return redirect()->route('supplier.index')->with('error', 'Supplier not found.');
+            return redirect()->route('courier.index')->with('error', 'courier not found.');
         }
     
         // Update supplier name
@@ -96,7 +96,7 @@ $Courier->image = $Courier->image;
     
         $Courier->save();
     
-        return redirect()->route('courier.index')->with('success', 'Supplier updated successfully');
+        return redirect()->route('courier.index')->with('success', 'courier updated successfully');
     }
 
     public function delete($id)

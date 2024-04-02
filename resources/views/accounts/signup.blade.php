@@ -36,27 +36,27 @@
             @csrf
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" >
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" >
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <input type="password" class="form-control" id="password" name="password" >
           </div>
           <div class="form-group">
             <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+            <input type="text" class="form-control" id="address" name="address" >
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="text" class="form-control" id="phone" name="phone" required>
+            <input type="text" class="form-control" id="phone" name="phone" >
           </div>
           <div class="form-group">
             <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" >
           </div>
           <button type="submit" class="btn btn-primary btn-block">Signup</button>
         </form>

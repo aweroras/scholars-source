@@ -22,7 +22,8 @@
                     @endforeach
                 </td>                
                 <td class="align-middle">{{$paymentMethod->payment_name}}</td>
-                
+                <td class="align-middle"><a href="{{route('admin.payment_method.update', $paymentMethod->id)}}">Update</a></td>
+                <td class="align-middle"><a href="">Delete</a></td>
                
                 </td>
             </tr>

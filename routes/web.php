@@ -120,7 +120,8 @@ Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->na
 Route::get('admin/payment_method/index', [PaymentMethodController::class, 'index'])->name('admin.payment_method.index');
 Route::get('admin/payment_method/create', [PaymentMethodController::class, 'create'])->name('admin.payment_method.create');
 Route::post('admin/payment_method/store', [PaymentMethodController::class, 'store'])->name('admin.payment_method.store');
-Route::get('admin/payment_method/edit', [PaymentMethodController::class, 'edit'])->name('admin.payment_method.edit');
+Route::get('admin/payment_method/update/{id}', [PaymentMethodController::class, 'update'])->name('admin.payment_method.update');
+Route::put('admin/payment_method/edit/{id}', [PaymentMethodController::class, 'edit'])->name('admin.payment_method.edit');
 
 //Reviews
 Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');

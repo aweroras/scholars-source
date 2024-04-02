@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
   
-@section('title', 'Add Supplier')
+@section('title', 'Edit Courier')
   
 @section('content')
 @include('messages')

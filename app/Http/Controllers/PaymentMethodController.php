@@ -21,44 +21,73 @@ class PaymentMethodController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'payment_name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $imageName = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('images'), $imageName);
+        $imagePaths = [];
+        if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $image) {
+                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $image->move(public_path('product_img'), $imageName);
+                    $imagePaths[] = 'product_img/' . $imageName;
+                }
+        }
 
-        $paymentMethod = new PaymentMethod;
-        $paymentMethod->payment_name = $request->payment_name;
-        $paymentMethod->image = $imageName;
-        $paymentMethod->save();
+        $PaymentMethod = new PaymentMethod([
+           'payment_name' => $request->name,
+           'image' => implode(',', $imagePaths),
+       ]);
+       $PaymentMethod->save();
 
         return redirect()->route('admin.payment_method.index')
                          ->with('success','Payment Method created successfully.');
     }
 
-    public function edit(PaymentMethod $paymentMethod)
+    public function update($id)
     {
+        $paymentMethod = PaymentMethod::where('id',$id)->first();
+
         return view('admin.payment_method.edit', compact('paymentMethod'));
     }
 
-    public function update(Request $request, PaymentMethod $paymentMethod)
+    public function edit(Request $request, $id)
     {
         $request->validate([
-            'payment_name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('images'), $imageName);
-            $paymentMethod->image = $imageName;
+    
+        $PaymentMethod = PaymentMethod::find($id);
+    
+        if (!$PaymentMethod) {
+            return redirect()->route('supplier.index')->with('error', 'Supplier not found.');
         }
+    
+        // Update supplier name
+        $PaymentMethod->payment_name = $request->name;
+        // Handle image upload
 
-        $paymentMethod->payment_name = $request->payment_name;
-        $paymentMethod->save();
+        // Check if new images are uploaded
+        if ($request->hasFile('image')) {
+            // Handle file upload for multiple images
+            $imagePaths = [];
+            foreach ($request->file('image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('product_img'), $imageName);
+                $imagePaths[] = 'product_img/' . $imageName;
+            }
+            $PaymentMethod->image = implode(',', $imagePaths);
+        } else {
+            // If no new images uploaded, retain the existing images
+            // If no new images uploaded, retain the existing images
+        $PaymentMethod->image = $PaymentMethod->image;
 
-        return redirect()->route('admin.payment_method.index')
-                         ->with('success','Payment Method updated successfully.');
+        }
+    
+        $PaymentMethod->save();
+    
+        return redirect()->route('admin.payment_method.index')->with('success', 'Payment Method updated successfully');
     }
+
 }
