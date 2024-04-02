@@ -11,9 +11,18 @@ class SupplierController extends Controller
     
     public function index()
     {
-        $suppliers = Supplier::All();
-        return view('admin.supplier.index',compact('suppliers'));
+        $suppliers = Supplier::all();
+        $softDeletedCount = Supplier::onlyTrashed()->count();
+    
+        return view('admin.supplier.index', compact('suppliers', 'softDeletedCount'));
     }
+
+    public function restoreAll()
+{
+    Supplier::onlyTrashed()->restore();
+
+    return redirect()->route('supplier.index')->with('success', 'All soft-deleted suppliers restored successfully.');
+}
 
     public function create()
     {

@@ -2,9 +2,17 @@
 
 @section('content')
 @include('messages')
-<div class="d-flex align-items-center justify-content-between">
+<div class="d-flex align-items-center justify-content-between mb-3">
     <h1 class="mb-0">Suppliers</h1>
-    <a href="{{ route('supplier.create') }}" class="btn btn-primary">Create Supplier</a>
+    <div>
+        <a href="{{ route('supplier.create') }}" class="btn btn-primary mr-2">Create Supplier</a>
+        @if($softDeletedCount > 0)
+            <form action="{{ route('supplier.restoreAll') }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-success">Restore All</button>
+            </form>
+        @endif
+    </div>
 </div>
 <table id="supplierTable" class="table table-hover">
     <thead class="table-primary">
