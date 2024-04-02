@@ -119,9 +119,10 @@ Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->na
 Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
 Route::get('customer/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/customer/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/customer/reviews/edit',[ReviewController::class,'edit'])->name('reviews.edit');
+Route::put('/customer/reviews/update',[ReviewController::class,'update'])->name('reviews.update');
+Route::delete('customer/reviews/delete', [ReviewController::class,'destroy'])->name('reviews.delete');
 Route::get('/customer/reviews/reviewedProducts', [ReviewController::class, 'reviewedProducts'])->name('reviews.reviewlist');
-
-// Route::get('/{review}', 'ReviewController@show')->name('reviews.show'); -- specific review to di ko pa natatry
 
 
 // para lang to sa pinaka front page

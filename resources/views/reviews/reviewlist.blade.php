@@ -14,17 +14,26 @@
             <th>Comment</th>
             <th>Rate</th>
             <th>Image</th>
+            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         @foreach ($reviewedProducts as $item)
-    <tr>
-        <td>{{ $item['product']->name }}</td>
-        <td>{{ $item['review']->comment }}</td>
-        <td>{{ $item['review']->rate }}</td>
-        <td><img src="{{ asset($item['review']->image) }}" alt="Review Image" style="width: 50px; height: 50px;"></td>
+        <tr>
+            <td>{{ $item['product']->name }}</td>
+            <td>{{ $item['review']->comment }}</td>
+            <td>{{ $item['review']->rate }}</td>
+            <td>
+                @foreach (explode(',', $item['review']->images) as $image)                      
+                    <img src="{{ asset($image) }}" alt="Review Image" style="width: 50px; height: 50px;">
+                @endforeach
+            </td>
+           <td>
+            <a href="{{ route('reviews.edit', $item['review']) }}"style="color: red;">Edit</a>
+        </td>
     </tr>
-@endforeach
+        @endforeach
         </tbody>
     </table>
 @endsection
+

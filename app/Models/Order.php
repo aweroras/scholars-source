@@ -26,5 +26,9 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\Review');
     }
-
+    
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

@@ -42,13 +42,6 @@
       <span>Orders</span></a>
   </li>
 
-
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('reviews.index') }}">
-      <i class="fa-regular fa-star"></i>
-      <span>Reviews</span></a>
-  </li>
-
   <li class="nav-item">
     <a class="nav-link" href="{{route('supplier_transaction.index')}}">
       <i class="fa-solid fa-clipboard"></i>
