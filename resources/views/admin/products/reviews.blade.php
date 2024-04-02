@@ -11,9 +11,9 @@
 
             <p class="card-text">{{ $review->comment }}</p>
             <p>Rating: {{ $review->rate }}</p>
-            @if($review->image)
-                <img src="{{ $review->image }}" alt="Review image">
-            @endif
+            @foreach(explode(',', $review->image) as $imagePath)
+                <img src="{{ asset(trim($imagePath)) }}" alt="{{ $review->name }}" width="150" height="150">
+            @endforeach
         </div>
     </div>
 @endforeach
