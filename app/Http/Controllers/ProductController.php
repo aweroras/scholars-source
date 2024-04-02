@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        // Retrieve all products paginated
+        
         $products = Product::all();
         $softDeletedCount = Product::onlyTrashed()->count();
     
@@ -57,15 +57,13 @@ class ProductController extends Controller
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'category' => $request->input('category'),
-            'image' => implode(',', $imagePaths), // Implode array into a comma-separated string
+            'image' => implode(',', $imagePaths), 
         ]);
     
-        // Redirect with a success message
+       
         return redirect(route('admin.products.index'))->with('success', 'You added a new product.');
     }
     
-
-
 
     public function edit(Product $product)
     {

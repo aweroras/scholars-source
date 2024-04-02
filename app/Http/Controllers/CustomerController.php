@@ -379,14 +379,21 @@ public function placeOrder(Request $request)
 
 
     public function users()
-    {
-        
-        $users = Customer::join('users', 'customers.user_id', '=', 'users.id')
-                        ->get();
-    
-        return view('admin.users.index', compact('users'));
-    }
-    
+{
+    // Get the currently authenticated user's ID and role from the database
+    $userId = auth()->id(); // Get the ID of the authenticated user
+    $userRole = DB::table('users')->where('id', $userId)->value('roles');
+
+    // Check if the user has admin role
+    $isAdmin = $userRole === 'admin';
+
+    // Fetch users who are not admins
+    $users = Customer::join('users', 'customers.user_id', '=', 'users.id')
+                     ->where('users.roles', '!=', 'admin')
+                     ->get();
+
+    return view('admin.users.index', compact('users', 'isAdmin'));
+}
 
     public function deactivate($id)
     {
