@@ -1,19 +1,32 @@
 @extends('admin.layouts.app')
-
+  
+@section('title', 'Add Supplier')
+  
 @section('content')
-<div class="container">
-    <h1>Add New Payment Method</h1>
-    <form action="{{ route('admin.payment_method.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-            <label for="payment_name">Payment Name</label>
-            <input type="text" class="form-control" id="payment_name" name="payment_name" required>
-        </div>
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="image" name="image" multiple required>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-@endsection
+@include('messages')
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+            </div>
+            <div class="card-body">
+        <form action="{{route('admin.payment_method.store')}}" method="post" enctype="multipart/form-data">
+            @csrf 
+            @method('post')
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><label for="name">Payment Name</label></td>
+                        <td><input type="text" name="name" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="image">Images</label></td>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</body>
+    @endsection
