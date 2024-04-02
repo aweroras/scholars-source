@@ -54,6 +54,12 @@
       <i class="fa-solid fa-clipboard"></i>
       <span>Transaction History</span></a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('courier.index')}}">
+      <i class="fa-solid fa-clipboard"></i>
+      <span>Courier</span></a>
+  </li>
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
   
