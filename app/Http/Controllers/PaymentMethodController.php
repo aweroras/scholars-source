@@ -90,4 +90,24 @@ class PaymentMethodController extends Controller
         return redirect()->route('admin.payment_method.index')->with('success', 'Payment Method updated successfully');
     }
 
+    public function delete($id)
+{
+    $paymentMethod = PaymentMethod::find($id);
+    if ($paymentMethod) {
+        // Soft delete the payment method
+        $paymentMethod->delete();
+        return redirect()->route('admin.payment_method.index')->with('success', 'Payment Method soft deleted successfully');
+    } else {
+        return redirect()->route('admin.payment_method.index')->with('error', 'Payment Method not found.');
+    }
+}
+
+public function restoreAll()
+{
+    // Restore all soft deleted payment methods
+    PaymentMethod::withTrashed()->restore();
+
+    return redirect()->route('admin.payment_method.index')->with('success', 'All soft deleted payment methods have been restored.');
+}
+
 }

@@ -116,7 +116,6 @@ Route::get('admin/users/index', [CustomerController::class, 'users'])->name('use
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
 
 Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->name('admin.dashboard.index');
-})->middleware(RoleMiddleware::class);
 
 //Payment Method
 Route::get('admin/payment_method/index', [PaymentMethodController::class, 'index'])->name('admin.payment_method.index');
@@ -124,6 +123,12 @@ Route::get('admin/payment_method/create', [PaymentMethodController::class, 'crea
 Route::post('admin/payment_method/store', [PaymentMethodController::class, 'store'])->name('admin.payment_method.store');
 Route::get('admin/payment_method/update/{id}', [PaymentMethodController::class, 'update'])->name('admin.payment_method.update');
 Route::put('admin/payment_method/edit/{id}', [PaymentMethodController::class, 'edit'])->name('admin.payment_method.edit');
+Route::delete('admin/payment_method/delete/{id}', [PaymentMethodController::class, 'delete'])->name('admin.payment_method.delete');
+Route::post('admin/payment_method/restore-all', [PaymentMethodController::class, 'restoreAll'])->name('admin.payment_method.restoreAll');
+
+})->middleware(RoleMiddleware::class);
+
+
 
 //Reviews
 Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');
@@ -142,6 +147,7 @@ Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('pr
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
+//php artisan db:seed --class=DatabaseSeeder
 
 Route::get('/createadmin', function () {
 

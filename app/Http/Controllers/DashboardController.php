@@ -13,16 +13,17 @@ class DashboardController extends Controller
 {
     public function graphs()
     {
-        // Count users with 'Pending' status
+        
         $pendingUsersCount = User::where('status', 'Pending')->count();
 
-        // Count users with 'Verified' status
-        $verifiedUsersCount = User::where('status', 'Verified')->count();
+        $verifiedUsersCount = User::where('status', 'Verified')
+        ->where('roles', 'not like', '%admin%')
+        ->count();
 
-        // Count users with 'Deactivated' status
+        
         $deactivatedUsersCount = User::where('status', 'Deactivated')->count();
 
-        // Fetch other data for your chart if needed
+        
         $usersPerWeek = User::whereNotIn('roles', ['Admin'])
             ->selectRaw('COUNT(*) as count, YEARWEEK(created_at) as week')
             ->groupBy('week')
@@ -47,14 +48,14 @@ class DashboardController extends Controller
             ->groupBy('products.name')
             ->get();
 
-        // Extract product names and quantities from the query results
+        
         $quantitySoldLabels = $quantitySoldPerProduct->pluck('name');
         $quantitySoldData = $quantitySoldPerProduct->pluck('quantity_sold');
 
-        // Fetch stock data for each product
+        
         $products = Product::select('name', 'stock')->get();
 
-        // Prepare data for the pie chart
+        
         $pieLabels = $products->pluck('name');
         $pieData = $products->pluck('stock');
 
