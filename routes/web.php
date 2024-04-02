@@ -152,7 +152,7 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/createadmin', function () {
 
     $admin = new User();
-    $admin->email = 'admin333@gmail.com';
+    $admin->email = 'admin@gmail.com';
     $admin->password = Hash::make('123123123');
     $admin->email_verified_at = now();
     $admin->status = 'Verified';
