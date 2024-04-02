@@ -1,8 +1,6 @@
 @extends('customer.layouts.details')
-
 @section('content')
 @include('messages')
-
     <div class="d-flex align-items-center justify-content-between">
     <h1 class="mb-0">My Reviewed Products</h1>
     <a href="{{ route('reviews.index') }}" class="btn btn-primary">To Review</a>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CourierController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Mail\Verification;
@@ -111,6 +112,12 @@ Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivat
 
 Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->name('admin.dashboard.index');
 })->middleware(RoleMiddleware::class);
+
+//Payment Method
+Route::get('admin/payment_method/index', [PaymentMethodController::class, 'index'])->name('admin.payment_method.index');
+Route::get('admin/payment_method/create', [PaymentMethodController::class, 'create'])->name('admin.payment_method.create');
+Route::post('admin/payment_method/store', [PaymentMethodController::class, 'store'])->name('admin.payment_method.store');
+Route::get('admin/payment_method/edit', [PaymentMethodController::class, 'edit'])->name('admin.payment_method.edit');
 
 //Reviews
 Route::get('/customer/reviews/index', [ReviewController::class, 'index'])->name('reviews.index');

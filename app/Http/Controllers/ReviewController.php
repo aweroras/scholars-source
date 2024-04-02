@@ -36,11 +36,23 @@ public function create(Request $request)
     return view('reviews.create', ['product' => $product, 'order' => $order]);
 }
 
+// public function edit(Request $request, Review $review)
+// {
+    
+//     $product = Product::find($request->product);
+//     $order = Order::find($request->order);
+
+//     return view('reviews.edit', ['product' => $product, 'order' => $order]);
+// }
+
 public function edit(Request $request, Review $review)
 {
     
-    $product = Product::find($request->product);
-    $order = Order::find($request->order);
+    // $product = Product::find($id);
+    // $order = Order::find($id);
+
+    $product = Product::all();
+    $order = Order::all();
 
     return view('reviews.edit', ['product' => $product, 'order' => $order]);
 }

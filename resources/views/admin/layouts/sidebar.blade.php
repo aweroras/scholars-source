@@ -53,6 +53,13 @@
       <i class="fa-solid fa-clipboard"></i>
       <span>Courier</span></a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('admin.payment_method.index')}}">
+      <i class="fa-solid fa-clipboard"></i>
+      <span>Payment Method</span></a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
   
