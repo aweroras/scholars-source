@@ -10,18 +10,14 @@
             <div class="card-header bg-primary text-white">
             </div>
             <div class="card-body">
-        <form action="{{ route('courier.edit', $courier->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{route('admin.payment_method.edit', $paymentMethod->id )}}" method="post" enctype="multipart/form-data">
             @csrf 
             @method('PUT')
             <table class="table">
                 <tbody>
                     <tr>
                         <td><label for="name">Courier Name</label></td>
-                        <td><input type="text" value="{{$courier->courier_name}}" name="name" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="name">Branch</label></td>
-                        <td><input type="text" value="{{$courier->branch}}" name="branch" class="form-control"></td>
+                        <td><input type="text" value="{{$paymentMethod->payment_name}}" name="name" class="form-control"></td>
                     </tr>
                     <tr>
                         <td><label for="image">Images</label></td>
@@ -29,8 +25,8 @@
                     </tr>
                     <tr>
                         <td>
-                            @foreach(explode(',', $courier->image) as $imagePath)
-                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $courier->name }}" width="150" height="150">
+                            @foreach(explode(',', $paymentMethod->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $paymentMethod->name }}" width="150" height="150">
                             @endforeach
                         </td>
                     </tr>
