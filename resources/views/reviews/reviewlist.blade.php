@@ -3,16 +3,15 @@
 @include('messages')
     <div class="d-flex align-items-center justify-content-between">
     <h1 class="mb-0">My Reviewed Products</h1>
-    <a href="{{ route('reviews.index') }}" class="btn btn-primary">To Review</a>
+    <a href="{{ route('reviews.index') }}" class="btn btn-primary" enctype="multipart/form-data"> To Review</a>
 </div>
-    <table class="table table-hover">
+    <table class="table table-hover" >
         <thead class="table-primary">
             <tr>
             <th>Product</th>
             <th>Comment</th>
             <th>Rate</th>
             <th>Image</th>
-            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,9 +25,6 @@
                     <img src="{{ asset($image) }}" alt="Review Image" style="width: 50px; height: 50px;">
                 @endforeach
             </td>
-           <td>
-            <a href="{{ route('reviews.edit', $item['review']) }}"style="color: red;">Edit</a>
-        </td>
     </tr>
         @endforeach
         </tbody>

@@ -41,6 +41,9 @@
                 <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control" style="width: 50px; margin-right: 20px;">
                 <button type="submit" class="btn btn-sm hero-btn" style="font-size: 10px; padding: 5px 10px;">Add to Cart</button>
             </form>
+
+            <form method="get" action="{{route('products.reviews', ['id' => $product->id])}}">
+                <button type="submit" class="btn btn-sm hero-btn" style="font-size: 10px; padding: 5px 10px;">View Reviews</button>
         </div>
     </div>
 </div>

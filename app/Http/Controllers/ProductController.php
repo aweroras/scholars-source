@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use App\Models\Review;
 
 class ProductController extends Controller
 {
@@ -110,4 +110,18 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', "Product information deleted.");
     }
+
+
+    public function reviews($id)
+{
+    $product = Product::find($id);
+    $reviews = $product->reviews;
+
+    $reviews = Review::whereHas('product', function ($query) use ($id) {
+        $query->where('id', $id);
+    })->get();
+
+    return view('admin.products.reviews', compact('product', 'reviews'));
+}
+    
 }
