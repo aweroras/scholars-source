@@ -30,13 +30,7 @@
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->description }}</p>
                                 <p class="card-text">Price: ₱{{ $product->price }}</p>
-                                <a href="{{ Auth::check() ? route('cart.add', $product->id) : route('login') }}" class="btn btn-sm btn-primary" style="padding: 5px 10px; font-size: 12px; border-radius: 4px;">
-                                @if(Auth::check())
-                                    <i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                                @else
-                                    <i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                                @endif
-                            </a>
+                                
                             </div>
                         </div>
                     </div>
