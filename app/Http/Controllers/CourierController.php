@@ -8,9 +8,13 @@ class CourierController extends Controller
 {
     public function index()
     {
-        $couriers = Courier::All();
-        return view('admin.courier.index',compact('couriers'));
+        // Retrieve only non-deleted couriers
+        $couriers = Courier::all();
+    
+        // Pass the couriers to the view
+        return view('admin.courier.index', compact('couriers'));
     }
+    
 
     public function create()
     {
@@ -85,11 +89,37 @@ class CourierController extends Controller
             $Courier->image = implode(',', $imagePaths);
         } else {
             // If no new images uploaded, retain the existing images
-            $Courier->image = $SupplierTransaction->image;
+            // If no new images uploaded, retain the existing images
+$Courier->image = $Courier->image;
+
         }
     
         $Courier->save();
     
         return redirect()->route('courier.index')->with('success', 'Supplier updated successfully');
     }
+
+    public function delete($id)
+    {
+        $courier = Courier::find($id);
+        if ($courier) {
+            $courier->delete();
+            return redirect()->route('courier.index')->with('success', 'Courier soft deleted successfully');
+        } else {
+            return redirect()->route('courier.index')->with('error', 'Courier not found.');
+        }
+    }
+
+    public function restoreAll()
+    {
+        // Restore all soft deleted couriers
+        Courier::onlyTrashed()->restore();
+    
+        return redirect()->route('courier.index')->with('success', 'All soft deleted couriers have been restored.');
+    }
+    
+
+
+
+
 }
