@@ -1,21 +1,43 @@
 @extends('admin.layouts.app')
-
+  
+@section('title', 'Add Supplier')
+  
 @section('content')
-<div class="container">
-    <h1>Edit Payment Method</h1>
-    <form action="{{ route('admin.payment_method.update', $paymentMethod->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="payment_name">Payment Name</label>
-            <input type="text" class="form-control" id="payment_name" name="payment_name" value="{{ $paymentMethod->payment_name }}" required>
-        </div>
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="image" name="image">
-            <img src="{{ asset('images/' . $paymentMethod->image) }}" width="100" height="100" alt="{{ $paymentMethod->payment_name }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-</div>
-@endsection
+@include('messages')
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+            </div>
+            <div class="card-body">
+        <form action="{{ route('courier.edit', $courier->id) }}" method="post" enctype="multipart/form-data">
+            @csrf 
+            @method('PUT')
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><label for="name">Courier Name</label></td>
+                        <td><input type="text" value="{{$courier->courier_name}}" name="name" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="name">Branch</label></td>
+                        <td><input type="text" value="{{$courier->branch}}" name="branch" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="image">Images</label></td>
+                        <td><input type="file" name="image[]" class="form-control-file" multiple></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @foreach(explode(',', $courier->image) as $imagePath)
+                            <img src="{{ asset(trim($imagePath)) }}" alt="{{ $courier->name }}" width="150" height="150">
+                            @endforeach
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</body>
+    @endsection
