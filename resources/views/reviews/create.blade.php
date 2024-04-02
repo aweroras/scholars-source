@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="image">Images: </label>
-                <input type="file" class="form-control-file" name="image" multiple required>
+                <input type="file" name="image[]" class="form-control-file" multiple>
             </div>
             <input type="hidden" name="product" value="{{ $product->id }}">
             <input type="hidden" name="customer" value="{{ auth()->user()->customer->id }}">
