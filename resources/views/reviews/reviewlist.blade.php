@@ -21,8 +21,8 @@
             <td>{{ $item['review']->comment }}</td>
             <td>{{ $item['review']->rate }}</td>
             <td>
-                @foreach (explode(',', $item['review']->images) as $image)                      
-                    <img src="{{ asset($image) }}" alt="Review Image" style="width: 50px; height: 50px;">
+                @foreach(explode(',', $item['review']->image) as $imagePath)
+                <img src="{{ asset(trim($imagePath)) }}" alt="{{ $item['review']->name }}" width="150" height="150">
                 @endforeach
             </td>
     </tr>
