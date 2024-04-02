@@ -53,7 +53,6 @@ th {
 <!-- Form for filtering orders by status -->
 <form method="GET" action="{{ route('customer.orderinfo') }}" class="filter-form">
   <select name="status" id="status">
-    <option value="">All</option>
     <option value="Order Placed">Order Placed</option>
     <option value="To Ship">To Ship</option>
     <option value="Shipped">Shipped</option>

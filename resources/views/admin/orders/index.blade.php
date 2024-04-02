@@ -1,8 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Orders</h1>
-    <table id="supplierTable" class="table table-hover">
+    <table id="orderTable" class="table table-hover">
         <thead class="table-primary">
             <tr>
                 <th>Order ID</th>
@@ -26,4 +27,17 @@
             @endforeach
         </tbody>
     </table>
+</div>
+
+<!-- Include DataTables CSS and JavaScript -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/dataTables.bootstrap5.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.6/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Initialize DataTable -->
+<script>
+    $(document).ready(function() {
+        $('#orderTable').DataTable();
+    });
+</script>
 @endsection
