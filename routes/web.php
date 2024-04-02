@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\SuppliertransactionController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CourierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Mail\Verification;
@@ -94,7 +95,12 @@ Route::get('admin/supplytransac/edit/{id}', [SuppliertransactionController::clas
 Route::put('admin/supplytransac/update/{id}', [SuppliertransactionController::class, 'update'])->name('supplier_transaction.update');
 Route::get('/admin/supplytransac/delete/{id}', [SuppliertransactionController::class, 'delete'])->name('supplier_transaction.delete');
 
-
+//Courier routes
+Route::get('admin/courier/index', [CourierController::class, 'index'])->name('courier.index');
+Route::get('admin/courier/create', [CourierController::class, 'create'])->name('courier.create');
+Route::post('admin/courier/create', [CourierController::class, 'store'])->name('courier.store');
+Route::get('admin/courier/update/{id}', [CourierController::class, 'update'])->name('courier.update');
+Route::put('/admin/courier/edit/{id}', [CourierController::class, 'edit'])->name('courier.edit');
 //users
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
