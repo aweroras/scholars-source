@@ -76,6 +76,9 @@ th {
   </thead>
   <tbody>
   @foreach ($orders as $order)
+    @php
+        session(['order_status' => $order->status]);
+    @endphp
     <tr>
       <td>{{ $order->id }}</td>
       <td>{{ $order->status }}</td>
@@ -83,7 +86,11 @@ th {
       <td>{{ $order->courier}}</td>
       <td>{{ $order->created_at }}</td>
       <td>
-        <a href="{{ route('reviews.index', ['order' => $order->id]) }}" style="color: red;">Review</a>
+          @if ($order->status == 'completed')
+          <a href="{{ route('reviews.index', ['orderId' => $order->id]) }}" style="color: red;">Review</a>
+          @else
+              <span>Review (available when order is completed)</span>
+          @endif
       </td>
     </tr>
   @endforeach

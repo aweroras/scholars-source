@@ -22,7 +22,11 @@
                 <td>{{ $product->name }}</td>
                 <td>Order #{{ $order->id }}</td>
                 <td>
-                <a href="{{ route('reviews.create', ['product' => $product->id, 'order' => $order->id]) }}">Write a review</a>
+                @if ($order->status == 'completed')
+                    <a href="{{ route('reviews.create', ['product' => $product->id, 'order' => $order->id]) }}"style="color: red;">Write a review</a>
+                @else
+                    <span>Write a review (available when order is completed)</span>
+                @endif
                 </td>
             </tr>
         @endforeach
