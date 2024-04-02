@@ -1,11 +1,18 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between mb-3">
         <h1 class="mb-0">Existing Products</h1>
-        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Add Product</a>
+        <div>
+            <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Add Product</a>
+            @if($softDeletedCount > 0)
+                <form action="{{ route('admin.products.restoreAll') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-success">Restore All</button>
+                </form>
+            @endif
+        </div>
     </div>
-    <hr />
     @if(Session::has('success'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
@@ -40,7 +47,6 @@
                 <td class="align-middle">₱ {{$product->price}}</td>
                 <td class="align-middle">{{$product->category}}</td>
                 <td class="align-middle" style="text-align: center;">{{$product->stock}}</td>
-
                 <td class="align-middle">
                     <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>

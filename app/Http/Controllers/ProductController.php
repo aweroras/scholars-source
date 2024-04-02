@@ -9,12 +9,19 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index()
-{
-    // Retrieve all products paginated
-    $products = Product::all();
-
-    return view('admin.products.index', compact('products'));
-}
+    {
+        // Retrieve all products paginated
+        $products = Product::all();
+        $softDeletedCount = Product::onlyTrashed()->count();
+    
+        return view('admin.products.index', compact('products', 'softDeletedCount'));
+    }
+    public function restoreAll()
+    {
+        Product::onlyTrashed()->restore();
+    
+        return redirect()->route('admin.products.index')->with('success', 'All soft-deleted products restored successfully.');
+    }
 
 
     public function create()
@@ -30,7 +37,8 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'category' => 'required',
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10120'
+
         ]);
     
         // Handle file upload for multiple images

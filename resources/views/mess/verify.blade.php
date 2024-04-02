@@ -65,8 +65,8 @@
         </div>
         <h2>Email Confirmation</h2>
         <p>Hey, {{ $name }}! Your account is almost ready for usage. Simply click the button below to verify your email address.</p>
-        <a href="{{route('account.verify', $email)}}" class="btn">Verify Email</a>
-
+        <!-- <a href="{{route('account.verify', $email)}}" class="btn">Verify Email</a> -->
+        <a href="http://127.0.0.1:8000/account/verify/{{ $email }}" class="btn">Verify Email</a>
     </div>
 </body>
 </html>

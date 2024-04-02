@@ -75,12 +75,16 @@ Route::post('admin/products', [ProductController::class, 'store'])->name('admin.
 Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::put('/admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.update');
 Route::get('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
+Route::post('admin/products/restore-all', [ProductController::class, 'restoreAll'])->name('admin.products.restoreAll');
+
+
 Route::get('/admin/orders', [HomeController::class, 'viewOrders'])->name('admin.orders.index');
 Route::get('/admin/orders/update/{order}', [HomeController::class, 'updateOrderStatusForm'])->name('admin.orders.update');
 Route::post('/admin/orders/update', [HomeController::class, 'updateOrderStatus'])->name('admin.orders.updates');
     
 // Supplier routes
 Route::get('admin/supplier/index', [SupplierController::class, 'index'])->name('supplier.index');
+Route::post('admin/supplier/restore-all', [SupplierController::class, 'restoreAll'])->name('supplier.restoreAll');
 Route::get('admin/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
 Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name('supplier.store');
 Route::get('admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
