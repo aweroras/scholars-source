@@ -97,7 +97,7 @@ public function store(Request $request)
     $this->validate($request, [
         'rate' => 'required|integer|min:1|max:10',
         'comment' => 'required|string|min:3',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
     $customerid = auth()->user()->customer->id;
     $review = new Review;
@@ -110,16 +110,17 @@ public function store(Request $request)
   $review->customer_id = $customerid;
   $review->created_at = now();
 
-  // Handle image upload (optional)
-  if ($request->hasFile('image')) {
-      $image = $request->file('image');
-      $imageName = time() . '.' . $image->getClientOriginalExtension();
-      $image->storePubliclyAs('uploads/reviews', $imageName);
-      $review->image = $imageName;
-  }
+  $imagePaths = [];
+         if ($request->hasFile('image')) {
+                 foreach ($request->file('image') as $image) {
+                     $imageName = time() . '_' . $image->getClientOriginalName();
+                     $image->move(public_path('product_img'), $imageName);
+                     $imagePaths[] = 'product_img/' . $imageName;
+                 }
+         }
 
-  // Save the review to the database
-  $review->save();
+         $review->image = implode(',', $imagePaths);
+         $review->save();
 
   // Redirect or show success message
   return redirect()->route('reviews.index')->with('success', 'Review submitted successfully!');
