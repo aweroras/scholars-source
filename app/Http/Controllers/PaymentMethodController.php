@@ -21,17 +21,24 @@ class PaymentMethodController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'payment_name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $imageName = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('images'), $imageName);
+        $imagePaths = [];
+        if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $image) {
+                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $image->move(public_path('product_img'), $imageName);
+                    $imagePaths[] = 'product_img/' . $imageName;
+                }
+        }
 
-        $paymentMethod = new PaymentMethod;
-        $paymentMethod->payment_name = $request->payment_name;
-        $paymentMethod->image = $imageName;
-        $paymentMethod->save();
+        $PaymentMethod = new PaymentMethod([
+           'payment_name' => $request->name,
+           'image' => implode(',', $imagePaths),
+       ]);
+       $PaymentMethod->save();
 
         return redirect()->route('admin.payment_method.index')
                          ->with('success','Payment Method created successfully.');
