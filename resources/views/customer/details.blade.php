@@ -43,7 +43,9 @@
             </form>
 
             <form method="get" action="{{route('products.reviews', ['id' => $product->id])}}">
-                <button type="submit" class="btn btn-sm hero-btn" style="font-size: 10px; padding: 5px 10px;">View Reviews</button>
+                <!-- Increase height of the button -->
+                <button type="submit" class="btn btn-lg hero-btn" style="font-size: 10px; padding: 10px 10px;">View Reviews</button>
+            </form>
         </div>
     </div>
 </div>
