@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\OrderProduct;
 use App\Models\Order;
+use App\Models\PaymentMethod;
+use App\Models\Courier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query;
 use Illuminate\Pagination\Paginator;
@@ -235,12 +237,11 @@ public function removeFromCart(Request $request, $product_id)
 
 public function checkout()
     {
-        
-        try {
-            $customerId = auth()->user()->customer->id;
+        $customerId = auth()->user()->customer->id;
         $cartTotal = 0; // Initialize cartTotal
         $subTotal = 0;  // Initialize subtotal
-
+        $couriers = courier::all();
+        $paymentmethods = PaymentMethod::all();
         $customerInfo = Customer::where('id',$customerId)->first();
         // Fetch cart items with eager loading
         $cart = Cart::where('customer_id', $customerId)
@@ -266,12 +267,7 @@ public function checkout()
             'subTotal' => $subTotal,  // Pass the calculated subtotal
             'shippingFee' => $shippingFee,
             'totalAmount' => $totalAmount,
-        ],compact('customerInfo'));
-    } catch (\Exception $e) {
-        Log::error('Error in checkout: ' . $e->getMessage());
-        // Optionally, return a response or redirect
-        return back()->with('error', 'An error occurred while checking out.');
-    }
+        ],compact('customerInfo','couriers','paymentmethods'));
     }
 
 
@@ -279,7 +275,6 @@ public function checkout()
 public function placeOrder(Request $request)
     {
         Log::info('Request data:', $request->all());
-        try {
         $user = auth()->user()->customer->id;
         $userDetails = auth()->user();
         $this->validate($request, [
@@ -305,9 +300,9 @@ public function placeOrder(Request $request)
         /* $order->customer_name = $request->customerName; */
 /*         $order->phone_number = $request->phoneNumber;
         $order->shipping_address = $request->shippingAddress; */
-        $order->payment_method = $request->paymentMethod; // Assign payment method from request
+        $order->payment_id = $request->paymentMethod; // Assign payment method from request
         $order->status = 'Order Placed'; // Assign status from request
-        $order->courier = $request->Courier; // Assign courier from request
+        $order->courier_id = $request->Courier; // Assign courier from request
         $order->save();
 
         // Process ordered products
@@ -345,15 +340,6 @@ public function placeOrder(Request $request)
         Mail::to($userDetails->email)->send(new Orders($name,$orderProducts));
         return redirect()->route('customer.orderinfo')->with('success', 'Order placed successfully!');
 
-
-
-    } catch (\Exception $e) {
-        Log::error('Error in placeOrder: ' . $e->getMessage());
-        // Optionally, return a response or redirect
-        return back()->with('error', 'An error occurred while placing the order.');
-
-        
-    }
         
     }
 
