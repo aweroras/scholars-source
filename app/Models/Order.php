@@ -13,8 +13,8 @@ class Order extends Model
     protected $fillable = [
         'customer_id',
         'status',
-        'payment_method',
-        'courier',
+        'payment_id',
+        'courier_id',
     ];
 
     public function products()
@@ -30,5 +30,15 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 }
