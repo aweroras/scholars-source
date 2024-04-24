@@ -79,7 +79,9 @@ class HomeController extends Controller
 
     public function viewOrders()
     {
-        $orders = Order::all();
+        $orders = Order::with('customer','payment','courier')->get();
+
+        
         return view('admin.orders.index', ['orders' => $orders]);
     }
 
