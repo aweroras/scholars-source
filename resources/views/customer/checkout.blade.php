@@ -28,18 +28,18 @@
                     <label for="paymentMethod" class="form-label align-self-start">Payment Method</label>
                         <select class="form-control" id="paymentMethod" name="paymentMethod">
                             <option value="">Select a payment method</option>
-                            <option value="Cash on Delivery">Cash on Delivery</option>
-                            <option value="Gcash">Gcash</option>
-                            <option value="Bank Transfer">Bank Transfer</option>
+                            @foreach ($paymentmethods as $payment)
+                            <option value="{{$payment->id}}">{{$payment->payment_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3 d-flex flex-column">
                         <label for="paymentMethod" class="form-label align-self-start">Payment Method</label>
                             <select class="form-control" id="Courier" name="Courier">
                                 <option value="">Select a Courier</option>
-                                <option value="J&T">J&T</option>
-                                <option value="Ninja Van">Ninja Van</option>
-                                <option value="Jrs">Jrs</option>
+                                @foreach ($couriers as $courier)
+                                <option value="{{$courier->id}}">{{$courier->courier_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     @foreach($cart as $item)
