@@ -19,8 +19,8 @@
                     <tr>
                         <td class="align-middle">{{ $order->id }}</td>
                         <td class="align-middle">{{ $order->status }}</td>
-                        <td class="align-middle">{{ $order->payment_method }}</td>
-                        <td class="align-middle">{{ $order->courier }}</td>
+                        <td class="align-middle">{{ $order->payment->payment_name }}</td>
+                        <td class="align-middle">{{ $order->courier->courier_name }}</td>
                         <td class="align-middle"><a href="{{ route('admin.orders.update', $order) }}">Change Status</a></td>
                         <td class="align-middle">{{ $order->created_at }}</td>
                     </tr>
