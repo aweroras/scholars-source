@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
@@ -17,12 +19,23 @@ class RoleMiddleware
     {
         $user = $request->user();
 
+
+
+        // Check if user has the required roles
         if (!$user || !$this->userHasRole($user, $roles)) {
-            abort(403, 'Unauthorized action.');
+            // Flash an error message to the session
+            session()->flash('error', 'Unauthorized action.');
+
+            // Redirect back to the previous page
+            return Redirect::back()->with('error', 'Unauthorized action.');
         }
 
         return $next($request);
+
+
     }
+
+
 
     private function userHasRole($user, $roles)
     {

@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="zxx">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Scholar's Source</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-  <!-- CSS here -->
-  <link rel="stylesheet" href="{{ asset('template/assets/css/bootstrap.min.css') }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Scholar's Source</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{{ asset('template/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/slicknav.css') }}">
@@ -35,20 +36,21 @@
             </div>
         </div>
     </div>
-  <header>
-    <!-- Header Start -->
-    <div class="header-area">
-        <div class="main-header header-sticky">
-            <div class="container-fluid">
-                <div class="menu-wrapper">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <a href="index.html"><img src="{{ asset('template/assets/img/logo/logo.png') }}" alt=""></a>
-                    </div>
-                   <!-- Main-menu -->
-                   <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="{{ asset('template/assets/img/logo/logo.png') }}"
+                                    alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
                                     <li><a href="{{ route('customer.index') }}">Home</a></li>
                                     <li><a href="{{ route('customer.shop') }}">shop</a></li>
                                     <li><a href="{{ route('about') }}">about</a></li>
@@ -57,63 +59,73 @@
                             </nav>
                         </div>
                         <!-- Header Right -->
-                   <div class="header-right">
-                    <ul>
-                        <li>
-                            <div class="nav-search search-switch">
-                                <span class="flaticon-search"></span>
-                            </div>
-                        </li>
-                        <li class="user-dropdown">
-                    <a id="user-icon" href="#">
-                        <span class="flaticon-user"></span>
-                    </a>
-                    <div class="user-dropdown-content" id="user-dropdown-content">
-                        <a href="{{ route('customer.profile') }}">User Profile</a>
-                        <a href="{{ route('change.password.form') }}">Change Password</a>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        <div class="header-right">
+                            <ul>
+                                <li>
+                                    <div class="nav-search search-switch">
+                                        <span class="flaticon-search"></span>
+                                    </div>
+                                </li>
+                                <li class="user-dropdown">
+                                    <a id="user-icon" href="#">
+                                        <span class="flaticon-user"></span>
+                                    </a>
+                                    <div class="user-dropdown-content" id="user-dropdown-content">
+                                        <a href="{{ route('customer.profile') }}">User Profile</a>
+                                        <a href="{{ route('change.password.form') }}">Change Password</a>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
+                                            Out</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+
+
+                                    </div>
+                                </li>
+                                <li class="user-dropdown">
+                                    <a id="user-icon" href="#">
+                                        <span class="flaticon-shopping-cart"></span>
+                                    </a>
+                                    <div class="user-dropdown-content" id="user-dropdown-content">
+                                        <a href="{{ route('customer.cart') }}">My Cart</a>
+                                        <a href="{{ route('customer.orderinfo') }}">Order History</a>
+                                        <a href="{{ route('reviews.index') }}">My Reviews</a>
+                                    </div>
+                        </div>
                     </div>
-                </li>
-                <li class="user-dropdown">
-                    <a id="user-icon" href="#">
-                        <span class="flaticon-shopping-cart"></span>
-                    </a>
-                <div class="user-dropdown-content" id="user-dropdown-content">
-                    <a href="{{ route('customer.cart') }}">My Cart</a>
-                    <a href="{{ route('customer.orderinfo') }}">Order History</a>
-                    <a href="{{ route('reviews.index') }}">My Reviews</a>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
                     </div>
                 </div>
             </div>
-            <!-- Mobile Menu -->
-            <div class="col-12">
-                <div class="mobile_menu d-block d-lg-none"></div>
-            </div>
         </div>
-    </div>
-</div>
-<!-- Header End -->
-  </header>
-  <main>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        <!-- Header End -->
+    </header>
+    <main>
         @yield('content')
     </main>
-  <!--? Search model Begin -->
-  <div class="search-model-box">
-      <div class="h-100 d-flex align-items-center justify-content-center">
-          <div class="search-close-btn">+</div>
-          <form class="search-model-form">
-              <input type="text" id="search-input" placeholder="Searching key.....">
-          </form>
-      </div>
-  </div>
-  <!-- Search model end -->
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
 
-  <!-- JS here -->
+    <!-- JS here -->
 
-  <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="{{ asset('template/assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
@@ -146,4 +158,5 @@
     <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
 </body>
+
 </html>

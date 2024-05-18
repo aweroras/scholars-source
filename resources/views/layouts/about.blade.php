@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -23,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
 
 <body>
-    
+
     <header>
         <!-- Header Start -->
         <div class="header-area">
@@ -32,12 +33,12 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                        <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
+                            <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                         </div>
-                         <!-- Main-menu -->
-                         <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
                                     <li><a href="{{ route('home') }}">Home</a></li>
                                     <li><a href="{{ route('products') }}">shop</a></li>
                                     <li><a href="{{ route('about') }}">about</a></li>
@@ -65,6 +66,12 @@
                 </div>
             </div>
         </div>
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <!-- Header End -->
     </header>
     <main>
@@ -90,25 +97,30 @@
                     <div class="offset-xl-1 col-lg-8">
                         <div class="about-details-cap mb-50">
                             <h4>Our Mission</h4>
-                            <p>At Scholar's Source, our mission is to empower creativity and productivity by offering a comprehensive range of high-quality stationery items through a user-friendly e-commerce platform. 
+                            <p>At Scholar's Source, our mission is to empower creativity and productivity by offering a
+                                comprehensive range of high-quality stationery items through a user-friendly e-commerce
+                                platform.
                             </p>
-                            <p>We strive to inspire and support our customers in their academic, professional, and personal pursuits by delivering innovative products, fostering a vibrant community, and maintaining a commitment to sustainability and social responsibility</p>
+                            <p>We strive to inspire and support our customers in their academic, professional, and
+                                personal pursuits by delivering innovative products, fostering a vibrant community, and
+                                maintaining a commitment to sustainability and social responsibility</p>
                         </div>
 
                         <div class="about-details-cap mb-50">
                             <h4>Our Vision</h4>
-                            <p>To become the premier destination for stationery enthusiasts, providing an unparalleled online shopping experience, curated selections, and exceptional customer service.
+                            <p>To become the premier destination for stationery enthusiasts, providing an unparalleled
+                                online shopping experience, curated selections, and exceptional customer service.
                             </p>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- About Details End -->
-      
-       <!--? Shop Method Start-->
-       <div class="shop-method-area">
+
+        <!--? Shop Method Start-->
+        <div class="shop-method-area">
             <div class="container">
                 <div class="method-wrapper">
                     <div class="row d-flex justify-content-between">
@@ -125,7 +137,7 @@
                                 <h6>Secure Payment System</h6>
                                 <p>Never worry about compromised payment security.</p>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="single-method mb-40">
                                 <i class="ti-reload"></i>
@@ -153,8 +165,9 @@
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
-                                        <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do eiusmod tem.</p>
-                                </div>
+                                        <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do
+                                            eiusmod tem.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +180,7 @@
                                     <li><a href="#">About</a></li>
                                     <li><a href="#"> Offers & Discounts</a></li>
                                     <li><a href="#"> Get Coupon</a></li>
-                                    <li><a href="#">  Contact Us</a></li>
+                                    <li><a href="#"> Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -203,7 +216,8 @@
                 <div class="row align-items-center">
                     <div class="col-xl-7 col-lg-8 col-md-7">
                         <div class="footer-copy-right">
-                            <p>Copyright ©2020 All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>  by <a href="https://colorlib.com/">Colorlib</a></p>                   
+                            <p>Copyright ©2020 All rights reserved | This template is made with <i class="fa fa-heart"
+                                    aria-hidden="true"></i> by <a href="https://colorlib.com/">Colorlib</a></p>
                         </div>
                     </div>
                     <div class="col-xl-5 col-lg-4 col-md-5">
@@ -256,17 +270,18 @@
     <script src="./assets/js/jquery.scrollUp.min.js"></script>
     <script src="./assets/js/jquery.nice-select.min.js"></script>
     <script src="./assets/js/jquery.sticky.js"></script>
-    
+
     <!-- contact js -->
     <script src="./assets/js/contact.js"></script>
     <script src="./assets/js/jquery.form.js"></script>
     <script src="./assets/js/jquery.validate.min.js"></script>
     <script src="./assets/js/mail-script.js"></script>
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->	
+
+    <!-- Jquery Plugins, main Jquery -->
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
 
 </body>
+
 </html>

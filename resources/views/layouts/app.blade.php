@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -30,7 +31,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
+                    <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                 </div>
             </div>
         </div>
@@ -38,18 +39,19 @@
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
+
         <div class="header-area">
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                        <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
+                            <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                         </div>
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
+                            <nav>
+                                <ul id="navigation">
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="{{ route('products') }}">shop</a></li>
                                     <li><a href="{{ route('about') }}">about</a></li>
@@ -76,6 +78,12 @@
                 </div>
             </div>
         </div>
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <!-- Header End -->
     </header>
     <main>
@@ -88,17 +96,21 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                                 <div class="hero__caption">
-                                <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
-                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a wide variety of stationery items!</p>
+                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your
+                                        Stationery Staples</h1>
+                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a
+                                        wide variety of stationery items!</p>
                                     <!-- Hero-btn -->
-                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s"
+                                        data-duration="2000ms">
                                         <a href="{{ route('login') }}" class="btn hero-btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
                                 <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                                <img src="{{ asset('template/assets/img/hero/pen.png') }}" alt="" class="heartbeat">
+                                    <img src="{{ asset('template/assets/img/hero/pen.png') }}" alt=""
+                                        class="heartbeat">
                                 </div>
                             </div>
                         </div>
@@ -110,17 +122,21 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                                 <div class="hero__caption">
-                                <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your Stationery Staples</h1>
-                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a wide variety of stationery items!</p>
+                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Your
+                                        Stationery Staples</h1>
+                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Choose from a
+                                        wide variety of stationery items!</p>
                                     <!-- Hero-btn -->
-                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s"
+                                        data-duration="2000ms">
                                         <a href="{{ route('login') }}" class="btn hero-btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
                                 <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                                <img src="{{ asset('template/assets/img/hero/pen.png') }}" alt="" class="heartbeat">
+                                    <img src="{{ asset('template/assets/img/hero/pen.png') }}" alt=""
+                                        class="heartbeat">
                                 </div>
                             </div>
                         </div>
@@ -130,7 +146,7 @@
         </div>
         <!-- slider Area End-->
         <!-- ? New Product Start -->
-        
+
         @yield('content')
         <!--  New Product End -->
         <!--? Gallery Area Start -->
@@ -139,99 +155,106 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-gallery mb-30">
-                        <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery1.jpg') }}');"></div>
+                            <div class="gallery-img big-img"
+                                style="background-image: url('{{ asset('template/assets/img/gallery/gallery1.jpg') }}');">
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-gallery mb-30">
-                        <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery2.jpg') }}');"></div>
+                            <div class="gallery-img big-img"
+                                style="background-image: url('{{ asset('template/assets/img/gallery/gallery2.jpg') }}');">
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-12">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
-                                <div class="gallery-img big-img" style="background-image: url('{{ asset('template/assets/img/gallery/gallery3.jpg') }}');"></div>
+                                    <div class="gallery-img big-img"
+                                        style="background-image: url('{{ asset('template/assets/img/gallery/gallery3.jpg') }}');">
+                                    </div>
                                 </div>
                             </div>
-                           
+
+                        </div>
+
                     </div>
+                </div>
+            </div>
+
+
+
+            <!--? Shop Method Start-->
+            <div class="shop-method-area">
+                <div class="container">
+                    <div class="method-wrapper">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="single-method mb-40">
+                                    <i class="ti-package"></i>
+                                    <h6>Affordable Shipping</h6>
+                                    <p>Low-cost shipping for all products.</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="single-method mb-40">
+                                    <i class="ti-unlock"></i>
+                                    <h6>Secure Payment System</h6>
+                                    <p>Never worry about compromised payment security.</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="single-method mb-40">
+                                    <i class="ti-reload"></i>
+                                    <h6>All Things Stationery</h6>
+                                    <p>Find what you're looking for whether it is for office or school.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Shop Method End-->
+    </main>
+    <footer>
+
+        <!-- Footer bottom -->
+        <div class="row align-items-center">
+            <div class="col-xl-7 col-lg-8 col-md-7">
+                <div class="footer-copy-right">
 
                 </div>
             </div>
-        </div>
-        
-     
-       
-       <!--? Shop Method Start-->
-       <div class="shop-method-area">
-            <div class="container">
-                <div class="method-wrapper">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <div class="single-method mb-40">
-                                <i class="ti-package"></i>
-                                <h6>Affordable Shipping</h6>
-                                <p>Low-cost shipping for all products.</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <div class="single-method mb-40">
-                                <i class="ti-unlock"></i>
-                                <h6>Secure Payment System</h6>
-                                <p>Never worry about compromised payment security.</p>
-                            </div>
-                        </div> 
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <div class="single-method mb-40">
-                                <i class="ti-reload"></i>
-                                <h6>All Things Stationery</h6>
-                                <p>Find what you're looking for whether it is for office or school.</p>
-                            </div>
-                        </div>
+            <div class="col-xl-5 col-lg-4 col-md-5">
+                <div class="footer-copy-right f-right">
+                    <!-- social -->
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Shop Method End-->
-    </main>
-    <footer>
-       
-                <!-- Footer bottom -->
-                <div class="row align-items-center">
-                    <div class="col-xl-7 col-lg-8 col-md-7">
-                        <div class="footer-copy-right">
-                                     
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-4 col-md-5">
-                        <div class="footer-copy-right f-right">
-                            <!-- social -->
-                            <div class="footer-social">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-behance"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
         </div>
         <!-- Footer End-->
     </footer>
-     <!--? Search model Begin -->
-<div class="search-model-box">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-btn">+</div>
-        <form class="search-model-form" action="{{ route('products') }}" method="GET">
-            <!-- Use the 'name' attribute to ensure the input value is sent with the correct parameter name -->
-            <input type="text" name="search" id="search-input" placeholder="Searching key.....">
-            <button type="submit" class="btn btn-sm hero-btn" style="font-size: 13px; padding: 15px 20px;">Search</button>
-        </form>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form" action="{{ route('products') }}" method="GET">
+                <!-- Use the 'name' attribute to ensure the input value is sent with the correct parameter name -->
+                <input type="text" name="search" id="search-input" placeholder="Searching key.....">
+                <button type="submit" class="btn btn-sm hero-btn"
+                    style="font-size: 13px; padding: 15px 20px;">Search</button>
+            </form>
+        </div>
     </div>
-</div>
-<!-- Search model end -->
+    <!-- Search model end -->
 
     <!-- JS here -->
 
@@ -267,6 +290,7 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
-    
+
 </body>
+
 </html>

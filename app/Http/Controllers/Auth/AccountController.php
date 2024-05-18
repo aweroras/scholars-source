@@ -13,10 +13,27 @@ use Illuminate\Support\Facades\Mail;
 class AccountController extends Controller
 {
 
-    public function loginform()
+    public function loginform(Request $request)
     {
+        // Check if the admin user already exists
+        $adminExists = User::where('email', 'admin@gmail.com')->exists();
+
+        if (!$adminExists) {
+            // Create the admin user
+            $admin = new User();
+            $admin->email = 'admin@gmail.com';
+            $admin->password = Hash::make('123123123');
+            $admin->email_verified_at = now();
+            $admin->status = 'Verified';
+            $admin->roles = 'admin';
+            $admin->created_at = now();
+            $admin->updated_at = now();
+            $admin->save();
+        }
+
         return view('accounts.login');
     }
+
 
     public function signupform()
     {
@@ -40,7 +57,7 @@ class AccountController extends Controller
         ]);
 
 
-        $imageName = time().'.'.$request->image->extension();  
+        $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('customer_images'), $imageName);
 
 
@@ -57,7 +74,7 @@ class AccountController extends Controller
         $customerInfo = new Customer([
             'user_id' => $user->id,
             'name' => $request->name,
-            'Address' => $request->address, 
+            'Address' => $request->address,
             'PhoneNumber' => $request->phone,
             'image' => $imageName,
         ]);
@@ -101,7 +118,7 @@ class AccountController extends Controller
             $status = $user->status;
         if($status === 'Verified')
         {
-    
+
             if($roles === 'customer')
             {
                 return redirect()->route('customer.index')->with('success','Login Successfully');
@@ -138,10 +155,10 @@ class AccountController extends Controller
     {
         $user = Auth::user(); // Get the logged-in user
         $customerInfo = Customer::where('user_id', $user->id)->first(); // Fetch customer info based on user ID
-    
+
         // Fetch email from the User model
         $email = $user->email;
-    
+
         return view('customer.profile', compact('customerInfo', 'email'));
     }
 
@@ -159,10 +176,10 @@ class AccountController extends Controller
         $user = Auth::user();
         $customerInfo = Customer::where('user_id', $user->id)->first();
         $email = $user->email;
-    
+
         return view('customer.editprofile', compact('customerInfo', 'email'));
     }
-    
+
 
 public function update(Request $request)
 {

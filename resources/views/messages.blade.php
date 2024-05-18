@@ -16,11 +16,12 @@
     <div class="alert alert-danger">{{ Session::get('error') }}</div>
 @endif
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const errorAlert = document.querySelector('.alert-danger');
         const successAlert = document.querySelector('.alert-success');
-        
+
         if (errorAlert) {
             setTimeout(function() {
                 errorAlert.style.display = 'none';

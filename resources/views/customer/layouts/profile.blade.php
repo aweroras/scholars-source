@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
 </head>
+
 <body>
     <header>
         <!-- Header Start -->
@@ -31,12 +33,12 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                        <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
+                            <img src="{{ asset('template/assets/img/logo/logo.png') }}"alt="">
                         </div>
-                       <!-- Main-menu -->
-                       <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
                                     <li><a href="{{ route('customer.index') }}">Home</a></li>
                                     <li><a href="{{ route('customer.shop') }}">shop</a></li>
                                     <li><a href="{{ route('about') }}">about</a></li>
@@ -48,21 +50,26 @@
                         <div class="header-right">
                             <ul>
                                 <li>
-                                    
-                                    </div>
-                                </li>
-                                
-                            </ul>
+
                         </div>
+                        </li>
+
+                        </ul>
                     </div>
-                    <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
+                </div>
+                <!-- Mobile Menu -->
+                <div class="col-12">
+                    <div class="mobile_menu d-block d-lg-none"></div>
                 </div>
             </div>
         </div>
+        </div>
         <!-- Header End -->
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     </header>
     <main>
         <!-- Hero Area Start
@@ -81,41 +88,41 @@
         </div>
         -->
         @yield('content')
-     <!-- JS here -->
+        <!-- JS here -->
 
-     <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{{ asset('template/assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/bootstrap.min.js') }}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{{ asset('template/assets/js/jquery.slicknav.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+        <!-- Jquery, Popper, Bootstrap -->
+        <script src="{{ asset('template/assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/bootstrap.min.js') }}"></script>
+        <!-- Jquery Mobile Menu -->
+        <script src="{{ asset('template/assets/js/jquery.slicknav.min.js') }}"></script>
 
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{{ asset('template/assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/slick.min.js') }}"></script>
+        <!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="{{ asset('template/assets/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/slick.min.js') }}"></script>
 
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{{ asset('template/assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/animated.headline.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.magnific-popup.js') }}"></script>
+        <!-- One Page, Animated-HeadLin -->
+        <script src="{{ asset('template/assets/js/wow.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/animated.headline.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.magnific-popup.js') }}"></script>
 
-    <!-- Scrollup, nice-select, sticky -->
-    <script src="{{ asset('template/assets/js/jquery.scrollUp.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.sticky.js') }}"></script>
+        <!-- Scrollup, nice-select, sticky -->
+        <script src="{{ asset('template/assets/js/jquery.scrollUp.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.sticky.js') }}"></script>
 
-    <!-- contact js -->
-    <script src="{{ asset('template/assets/js/contact.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.form.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('template/assets/js/mail-script.js') }}"></script>
-    <script src="{{ asset('template/assets/js/jquery.ajaxchimp.min.js') }}"></script>
+        <!-- contact js -->
+        <script src="{{ asset('template/assets/js/contact.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.form.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/mail-script.js') }}"></script>
+        <script src="{{ asset('template/assets/js/jquery.ajaxchimp.min.js') }}"></script>
 
-    <!-- Jquery Plugins, main Jquery -->
-    <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
-    <script src="{{ asset('template/assets/js/main.js') }}"></script>
+        <!-- Jquery Plugins, main Jquery -->
+        <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
+        <script src="{{ asset('template/assets/js/main.js') }}"></script>
 
 </body>
-    
+
 </html>

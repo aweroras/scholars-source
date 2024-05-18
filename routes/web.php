@@ -1,31 +1,29 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Mail\Verification;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CourierController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\AccountController;
-use App\Http\Controllers\SuppliertransactionController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CourierController;
-use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Middleware\RoleMiddleware;
-use App\Mail\Verification;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
+use App\Http\Controllers\UserProductController;
+use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\SuppliertransactionController;
 
 
-// Public routes accessible by all users
-// Route::get('/', function () {
-//     return view('index');
-// });
+
 
 // Login and registration routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
@@ -40,7 +38,7 @@ Route::get('/login', [AccountController::class, 'loginform'])->name('login.form'
 Route::get('/account/verify/{email}', [AccountController::class, 'verify'])->name('account.verify');
 
 
-// Customer dashboard routes 
+// Customer dashboard routes
 Route::middleware(['auth'])->group(function () {
 Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
 Route::get('customer/shop', [CustomerController::class, 'shop'])->name('customer.shop');
@@ -62,7 +60,7 @@ Route::post('customer/placeorder',[CustomerController::class,'placeorder'])->nam
 Route::get('customer/profile', [AccountController::class, 'showProfile'])->name('customer.profile');
 Route::get('/customer/editprofile', [AccountController::class, 'edit'])->name('customer.editprofile');
 Route::put('/customer/editprofile/update', [AccountController::class, 'update'])->name('customer.editprofile.update');
-    
+
 // Change user password
 Route::get('/changepass', [AccountController::class, 'showChangePasswordForm'])->name('change.password.form');
 Route::post('/changepass', [AccountController::class, 'changePassword'])->name('change.password');
@@ -87,7 +85,7 @@ Route::post('admin/products/restore-all', [ProductController::class, 'restoreAll
 Route::get('/admin/orders', [HomeController::class, 'viewOrders'])->name('admin.orders.index');
 Route::get('/admin/orders/update/{order}', [HomeController::class, 'updateOrderStatusForm'])->name('admin.orders.update');
 Route::post('/admin/orders/update', [HomeController::class, 'updateOrderStatus'])->name('admin.orders.updates');
-    
+
 // Supplier routes
 Route::get('admin/supplier/index', [SupplierController::class, 'index'])->name('supplier.index');
 Route::post('admin/supplier/restore-all', [SupplierController::class, 'restoreAll'])->name('supplier.restoreAll');
@@ -111,7 +109,7 @@ Route::get('admin/courier/create', [CourierController::class, 'create'])->name('
 Route::post('admin/courier/create', [CourierController::class, 'store'])->name('courier.store');
 Route::get('admin/courier/update/{id}', [CourierController::class, 'update'])->name('courier.update');
 Route::put('/admin/courier/edit/{id}', [CourierController::class, 'edit'])->name('courier.edit');
-Route::delete('/admin/courier/{id}/delete', [CourierController::class, 'delete'])->name('courier.delete'); 
+Route::delete('/admin/courier/{id}/delete', [CourierController::class, 'delete'])->name('courier.delete');
 Route::post('/admin/courier/restore/all', [CourierController::class, 'restoreAll'])->name('courier.restoreAll');
 
 //Payment Method
@@ -127,7 +125,11 @@ Route::post('admin/payment_method/restore-all', [PaymentMethodController::class,
 Route::get('admin/users/index', [CustomerController::class, 'users'])->name('users.index');
 Route::get('admin/users/deactivate/{id}', [CustomerController::class, 'deactivate'])->name('users.deactivate');
 
+//para sa chart
+
 Route::get('/admin/dashboard/index', [DashboardController::class, 'graphs'])->name('admin.dashboard.index');
+
+
 })->middleware(RoleMiddleware::class);
 
 
@@ -150,21 +152,22 @@ Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('pr
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-Route::get('/createadmin', function () {
-
-    $admin = new User();
-    $admin->email = 'admin@gmail.com';
-    $admin->password = Hash::make('123123123');
-    $admin->email_verified_at = now();
-    $admin->status = 'Verified';
-    $admin->roles = 'admin';
-    $admin->created_at = now();
-    $admin->updated_at = now();
-    $admin->save();
-
-    return view('accounts.login');
-});
 
 
 
 
+
+// Route::get('/createadmin', function () {
+
+//     $admin = new User();
+//     $admin->email = 'admin@gmail.com';
+//     $admin->password = Hash::make('123123123');
+//     $admin->email_verified_at = now();
+//     $admin->status = 'Verified';
+//     $admin->roles = 'admin';
+//     $admin->created_at = now();
+//     $admin->updated_at = now();
+//     $admin->save();
+
+//     return view('accounts.login');
+// });
