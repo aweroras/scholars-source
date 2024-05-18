@@ -1,9 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Courier;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->withCustomer()->count(3)->create();
-        Product::factory(5)->create();
-        Supplier::factory(5)->create();
+        Product::factory(2)->create();
+        Supplier::factory(2)->create();
+        Courier::factory(2)->create();
     }
 }

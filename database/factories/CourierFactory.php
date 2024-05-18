@@ -2,30 +2,24 @@
 
 namespace Database\Factories;
 
-use App\Models\Supplier;
+use App\Models\Courier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SupplierFactory extends Factory
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Courier>
+ */
+class CourierFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Supplier::class;
+   
+    protected $model = Courier::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'supplier_name' => $this->faker->company,
+            'courier_name' => $this->faker->company,
+            'branch' => $this->faker->city,
             'image' => $this->faker->imageUrl(400, 300, 'product'), // Generate a random image URL
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }
-
